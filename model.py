@@ -23,6 +23,11 @@ class User(db.Model):
     fname = db.Column(db.String(20), nullable=True)
     lname = db.Column(db.String(20), nullable=True)
 
+    # Defines relationship between groups and users
+    groups = db.relationship("Group",
+                             secondary="users_groups",
+                             backref="users")
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 
@@ -46,36 +51,25 @@ class Group(db.Model):
 class UserGroup(db.Model):
     """Association table between users and groups"""
 
-    __tablename__ = "userGroup"
+    __tablename__ = "users_groups"
 
-    rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
+    user_group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    score = db.Column(db.Integer, nullable=False)
-
-    # Define relationship to user
-    user = db.relationship("User", backref=db.backref("ratings", order_by=rating_id))
-
-    # Define relationship to movie
-    movie = db.relationship("Movie", backref=db.backref("ratings", order_by=rating_id))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Rating rating_id=%s movie_id=%s user_id=%s score=%s>" % (self.rating_id, self.movie_id, self.user_id, self.score)
-
-
-# Put your Movie and Rating model classes here.
+        return "<UserGroup user_group_id=%s group_id=%s user_id=%s>" % (self.user_group_id, self.group_id, self.user_id)
 
 
 ##############################################################################
-# Helper functions
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///ratings'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///project'
     db.app = app
     db.init_app(app)
 
