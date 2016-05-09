@@ -63,7 +63,98 @@ class UserGroup(db.Model):
         return "<UserGroup user_group_id=%s group_id=%s user_id=%s>" % (self.user_group_id, self.group_id, self.user_id)
 
 
+class List(db.Model):
+    """List of restaurants"""
+
+    __tablename__ = "lists"
+
+    list_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+    list_name = db.Column(db.String(100), nullable=True)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<List list_id=%s list_name=%s>" % (self.list_id, self.list_name)
+
+    group = db.relationship("Group", backref=db.backref("lists"))
+
+
+class Restaurant(db.Model):
+    """Restaurants"""
+
+    __tablename__ = "restaurants"
+
+    restaurant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    restaurant_name = db.Column(db.String(100), nullable=False)
+    yelp_rating = db.Column(db.Integer, nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Restaurant restaurant_id=%s restaurant_name=%s yelp_rating=%s>" % (self.restaurant_id, self.restaurant_name, self.yelp_rating)
+
+    lists = db.relationship("List",
+                            secondary="restaurants_lists",
+                            backref="restaurants")
+
+
+class RestaurantList(db.Model):
+    """Association table between restaurants and lists"""
+
+    __tablename__ = "restaurants_lists"
+
+    restaurant_list_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
+    list_id = db.Column(db.Integer, db.ForeignKey('lists.list_id'))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<RestaurantList restaurant_list_id=%s restaurant_id=%s list_id=%s>" % (self.restaurant_list_id, self.restaurant_id, self.list_id)
+
+
+class Address(db.Model):
+    """Address of restaurants"""
+
+    __tablename__ = "addresses"
+
+    address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    address = db.Column(db.String(150), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
+
+    restaurants = db.relationship("Restaurant", backref=db.backref("addresses"))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Address address_id=%s address=%s>" % (self.address_id, self.address)
+
+
+class Review(db.Model):
+    """Reviews of restaurants by users"""
+
+    __tablename__ = "reviews"
+
+    review_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    rating = db.Column(db.Integer, nullable=True)
+    review_text = db.Columb(db.Str(300), nullable=True)
+
+    users = db.relationship("User", backref=db.backref("reviews"))
+
+    restaurants = db.relationship("Restaurant", backref=db.backref("reviews"))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Review review_id=%s restaurant_id=%s user_id=%s>" % (self.review_id, self.restaurant_id, self.user_id)
+
 ##############################################################################
+
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
