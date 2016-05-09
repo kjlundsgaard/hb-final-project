@@ -2,3 +2,4 @@ diary.txt
 env
 *.pyc
 *secrets*
+seed.py
