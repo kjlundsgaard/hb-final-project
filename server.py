@@ -9,9 +9,6 @@ from model import connect_to_db, db
 # import Classes from model db
 from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Address, Review
 
-# if I want to keep db functions in a separate file, could use this?
-import seed
-
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -65,16 +62,27 @@ def submit_login():
         flash("Your account has been created")
         return redirect('/')
 
+
 @app.route('/logout')
 def logout():
     """Logs user out"""
 
     session['user'] = None
 
-    flash ("You are now logged out")
+    flash("You are now logged out")
 
     return redirect('/')
 
+
+@app.route('/lists')
+def show_lists():
+    """Shows user their lists of restaurants"""
+
+    user_id = session.get('user')
+
+    user = User.query.filter_by(user_id=user_id).one()
+
+    return render_template('dashboard.html', user=user, login=session.get('user'))
 
 
 ##############################################################################
