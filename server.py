@@ -35,15 +35,16 @@ def login():
 
     return render_template('login_form.html', login=session.get('user'))
 
+
 @app.route('/login', methods=['POST'])
 def submit_login():
 
-    username = request.form.get("username")
+    email = request.form.get("email")
     password = request.form.get("password")
     fname = request.form.get("fname")
     lname = request.form.get("lname")
 
-    user = User.query.filter_by(email=username).first()
+    user = User.query.filter_by(email=email).first()
     # if user already exists, checks password and logs them in if correct. If not, prompts
     # for password again
     if user:
@@ -57,7 +58,7 @@ def submit_login():
             return redirect('/login')
     else:
         #instantiates new user and passes user_id to session
-        user = User(email=username, password=password, fname=fname, lname=lname)
+        user = User(email=email, password=password, fname=fname, lname=lname)
         db.session.add(user)
         db.session.commit()
         session['user'] = user.user_id
