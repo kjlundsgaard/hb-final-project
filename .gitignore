@@ -1,0 +1,4 @@
+diary.txt
+env
+*.pyc
+*secrets*
