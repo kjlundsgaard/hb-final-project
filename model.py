@@ -142,7 +142,7 @@ class Review(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     rating = db.Column(db.Integer, nullable=True)
-    review_text = db.Columb(db.Str(300), nullable=True)
+    review_text = db.Column(db.String(300), nullable=True)
 
     users = db.relationship("User", backref=db.backref("reviews"))
 

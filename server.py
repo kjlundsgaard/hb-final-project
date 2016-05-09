@@ -7,7 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db
 # import Classes from model db
-from model import User, Rating, Movie
+from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Address, Review
 
 app = Flask(__name__)
 
@@ -17,6 +17,8 @@ app.secret_key = "supersecretkey"
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
+
+
 
 
 ##############################################################################
