@@ -108,9 +108,7 @@ def invite_user():
         user_search = UserGroup.query.filter_by(user_id=user.user_id, group_id=group_id).first()
         if user_search:
             flash("User is already in this group")
-# TODO FIX THE THING THAT GIVES AN ERROR IF THE USER DOESN'T EXIST???
         else:
-        # it's something about this user.user_id?
             new_user = UserGroup(user_id=user.user_id, group_id=group_id)
             db.session.add(new_user)
             db.session.commit()
@@ -123,12 +121,36 @@ def invite_user():
 
 # TODO
 # add group/individual list
-@app.route('/new')
+@app.route('/new-group', methods=["POST"])
 def add_new_group():
     """Allows user to create a new group"""
 
+    group_name = request.form.get('group')
+    user_id = session.get('user')
+
+    new_group = Group(group_name=group_name)
+    db.session.add(new_group)
+    db.session.commit()
+
+    new_user_group = UserGroup(group_id=new_group.group_id, user_id=user_id)
+    db.session.add(new_user_group)
+    db.session.commit()
+
+    return redirect('/groups/' + str(new_group.group_id))
 
 
+@app.route('/new-list', methods=["POST"])
+def add_new_list():
+    """Allows user to add a new list"""
+
+    list_name = request.form.get('list')
+    group_id = request.form.get('group_id')
+
+    new_list = List(list_name=list_name, group_id=group_id)
+    db.session.add(new_list)
+    db.session.commit()
+
+    return redirect('/groups/' + group_id)
 
 
 # TODO

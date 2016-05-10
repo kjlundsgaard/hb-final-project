@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{{ user.fname }} MY GROUPS
+{{ user.fname }} {{ group.group_name }}
 <br>
 {% for user in group.users %}
         <h2>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h2>
@@ -13,12 +13,24 @@
     <input type="submit" value="submit">
 </form>
 
+
+<form action="/new-list" method="POST">
+    <label for="new-list">Add new list for your group:</label>
+    <input type="text" name="list" id="new-list">
+    <input type="hidden" name="group_id" value="{{ group.group_id }}">    
+    <input type="submit" value="submit">
+</form>
+
 {% for list in group.lists %}
     <h2>{{ list.list_name }}</h2>
+    <!-- ADD RESTAURANT ADDITION FUNCTIONALITY HERE? -->
     <ul> 
     {% for restaurant in list.restaurants %}
         <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>
     {% endfor %}
     </ul>
 {% endfor %}
+
+
 {% endblock %}
+
