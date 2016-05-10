@@ -1,6 +1,7 @@
 """Models and database functions for HB project."""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import UniqueConstraint
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -56,6 +57,7 @@ class UserGroup(db.Model):
     user_group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+    __table_args__ = (UniqueConstraint('user_id', 'group_id', name='_user_group_uc'),)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

@@ -95,9 +95,10 @@ def show_group_details(group_id):
 
     return render_template('group_view.html', group=group, user=user, login=session.get('user'))
 
-
+# TODO : create unique constraint in model for UserGroup table
 @app.route('/invite', methods=["POST"])
 def invite_user():
+    """Allows user to invite other member to group by email"""
 
     email = request.form.get('invite')
     # need to search if user exists in db already
@@ -113,6 +114,19 @@ def invite_user():
         flash("No such user")
 
     return redirect('/groups/' + group_id)
+
+# TODO
+# add group/individual list
+@app.route('/new')
+def add_new_group():
+    """Allows user to create a new group"""
+
+
+
+
+
+# TODO
+# ability to search yelp and add restaurants to lists
 
 
 ##############################################################################
