@@ -95,25 +95,31 @@ def show_group_details(group_id):
 
     return render_template('group_view.html', group=group, user=user, login=session.get('user'))
 
-# TODO : create unique constraint in model for UserGroup table
+
 @app.route('/invite', methods=["POST"])
 def invite_user():
     """Allows user to invite other member to group by email"""
 
     email = request.form.get('invite')
-    # need to search if user exists in db already
     user = User.query.filter_by(email=email).first()
-
     group_id = request.form.get('group_id')
+
     if user:
-        new_user = UserGroup(user_id=user.user_id, group_id=group_id)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("Added new user " + email + " to group")
+        user_search = UserGroup.query.filter_by(user_id=user.user_id, group_id=group_id).first()
+        if user_search:
+            flash("User is already in this group")
+# TODO FIX THE THING THAT GIVES AN ERROR IF THE USER DOESN'T EXIST???
+        else:
+        # it's something about this user.user_id?
+            new_user = UserGroup(user_id=user.user_id, group_id=group_id)
+            db.session.add(new_user)
+            db.session.commit()
+            flash("Added new user " + email + " to group")
     else:
         flash("No such user")
 
     return redirect('/groups/' + group_id)
+
 
 # TODO
 # add group/individual list

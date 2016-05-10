@@ -3,3 +3,4 @@ env
 *.pyc
 *secrets*
 seed.py
+insert_queries.txt

@@ -57,7 +57,10 @@ class UserGroup(db.Model):
     user_group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    __table_args__ = (UniqueConstraint('user_id', 'group_id', name='_user_group_uc'),)
+    # __table_args__ = (UniqueConstraint('user_id', 'group_id', name='_user_group_uc'),)
+    # attempt at unique constraint across restaurant_id and list_id tables
+    __table_args__ = (UniqueConstraint(user_id, group_id),
+                      )
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -111,6 +114,9 @@ class RestaurantList(db.Model):
     restaurant_list_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     list_id = db.Column(db.Integer, db.ForeignKey('lists.list_id'))
+    # attempt at unique constraint across restaurant_id and list_id tables
+    __table_args__ = (UniqueConstraint(restaurant_id, list_id),
+                      )
 
     def __repr__(self):
         """Provide helpful representation when printed."""
