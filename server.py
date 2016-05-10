@@ -74,7 +74,7 @@ def logout():
     return redirect('/')
 
 
-@app.route('/lists')
+@app.route('/dashboard')
 def show_lists():
     """Shows user their lists of restaurants"""
 
@@ -83,6 +83,36 @@ def show_lists():
     user = User.query.filter_by(user_id=user_id).one()
 
     return render_template('dashboard.html', user=user, login=session.get('user'))
+
+
+@app.route('/groups/<int:group_id>')
+def show_group_details(group_id):
+    """Shows group details"""
+
+    user_id = session.get('user')
+    user = User.query.filter_by(user_id=user_id).one()
+    group = Group.query.filter_by(group_id=group_id).one()
+
+    return render_template('group_view.html', group=group, user=user, login=session.get('user'))
+
+
+@app.route('/invite', methods=["POST"])
+def invite_user():
+
+    email = request.form.get('invite')
+    # need to search if user exists in db already
+    user = User.query.filter_by(email=email).first()
+
+    group_id = request.form.get('group_id')
+    if user:
+        new_user = UserGroup(user_id=user.user_id, group_id=group_id)
+        db.session.add(new_user)
+        db.session.commit()
+        flash("Added new user " + email + " to group")
+    else:
+        flash("No such user")
+
+    return redirect('/groups/' + group_id)
 
 
 ##############################################################################
