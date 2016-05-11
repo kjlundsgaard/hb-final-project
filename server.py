@@ -154,6 +154,7 @@ def add_new_list():
 
     return redirect('/groups/' + group_id)
 
+
 # TO DO TODO TODO FIXME FIX ME
 @app.route('/search-restaurant', methods=['POST'])
 def search_restaurant():
