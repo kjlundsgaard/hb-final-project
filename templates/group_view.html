@@ -23,7 +23,16 @@
 
 {% for list in group.lists %}
     <h2>{{ list.list_name }}</h2>
-    <!-- ADD RESTAURANT ADDITION FUNCTIONALITY HERE? -->
+    Restaurant Search:
+    <form action='/search-restaurant.json' method='POST' id="search">
+    <label for="location">location</label>
+    <input type="text" name="location" id="location">
+    <label for="term">food type</label>
+    <input type="text" name="term" id="term">
+    <input type="submit" value="submit">
+    </form>
+    <div id="results">results here</div>
+    <span type="hidden" value="{{ list.list_id }}" id="list-id"></span>
     <ul> 
     {% for restaurant in list.restaurants %}
         <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>
@@ -31,6 +40,7 @@
     </ul>
 {% endfor %}
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="/static/js/yelp.js"></script>
 {% endblock %}
 

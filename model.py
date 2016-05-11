@@ -57,7 +57,6 @@ class UserGroup(db.Model):
     user_group_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    # __table_args__ = (UniqueConstraint('user_id', 'group_id', name='_user_group_uc'),)
     # attempt at unique constraint across restaurant_id and list_id tables
     __table_args__ = (UniqueConstraint(user_id, group_id),
                       )

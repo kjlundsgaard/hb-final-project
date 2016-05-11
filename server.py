@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db
@@ -156,23 +156,20 @@ def add_new_list():
 
 
 # TO DO TODO TODO FIXME FIX ME
-@app.route('/search-restaurant', methods=['POST'])
+@app.route('/search-restaurant.json', methods=['POST'])
 def search_restaurant():
     """Allows user to search restaurant based on location and food term"""
-    # presumably getting these from a form where users can input location and search terms
     location = request.form.get('location')
     term = request.form.get('term')
 
     results = yelp.get_results(location=location, term=term)
-    # this is probably not right??? need to figure out what response in yelp.py file looks like
-    return jsonify(results)
 
-    # handle yelp results
+    return jsonify(results=results)
 
-    # render results on page
 
-# TODO
-# ability to search yelp and add restaurants to lists
+@app.route('/add-restaurant', methods=['POST'])
+def add_restaurant():
+    """Allows user to add restaurant to a list"""
 
 
 ##############################################################################

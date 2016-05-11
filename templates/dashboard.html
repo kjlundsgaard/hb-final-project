@@ -3,14 +3,7 @@
 
 {{ user.fname }} DASHBOARD
 <br>
-Restaurant Search:
-<form action='/search-restaurant' method='POST'>
-    <label for="location">location</label>
-    <input type="text" name="location" id="location">
-    <label for="term">food type</label>
-    <input type="text" name="term" id="term">
-    <input type="submit" value="submit">
-</form>
+
 <br>
 {% for group in user.groups %}
     <a href="groups/{{ group.group_id }}"><h1>{{ group.group_name }}<h1></a>
@@ -30,7 +23,7 @@ Restaurant Search:
     <input type="submit" value="submit">
 </form>
 
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="/static/js/yelp.js"></script>
 {% endblock %}
 
