@@ -155,7 +155,17 @@ def add_new_list():
     return redirect('/groups/' + group_id)
 
 
-# TO DO TODO TODO FIXME FIX ME
+@app.route('/lists/<int:list_id>')
+def show_list_details(list_id):
+    """Shows list details"""
+
+    user_id = session.get('user')
+    user = User.query.filter_by(user_id=user_id).one()
+    list_item = List.query.filter_by(list_id=list_id).one()
+
+    return render_template('list_view.html', list=list_item, user=user, login=session.get('user'))
+
+
 @app.route('/search-restaurant.json', methods=['POST'])
 def search_restaurant():
     """Allows user to search restaurant based on location and food term"""
@@ -167,6 +177,7 @@ def search_restaurant():
     return jsonify(results=results)
 
 
+# todo TODO TO DO
 @app.route('/add-restaurant', methods=['POST'])
 def add_restaurant():
     """Allows user to add restaurant to a list"""
