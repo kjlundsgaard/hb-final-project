@@ -4,6 +4,7 @@
         <title>{% block title %}put your title here{% endblock %}</title>
     </head>
     <body>
+        <a href="/">home</a>
         {% block content %}put your content here{% endblock %}
         {% with messages = get_flashed_messages() %}
             {% if messages %}

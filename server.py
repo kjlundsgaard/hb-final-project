@@ -8,6 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db
 # import Classes from model db
 from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Address, Review
+# gets access to yelp.py file
+import yelp
 
 app = Flask(__name__)
 
@@ -152,6 +154,21 @@ def add_new_list():
 
     return redirect('/groups/' + group_id)
 
+# TO DO TODO TODO FIXME FIX ME
+@app.route('/search-restaurant', methods=['POST'])
+def search_restaurant():
+    """Allows user to search restaurant based on location and food term"""
+    # presumably getting these from a form where users can input location and search terms
+    location = request.form.get('location')
+    term = request.form.get('term')
+
+    results = yelp.get_results(location=location, term=term)
+    # this is probably not right??? need to figure out what response in yelp.py file looks like
+    return jsonify(results)
+
+    # handle yelp results
+
+    # render results on page
 
 # TODO
 # ability to search yelp and add restaurants to lists

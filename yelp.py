@@ -14,7 +14,8 @@ yelp_api = YelpAPI(
 def get_results(location, term):
     search_results = yelp_api.search_query(location=location, term=term, limit=10)
 
-    pprint(search_results)
+    # pprint(search_results)
+    return search_results
 
 
-get_results("New York, NY", "pizza")
+# get_results("New York, NY", "pizza")
