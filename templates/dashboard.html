@@ -3,6 +3,15 @@
 
 {{ user.fname }} DASHBOARD
 <br>
+Restaurant Search:
+<form action='/search-restaurant' method='POST'>
+    <label for="location">location</label>
+    <input type="text" name="location" id="location">
+    <label for="term">food type</label>
+    <input type="text" name="term" id="term">
+    <input type="submit" value="submit">
+</form>
+<br>
 {% for group in user.groups %}
     <a href="groups/{{ group.group_id }}"><h1>{{ group.group_name }}<h1></a>
     {% for list in group.lists %}
@@ -20,5 +29,8 @@
     <input type="text" name="group" id="new-group">
     <input type="submit" value="submit">
 </form>
+
+
+
 {% endblock %}
 
