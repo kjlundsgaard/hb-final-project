@@ -22,7 +22,7 @@
 </form>
 
 {% for list in group.lists %}
-    <a href="/lists/{{ list.list_id }}"><h2>{{ list.list_name }}</h2></a>
+    <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
     <ul> 
     {% for restaurant in list.restaurants %}
         <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>

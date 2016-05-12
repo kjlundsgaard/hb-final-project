@@ -201,7 +201,7 @@ def add_restaurant():
             flash("Added restaurant " + get_restaurant.restaurant_name + " to list")
     # if restaurant is not already in db, add it and add to RestaurantList
     else:
-        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude)
+        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=int(yelp_rating), latitude=latitude, longitude=longitude)
         db.session.add(new_restaurant)
         db.session.commit()
         # need this line because we just added the restaurant to db and need to get the id to add to RestaurantList

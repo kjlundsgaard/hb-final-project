@@ -45,8 +45,6 @@ function addRestaurant(evt){
     var latitude = $(this).data('latitude');
     var longitude = $(this).data('longitude');
     var listId = $("#list-info").data('listid');
-    console.log(listId)
-
 
     $.post("/add-restaurant.json", {'id': id,
                                'restaurant_name': restaurant_name,
