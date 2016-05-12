@@ -8,7 +8,7 @@
 <h2>Restaurants</h2>
 <ul> 
 {% for restaurant in list.restaurants %}
-    <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>
+    <li>{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove</button></li>
 {% endfor %}
 </ul>
 
