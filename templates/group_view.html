@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-{{ user.fname }} {{ group.group_name }}
+{{ user.fname }} <h1 id="group-info" data-groupid="{{ group.group_id }}">{{ group.group_name }}<h1>
 <br>
 {% for user in group.users %}
-        <h2>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h2>
+        <h3>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h3>
 {% endfor %}
 
 <form action="/invite" method="POST">

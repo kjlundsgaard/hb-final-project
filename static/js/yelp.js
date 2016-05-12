@@ -70,17 +70,13 @@ function addRestaurantSuccess(result){
     $('#' + id).css('color', 'red'); // give our user some feedback
 }
 
-// AJAX TO REMOVE RESTAURANTS FROM LIST
-// BROKEN I GUESS FIX ME PLEASE
-
+// sends restaurant id and list id to server to remove restaurant from list
 function removeRestaurantSuccess(result) {
     console.log(result.status);
 }
 
 function removeRestaurant(evt) {
-    console.log("made it to the function");
     var remove = confirm("are you sure you want to remove this restaurant?")
-    console.log(remove);
 
     var restaurantId = $(this).data('restid');
     var listId = $("#list-info").data('listid');
@@ -94,4 +90,26 @@ function removeRestaurant(evt) {
 }
 
 $(".remove-restaurant").click(removeRestaurant);
+
+
+// sends list info server to remove list
+function removeListSuccess(result) {
+    console.log(result.status);
+}
+
+function removeList(evt) {
+    console.log("made it to the function");
+    var remove = confirm("are you sure you want to remove this category?")
+    console.log(remove);
+
+    var listId = $(this).data('listid');
+
+    if (remove) {
+      $.post("/delete-list.json", {'list_id': listId},
+                                  removeListSuccess);
+    }
+
+}
+
+$(".remove-list").click(removeList);
 

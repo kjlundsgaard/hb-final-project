@@ -213,7 +213,6 @@ def add_restaurant():
     return jsonify(status='success', id=item_id)
 
 
-# TO DO FIX ME
 @app.route("/delete-restaurant.json", methods=["POST"])
 def delete_restaurant():
     """Allows user to remove restaurant from list"""
@@ -230,6 +229,24 @@ def delete_restaurant():
 
     flash("Removed " + restaurant.restaurant_name)
     return jsonify(status='success')
+
+
+@app.route("/delete-list.json", methods=["POST"])
+def delete_list():
+    """Allows user to remove a list from a group"""
+
+    list_id = request.form.get('list_id')
+
+    list_item = List.query.get(list_id)
+
+    db.session.delete(list_item)
+    db.session.commit()
+
+    flash("Removed " + list_item.list_name)
+    return jsonify(status="success")
+
+
+# TODO CREATE LEAVE GROUP OPTION FOR A USER TO LEAVE A GROUP
 
 
 ##############################################################################
