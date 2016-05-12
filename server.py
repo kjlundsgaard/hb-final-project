@@ -121,8 +121,6 @@ def invite_user():
     return redirect('/groups/' + group_id)
 
 
-# TODO
-# add group/individual list
 @app.route('/new-group', methods=["POST"])
 def add_new_group():
     """Allows user to create a new group"""
@@ -169,18 +167,51 @@ def show_list_details(list_id):
 @app.route('/search-restaurant.json', methods=['POST'])
 def search_restaurant():
     """Allows user to search restaurant based on location and food term"""
+
     location = request.form.get('location')
     term = request.form.get('term')
 
     results = yelp.get_results(location=location, term=term)
-
     return jsonify(results=results)
 
 
 # todo TODO TO DO
-@app.route('/add-restaurant', methods=['POST'])
+@app.route('/add-restaurant.json', methods=['POST'])
 def add_restaurant():
     """Allows user to add restaurant to a list"""
+
+    item_id = request.form.get('id')
+    restaurant_name = request.form.get('restaurant_name')
+    yelp_rating = request.form.get('yelp_rating')
+    latitude = request.form.get('latitude')
+    longitude = request.form.get('longitude')
+    list_id = request.form.get('list_id')
+
+    # check if restaurant already in db
+    get_restaurant = Restaurant.query.filter_by(restaurant_name=restaurant_name, latitude=latitude, longitude=longitude).first()
+    if get_restaurant:
+        # check if already part of list then add if no
+        get_restaurant_list = RestaurantList.query.filter_by(restaurant_id=get_restaurant.restaurant_id, list_id=list_id)
+        if get_restaurant_list:
+            flash("Restaurant is already part of list")
+        else:
+            new_restaurant_list = RestaurantList(restaurant_id=get_restaurant.restaurant_id, list_id=list_id)
+            db.session.add(new_restaurant_list)
+            db.session.commit()
+            flash("Added restaurant " + get_restaurant.restaurant_name + " to list")
+    # if restaurant is not already in db, add it and add to RestaurantList
+    else:
+        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude)
+        db.session.add(new_restaurant)
+        db.session.commit()
+        # need this line because we just added the restaurant to db and need to get the id to add to RestaurantList
+        restaurant_info = Restaurant.query.filter_by(restaurant_name=restaurant_name, latitude=latitude, longitude=longitude).first()
+        new_restaurant_list = RestaurantList(restaurant_id=restaurant_info.restaurant_id, list_id=list_id)
+        db.session.add(new_restaurant_list)
+        db.session.commit()
+        flash("Added restaurant " + restaurant_name + " to list")
+
+    return jsonify(status='success', id=item_id)
 
 
 ##############################################################################

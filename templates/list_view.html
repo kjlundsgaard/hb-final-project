@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{{ user.fname }} {{ list.list_name }}
+{{ user.fname }}
+<a href="/groups/{{ list.group_id }}">Back to group</a>
 <br>
-List members:
-{% for user in list.group.users %}
-        <h2>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h2>
-{% endfor %}
-
+<h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
+<h2>Restaurants</h2>
 <ul> 
 {% for restaurant in list.restaurants %}
     <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>
@@ -23,8 +21,6 @@ Restaurant Search:
     <input type="submit" value="submit">
     </form>
     <div id="results">search results here</div>
-    <span type="hidden" value="{{ list.list_id }}" id="list-id"></span>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>

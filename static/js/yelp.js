@@ -1,17 +1,24 @@
 "use strict";
 
+function scheduleEventListerForRestaurantButtons(){
+  $('.restaurant-button').click(addRestaurant);
+}
+
 function displayResults(data) {
-    console.log(data);
     var text = "";
     for (var i = 0; i < data.results.length; i++){
-      text = text + "<button class='restaurant-button' id=" + i + ">" +
-      "<p id='restaurant_name'>" + data.results[i].name + "</p>" +
-      "<p id='yelp_rating'>" + data.results[i].rating + "</p>" +
-      "<span type='hidden' id='latitude' value="  + data.results[i].latitude + ">" + "</span>" +
-      "<span type='hidden' id='latitude' value=" + data.results[i].latitude + ">" + "</span>" +
-      "</button>";
+      // DATA ATTRIBUTES FOR SENDING DATA TO SERVER
+      text = text + "<button class='restaurant-button' id=" + "'" + i + "'" + 
+                             "data-restaurant-name=" + "'" + data.results[i].name + "'" +
+                             "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
+                             "data-latitude=" + "'" + data.results[i].latitude + "'" +
+                             "data-longitude=" + "'" + data.results[i].longitude + "'" + ">" +
+                      "<p>" + data.results[i].name + "</p>" +
+                      "<p>" + data.results[i].rating + "</p>" +
+                    "</button>";
     }
     $('#results').html(text);
+    scheduleEventListerForRestaurantButtons();
 }
 
 function submitSearch(evt) {
@@ -30,25 +37,32 @@ function submitSearch(evt) {
 $("#search").on("submit", submitSearch);
 
 
+function addRestaurant(evt){
 
-$(function (){ // this is the jquery shortcut for document.ready()
+    var id = this.id; // this is the id on the button we clicked, which is the image's id
+    var restaurant_name = $(this).data('restaurant-name');
+    var yelp_rating = $(this).data('yelp-rating');
+    var latitude = $(this).data('latitude');
+    var longitude = $(this).data('longitude');
+    var listId = $("#list-info").data('listid');
+    console.log(listId)
 
-    function addRestaurant(evt){
 
-        var id = this.id; // this is the id on the button we clicked, which is the image's id
+    $.post("/add-restaurant.json", {'id': id,
+                               'restaurant_name': restaurant_name,
+                               'yelp_rating': yelp_rating,
+                               'latitude': latitude,
+                               'longitude': longitude,
+                               'list_id': listId},
+                               addRestaurantSuccess);
+    
+}
 
-        $.post("/add-restaurant", {'id': id}, addRestaurantSuccess);
-    }
+function addRestaurantSuccess(result){
 
-    function addRestaurantSuccess(result){
+    console.log(result.status);
 
-        console.log(result.status);
+    var id = result.id;
 
-        var id = result.id;
-
-        $('#' + id).css('color', 'red'); // give our user some feedback
-    }
-
-    $('.restaurant-button').click(addRestaurant);
-
-});
+    $('#' + id).css('color', 'red'); // give our user some feedback
+}
