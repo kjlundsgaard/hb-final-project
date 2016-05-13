@@ -4,3 +4,4 @@ env
 *secrets*
 seed.py
 insert_queries.txt
+testdata.sql

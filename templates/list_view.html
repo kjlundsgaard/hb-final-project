@@ -9,9 +9,10 @@
 <h2>Restaurants</h2>
 <ul> 
 {% for restaurant in list.restaurants %}
-    <li>{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
+    <li id="{{ restaurant.restaurant_id }}">{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
         <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove
         </button>
+        <button class="star-restaurant" id="{{ restaurant.restaurant_id }}" data-restid="{{ restaurant.restaurant_id }}">LIKE</button>
     </li>
 {% endfor %}
 </ul>
@@ -29,3 +30,4 @@ Restaurant Search:
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>
 {% endblock %}
+

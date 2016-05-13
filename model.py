@@ -140,16 +140,14 @@ class Address(db.Model):
         return "<Address address_id=%s address=%s>" % (self.address_id, self.address)
 
 
-class Review(db.Model):
-    """Reviews of restaurants by users"""
+class Fave(db.Model):
+    """Restaurants favorited by users"""
 
-    __tablename__ = "reviews"
+    __tablename__ = "faves"
 
-    review_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    fave_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    rating = db.Column(db.Integer, nullable=True)
-    review_text = db.Column(db.String(300), nullable=True)
 
     users = db.relationship("User", backref=db.backref("reviews"))
 
@@ -158,7 +156,7 @@ class Review(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Review review_id=%s restaurant_id=%s user_id=%s>" % (self.review_id, self.restaurant_id, self.user_id)
+        return "<Review fave_id=%s restaurant_id=%s user_id=%s>" % (self.fave_id, self.restaurant_id, self.user_id)
 
 ##############################################################################
 

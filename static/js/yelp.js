@@ -134,3 +134,27 @@ function leaveGroup(evt) {
 
 $(".leave-group").click(leaveGroup);
 
+
+function starRestaurantSuccess(result){
+
+    console.log(result.status);
+
+    var id = result.id;
+
+    $('#' + id).css('color', 'red'); // give our user some feedback
+}
+
+function starRestaurant(evt){
+
+    var restId = $(this).data('restid');
+
+    console.log("in star restaurant function")
+
+    $.post("/star-restaurant.json", {'rest_id': restId},
+                               starRestaurantSuccess);
+    
+}
+
+$('.star-restaurant').click(starRestaurant);
+
+

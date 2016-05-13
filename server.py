@@ -7,7 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db
 # import Classes from model db
-from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Address, Review
+from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Fave
 # gets access to yelp.py file
 import yelp
 
@@ -48,7 +48,7 @@ def submit_login():
             # return redirect('/users/' + str(user.user_id))
         else:
             flash("Password incorrect")
-            return redirect('/login')
+            return redirect('/dashboard')
     else:
         #instantiates new user and passes user_id to session
         user = User(email=email, password=password, fname=fname, lname=lname)
@@ -187,7 +187,7 @@ def add_restaurant():
     get_restaurant = Restaurant.query.filter_by(restaurant_name=restaurant_name, latitude=latitude, longitude=longitude).first()
     if get_restaurant:
         # check if already part of list then add if no
-        get_restaurant_list = RestaurantList.query.filter_by(restaurant_id=get_restaurant.restaurant_id, list_id=list_id)
+        get_restaurant_list = RestaurantList.query.filter_by(restaurant_id=get_restaurant.restaurant_id, list_id=list_id).first()
         if get_restaurant_list:
             flash("Restaurant is already part of list")
         else:
@@ -259,6 +259,27 @@ def leave_group():
 
     flash("You have left the group")
     return jsonify(result="success")
+
+
+@app.route("/star-restaurant.json", methods=["POST"])
+def add_restaurant_to_faves():
+    """Adds a restaurant to a user's favorites list"""
+
+    restaurant_id = request.form.get('rest_id')
+    user_id = session.get('user')
+
+    get_fave_restaurant = Fave.query.filter_by(restaurant_id=restaurant_id, user_id=user_id).first()
+
+    if get_fave_restaurant:
+        pass
+    else:
+        fave_restaurant = Fave(restaurant_id=restaurant_id, user_id=user_id)
+        db.session.add(fave_restaurant)
+        db.session.commit()
+        
+
+    return jsonify(result="success", id=restaurant_id)
+
 
 
 ##############################################################################
