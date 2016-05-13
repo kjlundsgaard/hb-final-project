@@ -1,12 +1,11 @@
 <!doctype html>
 <html>
     <head>
-        <title>{% block title %}put your title here{% endblock %}</title>
+        <title>{% block title %}PROBABLY THINK OF A BETTER TITLE{% endblock %}</title>
     </head>
     <body>
-        <a href="/">home</a>
-        {% block content %}put your content here{% endblock %}
-        {% with messages = get_flashed_messages() %}
+        <a href="/dashboard">Dashboard</a>
+          {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class=flashes>
                 {% for message in messages %}
@@ -15,5 +14,6 @@
             </ul>
             {% endif %}
         {% endwith %}
+        {% block content %}put your content here{% endblock %}
     </body>
 </html>

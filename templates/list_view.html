@@ -2,13 +2,17 @@
 {% block content %}
 
 {{ user.fname }}
+<br>
 <a href="/groups/{{ list.group_id }}">Back to group</a>
 <br>
 <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <h2>Restaurants</h2>
 <ul> 
 {% for restaurant in list.restaurants %}
-    <li>{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove</button></li>
+    <li>{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
+        <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove
+        </button>
+    </li>
 {% endfor %}
 </ul>
 

@@ -92,7 +92,7 @@ function removeRestaurant(evt) {
 $(".remove-restaurant").click(removeRestaurant);
 
 
-// sends list info server to remove list
+// sends list info to server to remove list
 function removeListSuccess(result) {
     console.log(result.status);
 }
@@ -112,4 +112,25 @@ function removeList(evt) {
 }
 
 $(".remove-list").click(removeList);
+
+// sends group info to server to remove user from group
+function leaveGroupSuccess(result) {
+    console.log(result.status);
+}
+
+function leaveGroup(evt) {
+    console.log("made it to the function");
+    var remove = confirm("are you sure you want to leave this group?")
+    console.log(remove);
+
+    var groupId = $(this).data('groupid');
+
+    if (remove) {
+      $.post("/leave-group", {'group_id': groupId},
+                                  leaveGroupSuccess);
+    }
+
+}
+
+$(".leave-group").click(leaveGroup);
 

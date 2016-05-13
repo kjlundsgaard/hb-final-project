@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-HOMEPAGE
-{% if login %}
-<a href="/logout">logout</a>
-<a href="/dashboard">Dashboard</a>
-{% else %}
-<a href="/login">login</a>
+{% if not login %}
+    <a href="/dashboard">Welcome to this website</a>
 {% endif %}
 {% endblock %}

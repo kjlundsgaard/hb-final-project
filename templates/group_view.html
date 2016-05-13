@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+
 {{ user.fname }} <h1 id="group-info" data-groupid="{{ group.group_id }}">{{ group.group_name }}<h1>
 <br>
+<h2>Friends in Group:<h2>
 {% for user in group.users %}
         <h3>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h3>
 {% endfor %}
@@ -22,7 +24,8 @@
 </form>
 
 {% for list in group.lists %}
-    <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a><button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
+    <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
+    <button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
     <ul> 
     {% for restaurant in list.restaurants %}
         <li>{{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }}</li>

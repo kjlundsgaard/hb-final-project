@@ -28,15 +28,9 @@ def index():
     return render_template('index.html', login=session.get('user'))
 
 
-@app.route('/login')
-def login():
-    """Prompts user for login info"""
-
-    return render_template('login_form.html', login=session.get('user'))
-
-
 @app.route('/login', methods=['POST'])
 def submit_login():
+    """Signs user in or creates new user based on form input"""
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -50,7 +44,7 @@ def submit_login():
         if user.password == password:
             session['user'] = user.user_id
             flash("You are now logged in")
-            return redirect('/')
+            return redirect('/dashboard')
             # return redirect('/users/' + str(user.user_id))
         else:
             flash("Password incorrect")
@@ -62,7 +56,7 @@ def submit_login():
         db.session.commit()
         session['user'] = user.user_id
         flash("Your account has been created")
-        return redirect('/')
+        return redirect('/dashboard')
 
 
 @app.route('/logout')
@@ -82,9 +76,12 @@ def show_lists():
 
     user_id = session.get('user')
 
-    user = User.query.filter_by(user_id=user_id).one()
+    user = User.query.filter_by(user_id=user_id).first()
 
-    return render_template('dashboard.html', user=user, login=session.get('user'))
+    if user_id:
+        return render_template('dashboard.html', user=user, login=session.get('user'))
+    else:
+        return render_template('login_form.html')
 
 
 @app.route('/groups/<int:group_id>')
@@ -92,7 +89,7 @@ def show_group_details(group_id):
     """Shows group details"""
 
     user_id = session.get('user')
-    user = User.query.filter_by(user_id=user_id).one()
+    user = User.query.filter_by(user_id=user_id).first()
     group = Group.query.filter_by(group_id=group_id).one()
 
     return render_template('group_view.html', group=group, user=user, login=session.get('user'))
@@ -150,7 +147,7 @@ def add_new_list():
     db.session.add(new_list)
     db.session.commit()
 
-    return redirect('/groups/' + group_id)
+    return redirect('/lists/' + str(new_list.list_id))
 
 
 @app.route('/lists/<int:list_id>')
@@ -247,6 +244,21 @@ def delete_list():
 
 
 # TODO CREATE LEAVE GROUP OPTION FOR A USER TO LEAVE A GROUP
+
+@app.route("/leave-group", methods=["POST"])
+def leave_group():
+    """Allows a user to leave a group"""
+
+    group_id = request.form.get('group_id')
+    user_id = session.get('user')
+
+    get_user_group = UserGroup.query.filter_by(group_id=group_id, user_id=user_id).first()
+
+    db.session.delete(get_user_group)
+    db.session.commit()
+
+    flash("You have left the group")
+    return jsonify(result="success")
 
 
 ##############################################################################
