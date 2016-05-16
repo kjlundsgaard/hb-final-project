@@ -7,15 +7,17 @@
 <br>
 <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <h2>Restaurants</h2>
-<ul> 
+<ul class="restaurant-listing"> 
 {% for restaurant in list.restaurants %}
-    <li id="{{ restaurant.restaurant_id }}">{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
+    <li id="{{ restaurant.restaurant_id }}" data-lat="{{ restaurant.latitude }}" data-lng="{{ restaurant.longitude }}" data-name="{{ restaurant.restaurant_name }}" data-yelp="{{ restaurant.yelp_rating }}">{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
         <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove
         </button>
         <button class="star-restaurant" id="{{ restaurant.restaurant_id }}" data-restid="{{ restaurant.restaurant_id }}">LIKE</button>
     </li>
 {% endfor %}
 </ul>
+
+<div id="my-map" style="height: 400px; width: 400px;"></div>
 
 Restaurant Search:
     <form action='/search-restaurant.json' method='POST' id="search">
@@ -29,5 +31,9 @@ Restaurant Search:
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfOfkZrpwbC1D3fIVwh0XOj3u1U0X_B6Q"></script>
+<script src="/static/js/googlemaps.js"></script>
+
+
 {% endblock %}
 

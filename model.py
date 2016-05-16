@@ -148,10 +148,12 @@ class Fave(db.Model):
     fave_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    __table_args__ = (UniqueConstraint(user_id, restaurant_id),
+                      )
 
-    users = db.relationship("User", backref=db.backref("reviews"))
+    users = db.relationship("User", backref=db.backref("faves"))
 
-    restaurants = db.relationship("Restaurant", backref=db.backref("reviews"))
+    restaurants = db.relationship("Restaurant", backref=db.backref("faves"))
 
     def __repr__(self):
         """Provide helpful representation when printed."""

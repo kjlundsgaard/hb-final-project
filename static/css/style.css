@@ -2,3 +2,7 @@
     /* use this if an ERROR code was returned */
     color: red;
 }
+
+#my-map {
+    height: 800px;
+}

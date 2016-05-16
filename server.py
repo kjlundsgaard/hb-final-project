@@ -207,7 +207,7 @@ def add_restaurant():
         db.session.commit()
         flash("Added restaurant " + restaurant_name + " to list")
 
-    return jsonify(status='success', id=item_id)
+    return jsonify(status='success', id=item_id, restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude)
 
 
 @app.route("/delete-restaurant.json", methods=["POST"])
@@ -243,8 +243,6 @@ def delete_list():
     return jsonify(status="success")
 
 
-# TODO CREATE LEAVE GROUP OPTION FOR A USER TO LEAVE A GROUP
-
 @app.route("/leave-group", methods=["POST"])
 def leave_group():
     """Allows a user to leave a group"""
@@ -276,9 +274,19 @@ def add_restaurant_to_faves():
         fave_restaurant = Fave(restaurant_id=restaurant_id, user_id=user_id)
         db.session.add(fave_restaurant)
         db.session.commit()
-        
 
     return jsonify(result="success", id=restaurant_id)
+
+
+@app.route("/my-faves")
+def show_favorites():
+    """Shows list of user's favorited restaurant"""
+
+    user_id = session.get("user")
+
+    faves = Fave.query.filter_by(user_id=user_id).all()
+
+    return render_template("my_faves.html", faves=faves, login=session.get('user'))
 
 
 

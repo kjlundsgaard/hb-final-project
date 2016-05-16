@@ -10,7 +10,7 @@ function displayResults(data) {
     var text = "";
     for (var i = 0; i < data.results.length; i++){
       // DATA ATTRIBUTES FOR SENDING DATA TO SERVER
-      text = text + "<button class='restaurant-button' id=" + "'" + i + "'" + 
+      text = text + "<button class='restaurant-button' id=" + "'button" + i + "'" + 
                              "data-restaurant-name=" + '"' + data.results[i].name + '"' +
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
@@ -66,8 +66,15 @@ function addRestaurantSuccess(result){
     console.log(result.status);
 
     var id = result.id;
+    var restaurantName = result.restaurant_name
+    var yelpRating =result.yelp_rating
+    var RestaurantId = result.restaurant_id
 
-    $('#' + id).css('color', 'red'); // give our user some feedback
+    var newListing = "<li class='restaurant-listing'>" + restaurantName + " | Yelp Rating: " + yelpRating + "</li>";
+
+    $('#button' + id).css('color', 'red'); // give our user some feedback
+
+    $('.restaurant-listing').append(newListing);
 }
 
 // sends restaurant id and list id to server to remove restaurant from list

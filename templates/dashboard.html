@@ -7,6 +7,7 @@
 
 
 {{ user.fname }}'s Dashboard
+<a href="/my-faves">My favorite restaurants</a>
 
 <br>
 
@@ -21,7 +22,7 @@
     <a href="groups/{{ group.group_id }}"><h1>{{ group.group_name }}<h1></a>
     <button class="leave-group" data-groupid="{{ group.group_id }}">Leave This Group</button>
     {% for list in group.lists %}
-        <h2>{{ list.list_name }}</h2>
+        <h2><a href="lists/{{ list.list_id }}">{{ list.list_name }}</a></h2>
         {% for restaurant in list.restaurants %}
             <div>
             {{ restaurant.restaurant_name }} | {{ restaurant.yelp_rating }} | 
