@@ -169,6 +169,7 @@ def search_restaurant():
     term = request.form.get('term')
 
     results = yelp.get_results(location=location, term=term)
+    print results
     return jsonify(results=results)
 
 
@@ -182,6 +183,9 @@ def add_restaurant():
     latitude = request.form.get('latitude')
     longitude = request.form.get('longitude')
     list_id = request.form.get('list_id')
+    address = request.form.get('address')
+    categories = request.form.get('categories')
+    neighborhoods = request.form.get('neighborhoods')
 
     # check if restaurant already in db
     get_restaurant = Restaurant.query.filter_by(restaurant_name=restaurant_name, latitude=latitude, longitude=longitude).first()
@@ -197,7 +201,7 @@ def add_restaurant():
             flash("Added restaurant " + get_restaurant.restaurant_name + " to list")
     # if restaurant is not already in db, add it and add to RestaurantList
     else:
-        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude)
+        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude, address=address, categories=categories, neighborhoods=neighborhoods)
         db.session.add(new_restaurant)
         db.session.commit()
         # need this line because we just added the restaurant to db and need to get the id to add to RestaurantList

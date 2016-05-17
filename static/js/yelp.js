@@ -10,13 +10,18 @@ function displayResults(data) {
     var text = "";
     for (var i = 0; i < data.results.length; i++){
       // DATA ATTRIBUTES FOR SENDING DATA TO SERVER
+      // NEED TO FIGURE OUT HOW TO GET THESE IN HERE/NOT SCREW UP THE AJAX CALL
       text = text + "<button class='restaurant-button' id=" + "'button" + i + "'" + 
                              "data-restaurant-name=" + '"' + data.results[i].name + '"' +
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
+                             "data-address=" + "'" + data.results[i].address.join() + "'" +
+                             "data-categories=" + "'" + data.results[i].categories.join() + "'" +
+                             "data-neighborhoods=" + "'" + data.results[i].neighborhoods.join() + "'" +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + ">" +
-                      "<p>" + data.results[i].name + "</p>" +
+                      "<p>" + data.results[i].name + "</p>" + 
                       "<p>" + data.results[i].rating + "</p>" +
+                      "<p>" + data.results[i].address[0] + "</p>" +
                     "</button>";
     }
     $('#results').html(text);
@@ -48,6 +53,9 @@ function addRestaurant(evt){
     var latitude = $(this).data('latitude');
     var longitude = $(this).data('longitude');
     var listId = $("#list-info").data('listid');
+    var address = $(this).data('address')
+    var categories = $(this).data('categories')
+    var neighborhoods = $(this).data('neighborhoods')
 
     console.log(restaurantName);
 
@@ -56,7 +64,10 @@ function addRestaurant(evt){
                                'yelp_rating': yelp_rating,
                                'latitude': latitude,
                                'longitude': longitude,
-                               'list_id': listId},
+                               'list_id': listId,
+                               'address': address,
+                               'categories': categories,
+                               'neighborhoods': neighborhoods}
                                addRestaurantSuccess);
     
 }

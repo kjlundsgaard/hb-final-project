@@ -90,10 +90,13 @@ class Restaurant(db.Model):
     __tablename__ = "restaurants"
 
     restaurant_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    restaurant_name = db.Column(db.String(100), nullable=False)
-    yelp_rating = db.Column(db.Float, nullable=False)
-    latitude = db.Column(db.Float, nullable=False)
-    longitude = db.Column(db.Float, nullable=False)
+    restaurant_name = db.Column(db.String(100), nullable=True)
+    yelp_rating = db.Column(db.Float, nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    address = db.Column(db.String(100), nullable=True)
+    categories = db.Column(db.String(100), nullable=True)
+    neighborhoods = db.Column(db.String(100), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

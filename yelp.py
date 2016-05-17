@@ -19,8 +19,11 @@ def get_results(location, term):
         results.append({'name': restaurant['name'],
                         'rating': restaurant['rating'],
                         'latitude': restaurant['location']['coordinate']['latitude'],
-                        'longitude': restaurant['location']['coordinate']['longitude']})
-
+                        'longitude': restaurant['location']['coordinate']['longitude'],
+                        'categories': restaurant['categories'],
+                        'neighborhoods': restaurant['location']['neighborhoods'],
+                        'address': restaurant['location']['address']})
+    print results
     return results
 
-# get_results("San Francisco", "burrito")
+get_results("San Francisco", "burrito")
