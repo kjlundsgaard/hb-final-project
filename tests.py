@@ -12,6 +12,10 @@ class TestNotLoggedIn(unittest.TestCase):
         self.client = app.test_client()
         app.config['TESTING'] = True
 
+    # def tearDown(self):
+    #     """To do after each test"""
+        
+
     def test_log_in_form(self):
         """test to show log in form"""
 
@@ -49,4 +53,5 @@ class TestsDatabase(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     unittest.main()
