@@ -21,16 +21,52 @@ app.secret_key = "supersecretkey"
 app.jinja_env.undefined = StrictUndefined
 
 
+# @app.route('/')
+# def index():
+#     """Homepage."""
+
+#     return render_template('dashboard.html', login=session.get('user'))
+
 @app.route('/')
 def index():
-    """Homepage."""
+    """Homepage/Shows user their lists of restaurants"""
 
-    return render_template('index.html', login=session.get('user'))
+    user_id = session.get('user')
+
+    user = User.query.filter_by(user_id=user_id).first()
+
+    if user_id:
+        return render_template('dashboard.html', user=user, login=session.get('user'))
+    else:
+        return render_template('login_form.html')
 
 
 @app.route('/login', methods=['POST'])
 def submit_login():
-    """Signs user in or creates new user based on form input"""
+    """Logs in user or directs to sign up form if no email"""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = User.query.filter_by(email=email).first()
+    # if user already exists, checks password and logs them in if correct. If not, prompts
+    # for password again
+    if user:
+        if user.password == password:
+            session['user'] = user.user_id
+            flash("You are now logged in")
+            return redirect('/')
+            # return redirect('/users/' + str(user.user_id))
+        else:
+            flash("Password incorrect")
+            return redirect('/')
+    else:
+        return render_template('sign_up_form.html', email=email, password=password)
+
+
+@app.route('/signup', methods=['POST'])
+def sign_up_user():
+    """Signs up new user"""
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -44,11 +80,11 @@ def submit_login():
         if user.password == password:
             session['user'] = user.user_id
             flash("You are now logged in")
-            return redirect('/dashboard')
+            return redirect('/')
             # return redirect('/users/' + str(user.user_id))
         else:
             flash("Password incorrect")
-            return redirect('/dashboard')
+            return redirect('/')
     else:
         #instantiates new user and passes user_id to session
         user = User(email=email, password=password, fname=fname, lname=lname)
@@ -56,7 +92,7 @@ def submit_login():
         db.session.commit()
         session['user'] = user.user_id
         flash("Your account has been created")
-        return redirect('/dashboard')
+        return redirect('/')
 
 
 @app.route('/logout')
@@ -68,20 +104,6 @@ def logout():
     flash("You are now logged out")
 
     return redirect('/')
-
-
-@app.route('/dashboard')
-def show_lists():
-    """Shows user their lists of restaurants"""
-
-    user_id = session.get('user')
-
-    user = User.query.filter_by(user_id=user_id).first()
-
-    if user_id:
-        return render_template('dashboard.html', user=user, login=session.get('user'))
-    else:
-        return render_template('login_form.html')
 
 
 @app.route('/groups/<int:group_id>')

@@ -14,9 +14,9 @@ function displayResults(data) {
       text = text + "<button class='restaurant-button' id=" + "'button" + i + "'" + 
                              "data-restaurant-name=" + '"' + data.results[i].name + '"' +
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
-                             "data-address=" + "'" + data.results[i].address.join() + "'" +
-                             "data-categories=" + "'" + data.results[i].categories.join() + "'" +
-                             "data-neighborhoods=" + "'" + data.results[i].neighborhoods.join() + "'" +
+                             "data-address=" + "'" + data.results[i].address + "'" +
+                             "data-categories=" + "'" + data.results[i].categories + "'" +
+                             "data-neighborhoods=" + "'" + data.results[i].neighborhoods + "'" +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + ">" +
                       "<p>" + data.results[i].name + "</p>" + 
@@ -67,7 +67,7 @@ function addRestaurant(evt){
                                'list_id': listId,
                                'address': address,
                                'categories': categories,
-                               'neighborhoods': neighborhoods}
+                               'neighborhoods': neighborhoods},
                                addRestaurantSuccess);
     
 }
@@ -83,7 +83,7 @@ function addRestaurantSuccess(result){
 
     var newListing = "<li class='restaurant-listing'>" + restaurantName + " | Yelp Rating: " + yelpRating + "</li>";
 
-    $('#button' + id).css('color', 'red'); // give our user some feedback
+    $('#' + id).css('color', 'red'); // give our user some feedback
 
     $('.restaurant-listing').append(newListing);
 }
