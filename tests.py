@@ -3,6 +3,23 @@ from server import app
 from model import db, example_data, connect_to_db
 
 
+class TestNotLoggedIn(unittest.TestCase):
+    """Flask tests to check when session is empty"""
+
+    def setUp(self):
+        """To do before every test"""
+
+        self.client = app.test_client()
+        app.config['TESTING'] = True
+
+    def test_log_in_form(self):
+        """test to show log in form"""
+
+        result = self.client.get("/")
+        self.assertIn('Log in:', result.data)
+        self.assertNotIn('Create new', result.data)
+
+
 class TestsDatabase(unittest.TestCase):
     """Flask tests using database"""
 
@@ -29,6 +46,7 @@ class TestsDatabase(unittest.TestCase):
 
         db.session.close()
         db.drop_all()
+
 
 if __name__ == "__main__":
     unittest.main()

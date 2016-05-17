@@ -114,7 +114,9 @@ def show_group_details(group_id):
     user = User.query.filter_by(user_id=user_id).first()
     group = Group.query.filter_by(group_id=group_id).one()
 
-    return render_template('group_view.html', group=group, user=user, login=session.get('user'))
+    user_group = UserGroup.query.filter_by(group_id=group_id, user_id=user_id).first()
+
+    return render_template('group_view.html', group=group, user=user, user_group=user_group)
 
 
 @app.route('/invite', methods=["POST"])
@@ -179,8 +181,9 @@ def show_list_details(list_id):
     user_id = session.get('user')
     user = User.query.filter_by(user_id=user_id).one()
     list_item = List.query.filter_by(list_id=list_id).one()
+    user_group = UserGroup.query.filter_by(user_id=user_id, group_id=list_item.group_id).first()
 
-    return render_template('list_view.html', list=list_item, user=user, login=session.get('user'))
+    return render_template('list_view.html', list=list_item, user=user, user_group=user_group)
 
 
 @app.route('/search-restaurant.json', methods=['POST'])
@@ -191,7 +194,6 @@ def search_restaurant():
     term = request.form.get('term')
 
     results = yelp.get_results(location=location, term=term)
-    print results
     return jsonify(results=results)
 
 
@@ -243,10 +245,8 @@ def delete_restaurant():
     restaurant_id = request.form.get('restaurant_id')
     list_id = request.form.get('list_id')
     restaurant = Restaurant.query.get(restaurant_id)
-    print restaurant
 
     restaurant_list = RestaurantList.query.filter_by(restaurant_id=restaurant_id, list_id=list_id).first()
-    print restaurant_list
     db.session.delete(restaurant_list)
     db.session.commit()
 
@@ -313,7 +313,6 @@ def show_favorites():
     faves = Fave.query.filter_by(user_id=user_id).all()
 
     return render_template("my_faves.html", faves=faves, login=session.get('user'))
-
 
 
 ##############################################################################

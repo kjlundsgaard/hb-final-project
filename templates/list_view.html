@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if user_group %}
 
 {{ user.fname }}
 <br>
@@ -34,6 +35,8 @@ Restaurant Search:
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfOfkZrpwbC1D3fIVwh0XOj3u1U0X_B6Q"></script>
 <script src="/static/js/googlemaps.js"></script>
 
-
+{% else %}
+You are not a member of this group
+{% endif %}
 {% endblock %}
 
