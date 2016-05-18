@@ -1,5 +1,5 @@
 import unittest
-from server import app
+import server
 from model import db, example_data, connect_to_db
 
 
@@ -9,12 +9,19 @@ class TestNotLoggedIn(unittest.TestCase):
     def setUp(self):
         """To do before every test"""
 
-        self.client = app.test_client()
-        app.config['TESTING'] = True
+        self.client = server.app.test_client()
+        server.app.config['TESTING'] = True
+        server.app.config['SECRET_KEY'] = '123'
 
-    # def tearDown(self):
-    #     """To do after each test"""
-        
+        connect_to_db(server.app, "postgresql:///testdb")
+        db.create_all()
+        example_data()
+
+    def tearDown(self):
+        """To do at end of test"""
+
+        db.session.close()
+        db.drop_all()
 
     def test_log_in_form(self):
         """test to show log in form"""
@@ -24,34 +31,34 @@ class TestNotLoggedIn(unittest.TestCase):
         self.assertNotIn('Create new', result.data)
 
 
-class TestsDatabase(unittest.TestCase):
-    """Flask tests using database"""
+# class TestsDatabase(unittest.TestCase):
+#     """Flask tests using database"""
 
-    def setUp(self):
-        """To do before every test"""
+#     def setUp(self):
+#         """To do before every test"""
 
-        self.client = app.test_client()
-        app.config['SECRET_KEY'] = '123'
-        app.config['TESTING'] = True
+#         self.client = app.test_client()
+#         app.config['SECRET_KEY'] = '123'
+#         app.config['TESTING'] = True
 
-        """connect to test database"""
-        connect_to_db(app, "postgresql:///testdb")
+#         """connect to test database"""
+#         connect_to_db(app, "postgresql:///testdb")
 
-        """Creates tables and adds example data to testdb"""
-        db.create_all()
-        example_data()
+#         """Creates tables and adds example data to testdb"""
+#         db.create_all()
+#         example_data()
 
-        with self.client as c:
-            with c.session_transaction() as sess:
-                sess['user'] = 1
+#         with self.client as c:
+#             with c.session_transaction() as sess:
+#                 sess['user'] = 1
 
-    def tearDown(self):
-        """To do at end of test"""
+#     def tearDown(self):
+#         """To do at end of test"""
 
-        db.session.close()
-        db.drop_all()
+#         db.session.close()
+#         db.drop_all()
 
 
 if __name__ == "__main__":
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # server.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = None
     unittest.main()

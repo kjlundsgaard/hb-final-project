@@ -21,12 +21,6 @@ app.secret_key = "supersecretkey"
 app.jinja_env.undefined = StrictUndefined
 
 
-# @app.route('/')
-# def index():
-#     """Homepage."""
-
-#     return render_template('dashboard.html', login=session.get('user'))
-
 @app.route('/')
 def index():
     """Homepage/Shows user their lists of restaurants"""
@@ -313,6 +307,29 @@ def show_favorites():
     faves = Fave.query.filter_by(user_id=user_id).all()
 
     return render_template("my_faves.html", faves=faves, login=session.get('user'))
+
+
+@app.route("/return-restaurants.json", methods=['POST'])
+def return_restaurants():
+    """Gives response to browser of restaurants in db for given list"""
+
+    list_id = request.form.get('list_id')
+    restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
+
+    restaurants = []
+    for item in restaurants_lists:
+        restaurant = Restaurant.query.filter_by(restaurant_id=item.restaurant_id).first()
+
+        restaurants.append({'restaurant_name': restaurant.restaurant_name,
+                            'yelp_rating': restaurant.yelp_rating,
+                            'latitude': restaurant.latitude,
+                            'longitude': restaurant.longitude,
+                            'restaurant_id': restaurant.restaurant_id})
+
+    print restaurants
+    return jsonify(status="success", results=restaurants)
+
+
 
 
 ##############################################################################

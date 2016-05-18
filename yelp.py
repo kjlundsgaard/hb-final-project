@@ -23,7 +23,7 @@ def get_results(location, term):
                         'categories': restaurant['categories'],
                         'neighborhoods': restaurant['location']['neighborhoods'],
                         'address': restaurant['location']['address']})
-    # print results
-    return results
+    print results
+    # return results
 
-# get_results("San Francisco", "burrito")
+get_results("chicago", "food")

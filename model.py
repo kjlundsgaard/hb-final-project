@@ -1,7 +1,7 @@
 """Models and database functions for HB project."""
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import UniqueConstraint
+# from sqlalchemy.schema import UniqueConstraint
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -58,8 +58,8 @@ class UserGroup(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
     # attempt at unique constraint across restaurant_id and list_id tables
-    __table_args__ = (UniqueConstraint(user_id, group_id),
-                      )
+    # __table_args__ = (UniqueConstraint(user_id, group_id),
+                      # )
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -117,8 +117,8 @@ class RestaurantList(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     list_id = db.Column(db.Integer, db.ForeignKey('lists.list_id'))
     # attempt at unique constraint across restaurant_id and list_id tables
-    __table_args__ = (UniqueConstraint(restaurant_id, list_id),
-                      )
+    # __table_args__ = (UniqueConstraint(restaurant_id, list_id),
+                      # )
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -151,8 +151,8 @@ class Fave(db.Model):
     fave_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    __table_args__ = (UniqueConstraint(user_id, restaurant_id),
-                      )
+    # __table_args__ = (UniqueConstraint(user_id, restaurant_id),
+                      # )
 
     users = db.relationship("User", backref=db.backref("faves"))
 
@@ -184,7 +184,9 @@ def example_data():
     restaurant = Restaurant(restaurant_name='Taco Bell', yelp_rating=2.5, latitude=37.774136, longitude=-122.424819, address='200 Duboce Ave', categories='Mexican, Fast food', neighborhoods='Mission')
     restaurant_list = RestaurantList(restaurant_id=1, list_id=1)
     fave = Fave(restaurant_id=1, user_id=1)
-    db.session.add(user, group, user_group, category, restaurant, restaurant_list, fave)
+    db.session.add_all([user, group, restaurant])
+    db.session.commit()
+    db.session.add_all([user_group, category, fave, restaurant_list])
     db.session.commit()
 
 
