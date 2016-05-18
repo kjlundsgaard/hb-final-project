@@ -83,7 +83,7 @@ def sign_up_user():
             return redirect('/')
             # return redirect('/users/' + str(user.user_id))
         else:
-            flash("Password incorrect")
+            flash("Password incorrect - There is already a user with this email")
             return redirect('/')
     else:
         #instantiates new user and passes user_id to session

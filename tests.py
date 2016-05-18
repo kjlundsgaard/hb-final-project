@@ -76,6 +76,38 @@ class TestNotLoggedIn(unittest.TestCase):
         self.assertIn('Log in:', result.data)
         self.assertNotIn('My groups:', result.data)
 
+    def test_sign_up_submit_no_such_user(self):
+        """tests sign up form submission"""
+
+        result = self.client.post("/signup",
+                                  data={'email': 'user2@gmail.com', 'password': 'password2', 'fname': 'User', 'lname': 'User'},
+                                  follow_redirects=True)
+        self.assertIn('My groups:', result.data)
+        self.assertNotIn('Log in:', result.data)
+
+    def test_sign_up_user_in_db(self):
+        """test sign up submit with user already in db"""
+
+        result = self.client.post("/signup",
+                                  data={'email': 'user@gmail.com', 'password': 'mypassword', 'fname': 'IncorrectFirst', 'lname': 'IncorrectLast'},
+                                  follow_redirects=True)
+        self.assertIn('First', result.data)
+        self.assertNotIn('IncorrectFirst', result.data)
+
+    def test_sign_up_user_in_db_incorrect_pw(self):
+        """tests sign up with preexisting email and incorrect pw"""
+
+        result = self.client.post("/signup",
+                                  data={'email': 'user@gmail.com', 'password': 'wrongpassword', 'fname': 'IncorrectFirst', 'lname': 'IncorrectLast'},
+                                  follow_redirects=True)
+        self.assertIn('Log in:', result.data)
+        self.assertNotIn('First', result.data)
+
+    def test_log_out(self):
+        result = self.client.get("/logout", follow_redirects=True)
+        self.assertIn('Log in:', result.data)
+        self.assertNotIn('First', result.data)
+
 
 class TestSession(unittest.TestCase):
     """Flask tests when user is logged in"""
