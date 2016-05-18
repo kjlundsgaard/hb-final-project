@@ -4,6 +4,7 @@ from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
+from flask.ext.bcrypt import Bcrypt
 
 from model import connect_to_db, db
 # import Classes from model db
@@ -12,6 +13,7 @@ from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Fave
 import yelp
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "supersecretkey"
@@ -27,9 +29,8 @@ def index():
 
     user_id = session.get('user')
 
-    user = User.query.filter_by(user_id=user_id).first()
-
     if user_id:
+        user = User.query.filter_by(user_id=user_id).first()
         return render_template('dashboard.html', user=user, login=session.get('user'))
     else:
         return render_template('login_form.html')
@@ -50,7 +51,7 @@ def submit_login():
     # if user already exists, checks password and logs them in if correct. If not, prompts
     # for password again
     if user:
-        if user.password == password:
+        if bcrypt.check_password_hash(user.password, password):
             session['user'] = user.user_id
             flash("You are now logged in")
             return redirect('/')
@@ -75,7 +76,7 @@ def sign_up_user():
     # if user already exists, checks password and logs them in if correct. If not, prompts
     # for password again
     if user:
-        if user.password == password:
+        if bcrypt.check_password_hash(user.password, password):
             session['user'] = user.user_id
             flash("You are now logged in")
             return redirect('/')
@@ -85,7 +86,7 @@ def sign_up_user():
             return redirect('/')
     else:
         #instantiates new user and passes user_id to session
-        user = User(email=email, password=password, fname=fname, lname=lname)
+        user = User(email=email, password=bcrypt.generate_password_hash(password), fname=fname, lname=lname)
         db.session.add(user)
         db.session.commit()
         session['user'] = user.user_id

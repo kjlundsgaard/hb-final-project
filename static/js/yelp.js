@@ -105,6 +105,7 @@ function addRestaurantToDBsuccess(data){
 // sends restaurant id and list id to server to remove restaurant from list
 function removeRestaurantSuccess(result) {
     console.log(result.status);
+    window.location.reload();
 
 }
 
@@ -128,6 +129,7 @@ $(".remove-restaurant").click(removeRestaurant);
 // sends list info to server to remove list
 function removeListSuccess(result) {
     console.log(result.status);
+    window.location.reload();
 
 }
 
@@ -150,6 +152,7 @@ $(".remove-list").click(removeList);
 // sends group info to server to remove user from group
 function leaveGroupSuccess(result) {
     console.log(result.status);
+    window.location.reload();
 }
 
 function leaveGroup(evt) {
