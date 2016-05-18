@@ -174,22 +174,6 @@ def connect_to_db(app, db_uri='postgresql:///project'):
     db.app = app
     db.init_app(app)
 
-
-def example_data():
-    """Create example data for the test database."""
-    user = User(email='user@gmail.com', password='password', fname='First', lname='Last')
-    group = Group(group_name='Friends')
-    user_group = UserGroup(user_id=1, group_id=1)
-    category = List(list_name='Dinner', group_id=1)
-    restaurant = Restaurant(restaurant_name='Taco Bell', yelp_rating=2.5, latitude=37.774136, longitude=-122.424819, address='200 Duboce Ave', categories='Mexican, Fast food', neighborhoods='Mission')
-    restaurant_list = RestaurantList(restaurant_id=1, list_id=1)
-    fave = Fave(restaurant_id=1, user_id=1)
-    db.session.add_all([user, group, restaurant])
-    db.session.commit()
-    db.session.add_all([user_group, category, fave, restaurant_list])
-    db.session.commit()
-
-
 if __name__ == "__main__":
     # As a convenience, if we run this module interactively, it will leave
     # you in a state of being able to work with the database directly.

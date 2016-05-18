@@ -3,7 +3,6 @@
 {% if user_group %}
 
 {{ user.fname }} <h1 id="group-info" data-groupid="{{ group.group_id }}">{{ group.group_name }}<h1>
-<br>
 <h2>Friends in Group:<h2>
 {% for user in group.users %}
         <h3>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h3>
