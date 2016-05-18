@@ -9,8 +9,6 @@ function scheduleEventListerForRestaurantButtons(){
 function displayResults(data) {
     var text = "";
     for (var i = 0; i < data.results.length; i++){
-      // DATA ATTRIBUTES FOR SENDING DATA TO SERVER
-      // NEED TO FIGURE OUT HOW TO GET THESE IN HERE/NOT SCREW UP THE AJAX CALL
       text = text + "<button class='restaurant-button' id=" + "'button" + i + "'" + 
                              "data-restaurant-name=" + '"' + data.results[i].name + '"' +
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
@@ -53,9 +51,9 @@ function addRestaurant(evt){
     var latitude = $(this).data('latitude');
     var longitude = $(this).data('longitude');
     var listId = $("#list-info").data('listid');
-    var address = $(this).data('address')
-    var categories = $(this).data('categories')
-    var neighborhoods = $(this).data('neighborhoods')
+    var address = $(this).data('address');
+    var categories = $(this).data('categories');
+    var neighborhoods = $(this).data('neighborhoods');
 
     console.log(restaurantName);
 
@@ -75,40 +73,39 @@ function addRestaurant(evt){
 
 // ########################################################################
 
-function addRestaurantToDBsuccess(result) {
-  var id = data.id;
-
-  $('#' + id).css('color', 'red'); // give our user some feedback
-  getRestaurantsFromDB;
-
-}
-
-function getRestaurantsFromDB(){
+function getRestaurantsFromDB(data){
   var listId = $('#list-info').data('listid');
+  var id = data.id;
   console.log("in the get restaurants from db function");
-  $.post('/return-restaurants.json', {'list_id': listId}, displayRestaurants);
+  $.post('/return-restaurants.json', {'list_id': listId, 'id':id}, addRestaurantToDBsuccess);
 
 }
 
-function displayRestaurants(data){
+function addRestaurantToDBsuccess(data){
 
     console.log(data.status);
+    var id = data.id;
+
+    $('#' + id).css('color', 'red');
 
     var listings = "";
 
     for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id="+ data.results[i].restaurant_id +" data-lat="+ data.results[i].latitude + " data-lng="+ data.results[i].longitude + " data-name="+ data.results[i].restaurant_name + " data-yelp="+ data.results[i].yelp_rating + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + data.results[i].restaurant_id + ">Remove</button><button class='star-restaurant' id="+ data.results[i].restaurant_id + " data-restid="+ data.results[i].restaurant_id + ">LIKE</button></li>";
+      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button></li>";
     }
     console.log(listings);
     $('#restaurant-list').html(listings);
     // trying to get google maps to init map with markers when new listing is added
+    // make separate addMarker function and use here
+    // todo
 
-    initMap;
+    initMap();
 }
 
 // sends restaurant id and list id to server to remove restaurant from list
 function removeRestaurantSuccess(result) {
     console.log(result.status);
+
 }
 
 function removeRestaurant(evt) {
@@ -131,6 +128,7 @@ $(".remove-restaurant").click(removeRestaurant);
 // sends list info to server to remove list
 function removeListSuccess(result) {
     console.log(result.status);
+
 }
 
 function removeList(evt) {

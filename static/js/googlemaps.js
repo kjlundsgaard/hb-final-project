@@ -3,11 +3,18 @@ var map;
 var marker;
 var infoWindow;
 
-// function showInfo() {
-//   infoWindow.open(map, marker);
+// TODO create separate marker function so whole map doesn't refresh and you can just call marker function in yelp.py
+
+// function findAvgLatLng() {
+//   for (var i = 0; i < places.length; i ++) {
+//     var sumLat = sumLat + places[i].data('lat');
+//     var sumLong = sumLong + places[i].data('lng');
+//   }
+//   var avgLat = sumLat / places.length;
+//   var avgLong = sumLong / places.length;
+
+//   return {lat: avgLat, lng: avgLong};
 // }
-
-
 
 function initMap() {
 
@@ -29,7 +36,7 @@ function initMap() {
   var mapOptions = {
     // sets map center to the first item in places list 
     center: centerLatLng,
-    zoom: 13,
+    zoom: 12,
     mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
       }
@@ -53,12 +60,13 @@ function initMap() {
     var contentString = '<div id="info">' +
     '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>';
 
-
-    marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: name
-    });
+    if (latFromDom, lngFromDom){
+      marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: name
+      });
+    }
 
     bindInfoWindow(marker, map, infoWindow, contentString);
   }

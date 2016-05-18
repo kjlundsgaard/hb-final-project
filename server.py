@@ -35,6 +35,10 @@ def index():
         return render_template('login_form.html')
 
 
+# TODO
+# verify user method to call in login/signup routes
+
+
 @app.route('/login', methods=['POST'])
 def submit_login():
     """Logs in user or directs to sign up form if no email"""
@@ -260,7 +264,7 @@ def delete_list():
     db.session.commit()
 
     flash("Removed " + list_item.list_name)
-    return jsonify(status="success")
+    return jsonify(result='success')
 
 
 @app.route("/leave-group", methods=["POST"])
@@ -314,6 +318,7 @@ def return_restaurants():
     """Gives response to browser of restaurants in db for given list"""
 
     list_id = request.form.get('list_id')
+    item_id = request.form.get('id')
     restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
 
     restaurants = []
@@ -327,9 +332,7 @@ def return_restaurants():
                             'restaurant_id': restaurant.restaurant_id})
 
     print restaurants
-    return jsonify(status="success", results=restaurants)
-
-
+    return jsonify(status="success", results=restaurants, id=item_id)
 
 
 ##############################################################################

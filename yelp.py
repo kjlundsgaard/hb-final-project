@@ -16,14 +16,23 @@ def get_results(location, term):
     results = []
 
     for restaurant in resp['businesses']:
-        results.append({'name': restaurant['name'],
-                        'rating': restaurant['rating'],
-                        'latitude': restaurant['location']['coordinate']['latitude'],
-                        'longitude': restaurant['location']['coordinate']['longitude'],
-                        'categories': restaurant['categories'],
-                        'neighborhoods': restaurant['location']['neighborhoods'],
-                        'address': restaurant['location']['address']})
-    print results
-    # return results
+        if restaurant['location'].get('neighborhoods'):
+            results.append({'name': restaurant['name'],
+                            'rating': restaurant['rating'],
+                            'latitude': restaurant['location']['coordinate']['latitude'],
+                            'longitude': restaurant['location']['coordinate']['longitude'],
+                            'categories': restaurant['categories'],
+                            'neighborhoods': restaurant['location']['neighborhoods'],
+                            'address': restaurant['location']['address']})
+        else:
+            results.append({'name': restaurant['name'],
+                            'rating': restaurant['rating'],
+                            'latitude': restaurant['location']['coordinate']['latitude'],
+                            'longitude': restaurant['location']['coordinate']['longitude'],
+                            'categories': restaurant['categories'],
+                            'neighborhoods': None,
+                            'address': restaurant['location']['address']})
+    # print results
+    return results
 
-get_results("chicago", "food")
+# get_results("chicago", "food")
