@@ -5,6 +5,8 @@ var infoWindow;
 
 // TODO create separate marker function so whole map doesn't refresh and you can just call marker function in yelp.py
 
+// set viewport to zoom based on how many restaurants on map
+// research if there's a fit to zoom for markers
 // function findAvgLatLng() {
 //   for (var i = 0; i < places.length; i ++) {
 //     var sumLat = sumLat + places[i].data('lat');

@@ -1,6 +1,9 @@
 """Models and database functions for HB project."""
 
 from flask_sqlalchemy import SQLAlchemy
+# from flask.ext.bcrypt import Bcrypt
+import bcrypt
+
 # from sqlalchemy.schema import UniqueConstraint
 
 # This is the connection to the PostgreSQL database; we're getting this through
@@ -23,6 +26,7 @@ class User(db.Model):
     password = db.Column(db.String(64), nullable=True)
     fname = db.Column(db.String(20), nullable=True)
     lname = db.Column(db.String(20), nullable=True)
+    salt = db.Column(db.String(50), nullable=True)
 
     # Defines relationship between groups and users
     groups = db.relationship("Group",
@@ -33,6 +37,24 @@ class User(db.Model):
         """Provide helpful representation when printed."""
 
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+
+    def __init__(self, email, password, fname, lname):
+        """initializer"""
+
+        self.salt = bcrypt.gensalt()
+        self.email = email
+        self.password = bcrypt.hashpw(password.encode('utf-8'), self.salt)
+        self.fname = fname
+        self.lname = lname
+
+
+    def verify_password(self, password):
+        """verifies user's password"""
+
+        # return self.bcrypt.check_password_hash(secret)
+        return self.password == bcrypt.hashpw(password.encode('utf-8'), self.salt.encode('utf-8'))
+
+
 
 
 class Group(db.Model):

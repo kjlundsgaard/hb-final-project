@@ -93,12 +93,12 @@ function addRestaurantToDBsuccess(data){
     for (var i = 0; i < data.results.length; i++) {
       listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button></li>";
     }
-    console.log(listings);
+    // console.log(listings);
     $('#restaurant-list').html(listings);
     // trying to get google maps to init map with markers when new listing is added
     // make separate addMarker function and use here
     // todo
-
+    $(".remove-restaurant").click(removeRestaurant);
     initMap();
 }
 
@@ -110,8 +110,8 @@ function removeRestaurantSuccess(result) {
 }
 
 function removeRestaurant(evt) {
+    console.log('in remove function')
     var remove = confirm("are you sure you want to remove this restaurant?")
-
     var restaurantId = $(this).data('restid');
     var listId = $("#list-info").data('listid');
 

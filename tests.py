@@ -1,14 +1,14 @@
 import unittest
-from server import app, bcrypt
+from server import app
 from model import db, connect_to_db, User, Group, List, UserGroup, Restaurant, RestaurantList, Fave
 
 
 def example_data():
     """Create example data for the test database."""
-    password = bcrypt.generate_password_hash('mypassword')
+    # password = bcrypt.generate_password_hash('mypassword')
 
-    user = User(email='user@gmail.com', password=password, fname='First', lname='Last')
-    user2 = User(email='newuser@gmail.com', password=password, fname='Otherfirst', lname='Otherlast')
+    user = User(email='user@gmail.com', password='password', fname='First', lname='Last')
+    user2 = User(email='newuser@gmail.com', password='password', fname='Otherfirst', lname='Otherlast')
     group = Group(group_name='Buds')
     group2 = Group(group_name='Enemies')
     user_group = UserGroup(user_id=1, group_id=1)
@@ -56,7 +56,7 @@ class TestNotLoggedIn(unittest.TestCase):
         """tests log in submits with correct password"""
 
         result = self.client.post("/login",
-                                  data={'email': 'user@gmail.com', 'password': 'mypassword'},
+                                  data={'email': 'user@gmail.com', 'password': 'password'},
                                   follow_redirects=True)
         self.assertIn('My groups:', result.data)
         self.assertNotIn('Log in:', result.data)
@@ -92,7 +92,7 @@ class TestNotLoggedIn(unittest.TestCase):
         """test sign up submit with user already in db"""
 
         result = self.client.post("/signup",
-                                  data={'email': 'user@gmail.com', 'password': 'mypassword', 'fname': 'IncorrectFirst', 'lname': 'IncorrectLast'},
+                                  data={'email': 'user@gmail.com', 'password': 'password', 'fname': 'IncorrectFirst', 'lname': 'IncorrectLast'},
                                   follow_redirects=True)
         self.assertIn('First', result.data)
         self.assertNotIn('IncorrectFirst', result.data)
