@@ -8,15 +8,18 @@ def example_data():
     password = bcrypt.generate_password_hash('mypassword')
 
     user = User(email='user@gmail.com', password=password, fname='First', lname='Last')
-    group = Group(group_name='Friends')
+    user2 = User(email='newuser@gmail.com', password=password, fname='Otherfirst', lname='Otherlast')
+    group = Group(group_name='Buds')
+    group2 = Group(group_name='Enemies')
     user_group = UserGroup(user_id=1, group_id=1)
+    user_group2 = UserGroup(user_id=2, group_id=2)
     category = List(list_name='Dinner', group_id=1)
     restaurant = Restaurant(restaurant_name='Taco Bell', yelp_rating=2.5, latitude=37.774136, longitude=-122.424819, address='200 Duboce Ave', categories='Mexican, Fast food', neighborhoods='Mission')
     restaurant_list = RestaurantList(restaurant_id=1, list_id=1)
     fave = Fave(restaurant_id=1, user_id=1)
-    db.session.add_all([user, group, restaurant])
+    db.session.add_all([user, group, restaurant, user2, group2])
     db.session.commit()
-    db.session.add_all([user_group, category, fave])
+    db.session.add_all([user_group, user_group2, category, fave])
     db.session.commit()
     db.session.add(restaurant_list)
     db.session.commit()
@@ -108,6 +111,11 @@ class TestNotLoggedIn(unittest.TestCase):
         self.assertIn('Log in:', result.data)
         self.assertNotIn('First', result.data)
 
+    def test_group_view_not_available(self):
+        result = self.client.get("/groups/1")
+        self.assertIn('You are not a member of this group', result.data)
+        self.assertNotIn('Friends', result.data)
+
 
 class TestSession(unittest.TestCase):
     """Flask tests when user is logged in"""
@@ -142,6 +150,53 @@ class TestSession(unittest.TestCase):
         result = self.client.get("/")
         self.assertIn('My groups:', result.data)
         self.assertNotIn('Log in:', result.data)
+
+    def test_group_view(self):
+        """test to show user's groups"""
+
+        result = self.client.get("/groups/1")
+        self.assertIn('Buds', result.data)
+        self.assertNotIn('You are not a member of this group', result.data)
+
+    def test_group_view_non_member(self):
+        """test to show logged in user cannot see group details of group they're not in"""
+
+        result = self.client.get("groups/2")
+        self.assertNotIn('Enemies', result.data)
+        self.assertIn('You are not a member of this group', result.data)
+
+    def test_group_invite_existing_user(self):
+        """testing user invite to group"""
+
+        result = self.client.post("/invite",
+                                  data={'invite': 'newuser@gmail.com', 'group_id': '1'},
+                                  follow_redirects=True)
+
+        self.assertIn('Added', result.data)
+        self.assertNotIn('No such', result.data)
+
+    def test_group_invite_nonexisting_user(self):
+        """testing user invite to group with nonexistant user"""
+
+        result = self.client.post("/invite",
+                                  data={'invite': 'nosuchuser@gmail.com', 'group_id': '1'},
+                                  follow_redirects=True)
+
+        self.assertIn('No such', result.data)
+        self.assertNotIn('Added', result.data)
+
+    def test_group_invite_user_already_in_group(self):
+        """tests invite when user is already member of group"""
+
+        result = self.client.post("/invite",
+                                  data={'invite': 'user@gmail.com', 'group_id': '1'},
+                                  follow_redirects=True)
+
+        self.assertIn('User is already', result.data)
+        self.assertNotIn('Added', result.data)
+        self.assertNotIn('No such', result.data)
+
+
 
 if __name__ == "__main__":
     # server.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = None
