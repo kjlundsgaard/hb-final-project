@@ -216,7 +216,6 @@ def add_restaurant():
             new_restaurant_list = RestaurantList(restaurant_id=get_restaurant.restaurant_id, list_id=list_id)
             db.session.add(new_restaurant_list)
             db.session.commit()
-            flash("Added restaurant " + get_restaurant.restaurant_name + " to list")
     # if restaurant is not already in db, add it and add to RestaurantList
     else:
         new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude, address=address, categories=categories, neighborhoods=neighborhoods)
@@ -227,7 +226,6 @@ def add_restaurant():
         new_restaurant_list = RestaurantList(restaurant_id=restaurant_info.restaurant_id, list_id=list_id)
         db.session.add(new_restaurant_list)
         db.session.commit()
-        flash("Added restaurant " + restaurant_name + " to list")
 
     return jsonify(status='success', id=item_id, restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude)
 

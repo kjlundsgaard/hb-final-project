@@ -2,21 +2,15 @@
 var map;
 var marker;
 var infoWindow;
+var markers = [];
 
-// TODO create separate marker function so whole map doesn't refresh and you can just call marker function in yelp.py
-
-// set viewport to zoom based on how many restaurants on map
-// research if there's a fit to zoom for markers
-// function findAvgLatLng() {
-//   for (var i = 0; i < places.length; i ++) {
-//     var sumLat = sumLat + places[i].data('lat');
-//     var sumLong = sumLong + places[i].data('lng');
-//   }
-//   var avgLat = sumLat / places.length;
-//   var avgLong = sumLong / places.length;
-
-//   return {lat: avgLat, lng: avgLong};
-// }
+function addMarker(latlng, name) {
+  marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: name
+      });
+}
 
 function initMap() {
 
@@ -47,11 +41,14 @@ function initMap() {
   var infoWindow = new google.maps.InfoWindow({
     maxWidth: 75
     });
+  
 
   map = new google.maps.Map(document.getElementById('my-map'), mapOptions);
 
   map.mapTypes.set('map_style', customMapType);
   map.setMapTypeId('map_style');
+
+  var bounds = new google.maps.LatLngBounds();
 
   for (var i = 0; i < places.length; i++) {
     var latFromDom = $(places[i]).data('lat');
@@ -63,15 +60,14 @@ function initMap() {
     '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>';
 
     if (latFromDom, lngFromDom){
-      marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: name
-      });
+      addMarker(myLatLng, name);
+      // markers.push(marker);
     }
-
+    // bounds.extend(myLatLng);
     bindInfoWindow(marker, map, infoWindow, contentString);
   }
+
+  // map.fitBounds(bounds);
 
 
   function bindInfoWindow(marker, map, infoWindow, contentString) {

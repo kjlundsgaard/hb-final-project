@@ -2,9 +2,18 @@
 
 // This goes at the top because it needs to be defined to get called when results are displayed
 function scheduleEventListerForRestaurantButtons(){
-  $('.restaurant-button').click(addRestaurant);
+  // 
+  // $('.restaurant-button').click(showRestaurantInfo);
+  $('.add-button').click(addRestaurant);
+
 }
 
+// beginning display box of restaurant info that should also have the add restauarant button
+// function showRestaurantInfo() {
+//   var infobox = "HELLOOOOOO<button class='add-button' id='button'>Add restaurant</button>";
+//   $('#infobox').html(infobox);
+//   $('.add-button').click(addRestaurant);
+// }
 // AJAX to display results of query using Yelp API response
 function displayResults(data) {
     var text = "";
@@ -18,13 +27,32 @@ function displayResults(data) {
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + ">" +
                       "<p>" + data.results[i].name + "</p>" + 
-                      "<p>" + data.results[i].rating + "</p>" +
-                      "<p>" + data.results[i].address[0] + "</p>" +
                     "</button>";
     }
     $('#results').html(text);
+
+    $('.restaurant-button').click(function() {
+      var name = $(this).data('restaurant-name');
+      var yelp = $(this).data('yelp-rating');
+      var address = $(this).data('address');
+      var categories = $(this).data('categories');
+      var neighborhoods = $(this).data('neighborhoods');
+      var latitude = $(this).data('latitude');
+      var longitude = $(this).data('longitude');
+      var infobox = "<p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + $(this).data('neighborhoods') + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
+                             "data-yelp-rating=" + "'" + yelp + "'" +
+                             "data-address=" + "'" + address + "'" +
+                             "data-categories=" + "'" + categories + "'" +
+                             "data-neighborhoods=" + "'" + neighborhoods + "'" +
+                             "data-latitude=" + "'" + latitude + "'" +
+                             "data-longitude=" + "'" + longitude + "'" + ">" +
+      "Add " + $(this).data('restaurant-name') + "</button>";
+      $('#infobox').html(infobox);
+      var latlng = {lat: latitude, lng: longitude};
+      addMarker(latlng, name);
+      scheduleEventListerForRestaurantButtons();
+    })
     // gives access to the add restaurant event listener once items are loaded
-    scheduleEventListerForRestaurantButtons();
 }
 
 function submitSearch(evt) {
