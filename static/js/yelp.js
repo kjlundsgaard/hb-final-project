@@ -51,7 +51,7 @@ function displayResults(data) {
       var latlng = {lat: latitude, lng: longitude};
       // TRYING TO MAKE IT SUCH THAT THE MARKER GETS ADDED AND THEN DISAPPEARS WHEN ANOTHER YELP RESULT IS CLICKED
       var lastMarker = markers[markers.length - 1];
-      if (lastMarker.icon === otherIcon) {
+      if (lastMarker && lastMarker.icon === otherIcon) {
         lastMarker.setMap(null);
         markers.pop();
       }
