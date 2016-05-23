@@ -36,7 +36,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<User user_id=%s email=%s>" % (self.user_id, self.email)
+        return "<User user_id=%s name = %s email=%s>" % (self.user_id, self.fname, self.email)
 
     def __init__(self, email, password, fname, lname):
         """initializer"""
@@ -139,6 +139,9 @@ class RestaurantList(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     list_id = db.Column(db.Integer, db.ForeignKey('lists.list_id'))
     visited = db.Column(db.Boolean, unique=False, default=False)
+    restaurant = db.relationship("Restaurant", backref="restaurants_lists", uselist=False)
+    list_table = db.relationship("List", backref="restaurants_lists", uselist=False)
+
     # attempt at unique constraint across restaurant_id and list_id tables
     # __table_args__ = (UniqueConstraint(restaurant_id, list_id),
                       # )
@@ -146,7 +149,7 @@ class RestaurantList(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<RestaurantList restaurant_list_id=%s restaurant_id=%s list_id=%s>" % (self.restaurant_list_id, self.restaurant_id, self.list_id)
+        return "<RestaurantList restaurant_list_id=%s restaurant_id=%s list_id=%s visited=%s>" % (self.restaurant_list_id, self.restaurant_id, self.list_id, self.visited)
 
 
 # class Address(db.Model):

@@ -9,15 +9,25 @@
 <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <h2>Restaurants</h2>
 <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
-{% for restaurant in list.restaurants %}
-    <li id="{{ restaurant.restaurant_id }}" data-lat="{{ restaurant.latitude }}" data-lng="{{ restaurant.longitude }}" data-name="{{ restaurant.restaurant_name }}" data-yelp="{{ restaurant.yelp_rating }}">{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
-        <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove
+{% for restaurant_list in restaurants_lists %}
+    {% if restaurant_list.visited %}
+    <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">{{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
+        <button class="remove-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
         </button>
-        <button class="star-restaurant" id="{{ restaurant.restaurant_id }}" data-restid="{{ restaurant.restaurant_id }}">LIKE</button>
-        <button class="visited-restaurant" data-restid="{{ restaurant.restaurant_id }}">Visited</button>
+        <button class="star-restaurant" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
     </li>
+    {% else %}
+    <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">{{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
+        <button class="remove-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
+        </button>
+        <button class="star-restaurant" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
+        <button class="visited-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited</button>
+    </li>
+    {% endif %}
 {% endfor %}
 </ul>
+
+
 
 <div id="infobox" style="width: 400px; display:inline;"></div>
 Restaurant Search:

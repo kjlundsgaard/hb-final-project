@@ -178,8 +178,8 @@ def show_list_details(list_id):
     user = User.query.filter_by(user_id=user_id).one()
     list_item = List.query.filter_by(list_id=list_id).one()
     user_group = UserGroup.query.filter_by(user_id=user_id, group_id=list_item.group_id).first()
-
-    return render_template('list_view.html', list=list_item, user=user, user_group=user_group)
+    restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
+    return render_template('list_view.html', list=list_item, user=user, user_group=user_group, restaurants_lists=restaurants_lists)
 
 
 @app.route('/search-restaurant.json', methods=['POST'])

@@ -250,7 +250,8 @@ $('.star-restaurant').click(starRestaurant);
 function markAsVisitedSuccess(data) {
   var id = data.id;
 
-  $('#' + id).css('color', 'red');
+  // $('#' + id).css('color', 'red');
+  window.location.reload();
 }
 
 function markAsVisited(evt) {
