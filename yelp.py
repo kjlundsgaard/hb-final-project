@@ -23,7 +23,9 @@ def get_results(location, term):
                             'longitude': restaurant['location']['coordinate']['longitude'],
                             'categories': restaurant['categories'],
                             'neighborhoods': restaurant['location']['neighborhoods'],
-                            'address': restaurant['location']['address']})
+                            'address': restaurant['location']['address'],
+                            'image': restaurant['image_url']})
+
         else:
             results.append({'name': restaurant['name'],
                             'rating': restaurant['rating'],
@@ -31,7 +33,8 @@ def get_results(location, term):
                             'longitude': restaurant['location']['coordinate']['longitude'],
                             'categories': restaurant['categories'],
                             'neighborhoods': None,
-                            'address': restaurant['location']['address']})
+                            'address': restaurant['location']['address'],
+                            'image': restaurant['image_url']})
     # print results
     return results
 

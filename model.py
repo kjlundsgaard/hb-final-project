@@ -138,6 +138,7 @@ class RestaurantList(db.Model):
     restaurant_list_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
     list_id = db.Column(db.Integer, db.ForeignKey('lists.list_id'))
+    visited = db.Column(db.Boolean, unique=False, default=False)
     # attempt at unique constraint across restaurant_id and list_id tables
     # __table_args__ = (UniqueConstraint(restaurant_id, list_id),
                       # )
@@ -148,21 +149,21 @@ class RestaurantList(db.Model):
         return "<RestaurantList restaurant_list_id=%s restaurant_id=%s list_id=%s>" % (self.restaurant_list_id, self.restaurant_id, self.list_id)
 
 
-class Address(db.Model):
-    """Address of restaurants"""
+# class Address(db.Model):
+#     """Address of restaurants"""
 
-    __tablename__ = "addresses"
+#     __tablename__ = "addresses"
 
-    address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    address = db.Column(db.String(150), nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
+#     address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     address = db.Column(db.String(150), nullable=False)
+#     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
 
-    restaurants = db.relationship("Restaurant", backref=db.backref("addresses"))
+#     restaurants = db.relationship("Restaurant", backref=db.backref("addresses"))
 
-    def __repr__(self):
-        """Provide helpful representation when printed."""
+#     def __repr__(self):
+#         """Provide helpful representation when printed."""
 
-        return "<Address address_id=%s address=%s>" % (self.address_id, self.address)
+#         return "<Address address_id=%s address=%s>" % (self.address_id, self.address)
 
 
 class Fave(db.Model):

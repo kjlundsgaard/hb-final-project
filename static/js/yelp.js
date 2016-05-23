@@ -25,7 +25,9 @@ function displayResults(data) {
                              "data-categories=" + "'" + data.results[i].categories + "'" +
                              "data-neighborhoods=" + "'" + data.results[i].neighborhoods + "'" +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
-                             "data-longitude=" + "'" + data.results[i].longitude + "'" + ">" +
+                             "data-longitude=" + "'" + data.results[i].longitude + "'" + 
+                             "data-image=" + "'" + data.results[i].image + "'" +
+                             ">" +
                       "<p>" + data.results[i].name + "</p>" + 
                     "</button>";
     }
@@ -39,7 +41,8 @@ function displayResults(data) {
       var neighborhoods = $(this).data('neighborhoods');
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
-      var infobox = "<div class='infobox'><p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + $(this).data('neighborhoods') + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
+      var image = $(this).data('image');
+      var infobox = "<div class='infobox'>" + "<img src=" + "'" + image + "'" + "><p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + $(this).data('neighborhoods') + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +

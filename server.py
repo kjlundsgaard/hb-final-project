@@ -28,9 +28,11 @@ def index():
 
     user_id = session.get('user')
 
+    faves = Fave.query.filter_by(user_id=user_id).all()
+
     if user_id:
         user = User.query.filter_by(user_id=user_id).first()
-        return render_template('dashboard.html', user=user, login=session.get('user'))
+        return render_template('dashboard.html', user=user, login=session.get('user'), faves=faves)
     else:
         return render_template('login_form.html')
 
@@ -296,15 +298,15 @@ def add_restaurant_to_faves():
     return jsonify(result="success", id=restaurant_id)
 
 
-@app.route("/my-faves")
-def show_favorites():
-    """Shows list of user's favorited restaurant"""
+# @app.route("/my-faves")
+# def show_favorites():
+#     """Shows list of user's favorited restaurant"""
 
-    user_id = session.get("user")
+#     user_id = session.get("user")
 
-    faves = Fave.query.filter_by(user_id=user_id).all()
+#     faves = Fave.query.filter_by(user_id=user_id).all()
 
-    return render_template("my_faves.html", faves=faves, login=session.get('user'))
+#     return render_template("my_faves.html", faves=faves, login=session.get('user'))
 
 
 @app.route("/return-restaurants.json", methods=['POST'])
