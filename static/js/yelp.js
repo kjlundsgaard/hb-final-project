@@ -8,12 +8,6 @@ function scheduleEventListerForRestaurantButtons(){
 
 }
 
-// beginning display box of restaurant info that should also have the add restauarant button
-// function showRestaurantInfo() {
-//   var infobox = "HELLOOOOOO<button class='add-button' id='button'>Add restaurant</button>";
-//   $('#infobox').html(infobox);
-//   $('.add-button').click(addRestaurant);
-// }
 // AJAX to display results of query using Yelp API response
 function displayResults(data) {
     var text = "";
@@ -86,7 +80,7 @@ function submitSearch(evt) {
 
 $("#search").on("submit", submitSearch);
 
-// sends restaurant data to serve to add restaurant to list
+// sends restaurant data to server to add restaurant to list
 function addRestaurant(evt){
 
     var id = this.id; // this is the id on the button we clicked, which is the image's id
@@ -132,18 +126,15 @@ function addRestaurantToDBsuccess(data){
 
     $('#' + id).css('color', 'red');
 
-    // JUST TESTING OUT SOME PAGE RELOAD STUFF
-    window.location.reload();
-    // var listings = "";
+    // JUST TESTING OUT SOME PAGE RELOAD STUFF 
+    // window.location.reload();
+    var listings = "";
 
-    // for (var i = 0; i < data.results.length; i++) {
-    //   listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
-    // }
+    for (var i = 0; i < data.results.length; i++) {
+      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
+    }
     // console.log(listings);
-    // $('#restaurant-list').html(listings);
-    // trying to get google maps to init map with markers when new listing is added
-    // make separate addMarker function and use here
-    // todo
+    $('#restaurant-list').html(listings);
     $(".remove-restaurant").click(removeRestaurant);
 
     $(".visited-restaurant").click(markAsVisited);

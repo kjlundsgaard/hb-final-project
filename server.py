@@ -315,7 +315,7 @@ def return_restaurants():
 
     list_id = request.form.get('list_id')
     item_id = request.form.get('id')
-    restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
+    restaurants_lists = RestaurantList.query.filter_by(list_id=list_id, visited=False).all()
 
     restaurants = []
     for item in restaurants_lists:
