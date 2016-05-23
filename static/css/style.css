@@ -5,4 +5,10 @@
 
 #my-map {
     height: 800px;
+    /*display: inline;*/
+}
+
+.infobox {
+    border : 2px solid black;
+    /*display: inline;*/
 }

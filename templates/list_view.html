@@ -18,9 +18,7 @@
 {% endfor %}
 </ul>
 
-<div id="my-map" style="height: 400px; width: 400px;"></div>
-<div id="infobox" style="inline"></div>
-
+<div id="infobox" style="width: 400px; display:inline;"></div>
 Restaurant Search:
     <form action='/search-restaurant.json' method='POST' id="search">
     <label for="location">location</label>
@@ -30,6 +28,9 @@ Restaurant Search:
     <input type="submit" value="submit">
     </form>
     <div id="results">search results here</div>
+
+<div id="my-map" style="height: 400px; width: 400px;"></div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>

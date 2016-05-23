@@ -3,13 +3,18 @@ var map;
 var marker;
 var infoWindow;
 var markers = [];
+var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+var bounds = new google.maps.LatLngBounds();
 
-function addMarker(latlng, name) {
+function addMarker(latlng, name, icon=defaultIcon) {
   marker = new google.maps.Marker({
         position: latlng,
         map: map,
-        title: name
+        title: name,
+        icon : icon
       });
+  return marker;
 }
 
 function initMap() {
@@ -61,13 +66,17 @@ function initMap() {
 
     if (latFromDom, lngFromDom){
       addMarker(myLatLng, name);
-      // markers.push(marker);
+      markers.push(marker);
     }
-    // bounds.extend(myLatLng);
+
     bindInfoWindow(marker, map, infoWindow, contentString);
   }
 
-  // map.fitBounds(bounds);
+  for (var j = 0; j < markers.length; j++) {
+    bounds.extend(markers[j].getPosition());
+  }
+
+  map.fitBounds(bounds);
 
 
   function bindInfoWindow(marker, map, infoWindow, contentString) {

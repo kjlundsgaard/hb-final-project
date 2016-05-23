@@ -39,17 +39,29 @@ function displayResults(data) {
       var neighborhoods = $(this).data('neighborhoods');
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
-      var infobox = "<p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + $(this).data('neighborhoods') + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
+      var infobox = "<div class='infobox'><p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + $(this).data('neighborhoods') + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +
                              "data-neighborhoods=" + "'" + neighborhoods + "'" +
                              "data-latitude=" + "'" + latitude + "'" +
                              "data-longitude=" + "'" + longitude + "'" + ">" +
-      "Add " + $(this).data('restaurant-name') + "</button>";
+      "Add " + $(this).data('restaurant-name') + "</button></div>";
       $('#infobox').html(infobox);
       var latlng = {lat: latitude, lng: longitude};
-      addMarker(latlng, name);
+      // TRYING TO MAKE IT SUCH THAT THE MARKER GETS ADDED AND THEN DISAPPEARS WHEN ANOTHER YELP RESULT IS CLICKED
+      var lastMarker = markers[markers.length - 1];
+      if (lastMarker.icon === otherIcon) {
+        lastMarker.setMap(null);
+        markers.pop();
+      }
+      initMap();
+      addMarker(latlng, name, otherIcon);
+      markers.push(marker);
+      for (var j = 0; j < markers.length; j++) {
+        bounds.extend(markers[j].getPosition());
+      }
+      map.fitBounds(bounds);
       scheduleEventListerForRestaurantButtons();
     })
     // gives access to the add restaurant event listener once items are loaded
@@ -62,6 +74,7 @@ function submitSearch(evt) {
         "term": $("#term").val()
     };
 
+    $('#results').html("searching...");;
     $.post("/search-restaurant.json",
            formInputs,
            displayResults
