@@ -23,7 +23,7 @@ function displayResults(data) {
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
                              "data-address=" + "'" + data.results[i].address + "'" +
                              "data-categories=" + "'" + data.results[i].categories + "'" +
-                             "data-neighborhoods=" + "'" + data.results[i].neighborhoods + "'" +
+                             "data-neighborhoods=" + '"' + data.results[i].neighborhoods + '"' +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + 
                              "data-image=" + "'" + data.results[i].image + "'" +
@@ -46,12 +46,12 @@ function displayResults(data) {
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +
-                             "data-neighborhoods=" + "'" + neighborhoods + "'" +
+                             "data-neighborhoods=" + '"' + neighborhoods + '"' +
                              "data-latitude=" + "'" + latitude + "'" +
                              "data-longitude=" + "'" + longitude + "'" + ">" +
       "Add " + $(this).data('restaurant-name') + "</button></div>";
       $('#infobox').html(infobox);
-      var latlng = {lat: latitude, lng: longitude};
+      var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
       // TRYING TO MAKE IT SUCH THAT THE MARKER GETS ADDED AND THEN DISAPPEARS WHEN ANOTHER YELP RESULT IS CLICKED
       var lastMarker = markers[markers.length - 1];
       if (lastMarker && lastMarker.icon === otherIcon) {
@@ -132,13 +132,15 @@ function addRestaurantToDBsuccess(data){
 
     $('#' + id).css('color', 'red');
 
-    var listings = "";
+    // JUST TESTING OUT SOME PAGE RELOAD STUFF
+    window.location.reload();
+    // var listings = "";
 
-    for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
-    }
+    // for (var i = 0; i < data.results.length; i++) {
+    //   listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
+    // }
     // console.log(listings);
-    $('#restaurant-list').html(listings);
+    // $('#restaurant-list').html(listings);
     // trying to get google maps to init map with markers when new listing is added
     // make separate addMarker function and use here
     // todo
