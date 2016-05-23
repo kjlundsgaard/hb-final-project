@@ -8,7 +8,7 @@
 <br>
 <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <h2>Restaurants</h2>
-<ul class="restaurant-listing" id="restaurant-list"> 
+<ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
 {% for restaurant in list.restaurants %}
     <li id="{{ restaurant.restaurant_id }}" data-lat="{{ restaurant.latitude }}" data-lng="{{ restaurant.longitude }}" data-name="{{ restaurant.restaurant_name }}" data-yelp="{{ restaurant.yelp_rating }}">{{ restaurant.restaurant_name }} | Yelp Rating: {{ restaurant.yelp_rating }} 
         <button class="remove-restaurant" data-restid="{{ restaurant.restaurant_id }}">Remove

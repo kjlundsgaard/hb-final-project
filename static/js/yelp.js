@@ -135,7 +135,7 @@ function addRestaurantToDBsuccess(data){
     var listings = "";
 
     for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button></li>";
+      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
     }
     // console.log(listings);
     $('#restaurant-list').html(listings);
@@ -143,9 +143,12 @@ function addRestaurantToDBsuccess(data){
     // make separate addMarker function and use here
     // todo
     $(".remove-restaurant").click(removeRestaurant);
+
+    $(".visited-restaurant").click(markAsVisited);
     initMap();
 }
 
+// #######################################################################
 // sends restaurant id and list id to server to remove restaurant from list
 function removeRestaurantSuccess(result) {
     console.log(result.status);
@@ -169,7 +172,7 @@ function removeRestaurant(evt) {
 
 $(".remove-restaurant").click(removeRestaurant);
 
-
+// ###############################################################
 // sends list info to server to remove list
 function removeListSuccess(result) {
     console.log(result.status);
@@ -193,6 +196,7 @@ function removeList(evt) {
 
 $(".remove-list").click(removeList);
 
+// ################################################################
 // sends group info to server to remove user from group
 function leaveGroupSuccess(result) {
     console.log(result.status);
@@ -215,6 +219,8 @@ function leaveGroup(evt) {
 
 $(".leave-group").click(leaveGroup);
 
+// ################################################################
+// STAR RESTAURANT FUNCTIONS
 
 function starRestaurantSuccess(result){
 
@@ -238,4 +244,23 @@ function starRestaurant(evt){
 
 $('.star-restaurant').click(starRestaurant);
 
+// ###################################################################
+// marks a restaurant as visited
 
+function markAsVisitedSuccess(data) {
+  var id = data.id;
+
+  $('#' + id).css('color', 'red');
+}
+
+function markAsVisited(evt) {
+  var restId = $(this).data('restid');
+  var listId = $('#restaurant-list').data('listid');
+
+  console.log("in markAsVisited function");
+
+  $.post("/mark-visited.json", {'rest_id': restId, 'list_id': listId},
+                          markAsVisitedSuccess);
+}
+
+$(".visited-restaurant").click(markAsVisited);

@@ -331,6 +331,20 @@ def return_restaurants():
     return jsonify(status="success", results=restaurants, id=item_id)
 
 
+@app.route("/mark-visited.json", methods=['POST'])
+def mark_visited():
+    """Marks visited as true for restaurants_lists"""
+
+    rest_id = request.form.get('rest_id')
+    list_id = request.form.get('list_id')
+
+    restaurant_list = RestaurantList.query.filter_by(restaurant_id=rest_id, list_id=list_id).first()
+
+    restaurant_list.visited = True
+    db.session.commit()
+
+    return jsonify(status="success", id=rest_id)
+
 ##############################################################################
 
 if __name__ == "__main__":
