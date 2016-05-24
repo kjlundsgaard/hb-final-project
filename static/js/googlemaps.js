@@ -63,7 +63,7 @@ function initMap() {
     var yelp = $(places[i]).data('yelp');
     var myLatLng = {lat: latFromDom, lng: lngFromDom};
     var contentString = '<div id="info">' +
-    '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>' + '<button class="uber" type="button" class="btn" data-toggle="modal" data-target="#myModal" data-lat=' + "'" + latFromDom + "'" + 'data-lng=' + "'" + lngFromDom + "'" + '>Uber</button>';
+    '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>' + '<button class="uber btn" type="button" data-toggle="modal" data-target="#myModal" data-lat=' + "'" + latFromDom + "'" + 'data-lng=' + "'" + lngFromDom + "'" + '>Uber</button>';
 
     if (latFromDom, lngFromDom){
       addMarker(myLatLng, name);

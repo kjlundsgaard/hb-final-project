@@ -12,10 +12,10 @@
 {% for restaurant_list in restaurants_lists %}
     {% if not restaurant_list.visited %}
     <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">{{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
-        <button class="remove-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
+        <button type="button" class="remove-restaurant btn" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
         </button>
-        <button class="star-restaurant" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
-        <button class="visited-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited</button>
+        <button type="button" class="star-restaurant btn" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
+        <button type="button" class="visited-restaurant btn" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited</button>
     </li>
     {% endif %}
 {% endfor %}
@@ -25,9 +25,9 @@
 {% for restaurant_list in restaurants_lists %}
     {% if restaurant_list.visited %}
         <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">{{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
-        <button class="remove-restaurant" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
+        <button type="button" class="remove-restaurant btn" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Remove
         </button>
-        <button class="star-restaurant" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
+        <button type="button" class="star-restaurant btn" id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">LIKE</button>
     </li>
     {% endif %}
 {% endfor %}
@@ -40,7 +40,7 @@ Restaurant Search:
     <input type="text" name="location" id="location">
     <label for="term">food type</label>
     <input type="text" name="term" id="term">
-    <input type="submit" value="submit">
+    <input class="btn" type="submit" value="submit">
     </form>
     <div id="results"></div>
 

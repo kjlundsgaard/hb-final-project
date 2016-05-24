@@ -12,7 +12,7 @@ function scheduleEventListerForRestaurantButtons(){
 function displayResults(data) {
     var text = "";
     for (var i = 0; i < data.results.length; i++){
-      text = text + "<button class='restaurant-button' id=" + "'button" + i + "'" + 
+      text = text + "<button class='restaurant-button btn' type='button'id=" + "'button" + i + "'" + 
                              "data-restaurant-name=" + '"' + data.results[i].name + '"' +
                              "data-yelp-rating=" + "'" + data.results[i].rating + "'" +
                              "data-address=" + "'" + data.results[i].address + "'" +
@@ -35,7 +35,7 @@ function displayResults(data) {
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
       var image = $(this).data('image');
-      var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + "</p>" + "<button class='add-button' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
+      var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + "</p>" + "<button type='button' class='add-button btn' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +
@@ -130,7 +130,7 @@ function addRestaurantToDBsuccess(data){
     var listings = "";
 
     for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating + "<button class='remove-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button><button class='star-restaurant' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button><button class='visited-restaurant' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
+      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating.toFixed(1) + " " + "<button class='remove-restaurant btn' type='button' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button>\n<button class='star-restaurant btn' type='button' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button>\n<button class='visited-restaurant btn' type='button' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
     }
     // console.log(listings);
     $('#restaurant-list').html(listings);
