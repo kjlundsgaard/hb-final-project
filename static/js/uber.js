@@ -16,8 +16,9 @@ function sendLocationToServerForEstimates(evt) {
         { 'start_latitude': userLat,
         'start_longitude': userLng,
         'end_latitude': endLat,
-        'end_longitude': endLng},
-        getUberResults);
+        'end_longitude': endLng})
+        .done( getUberResults )
+        .fail( priceInfoUnavailable );
 }
 
 function updateEndLatLng(evt) {
@@ -32,7 +33,7 @@ function getUberResults(data) {
     resultText = "";
     results = data.results;
     for (var i = 0; i < results.length; i++) {
-        resultText = resultText + "<p>" + results[i].car + "</p><ul>" + "<li>Ride Duration " + results[i].duration + " minutes</li><li>Distance: " + results[i].distance + " miles</li><li>Price: " + results[i].price_estimate + "</li></ul>";
+        resultText = resultText + "<p><b>" + results[i].car + "</b></p><p>Ride Duration " + results[i].duration + " minutes | Distance: " + results[i].distance + " miles | Price: " + results[i].price_estimate + "</p>";
     }
 
     $('#uber-info').html(resultText);
@@ -42,4 +43,6 @@ function scheduleEventListenerForUber() {
     $('.uber').click(updateEndLatLng);
 }
 
-$
+function priceInfoUnavailable() {
+    $('#uber-info').html("Sorry, we could not get price info from your location");
+}
