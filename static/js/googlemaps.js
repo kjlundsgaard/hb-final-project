@@ -3,8 +3,8 @@ var map;
 var marker;
 var infoWindow;
 var markers = [];
-var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png';
 var bounds = new google.maps.LatLngBounds();
 
 function addMarker(latlng, name, icon=defaultIcon) {
