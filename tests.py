@@ -208,6 +208,16 @@ class TestSession(unittest.TestCase):
         self.assertNotIn('You are not a member of this group', result.data)
         self.assertNotIn('Buds', result.data)
 
+    def test_create_new_list(self):
+        """tests creation of new list"""
+
+        result = self.client.post('/new-list',
+                                  data={'list': 'Brunch', 'group_id': 1},
+                                  follow_redirects=True)
+        self.assertIn('Brunch', result.data)
+        self.assertNotIn('You are not a member of this group', result.data)
+        self.assertNotIn('Log in:', result.data)
+
 
 if __name__ == "__main__":
     # server.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = None
