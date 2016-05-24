@@ -32,7 +32,7 @@ function getUberResults(data) {
     resultText = "";
     results = data.results;
     for (var i = 0; i < results.length; i++) {
-        resultText = resultText + "<p>" + results[i].car + "</p>";
+        resultText = resultText + "<p>" + results[i].car + "</p><ul>" + "<li>Ride Duration " + results[i].duration + " minutes</li><li>Distance: " + results[i].distance + " miles</li><li>Price: " + results[i].price_estimate + "</li></ul>";
     }
 
     $('#uber-info').html(resultText);
