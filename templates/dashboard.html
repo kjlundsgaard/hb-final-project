@@ -9,7 +9,7 @@
 {{ user.fname }}'s Dashboard
 <h4>My favorite restaurants</h4>
 {% for fave in faves %}
-    <p>{{ fave.restaurants.restaurant_name }}</p>
+    <a href="{{ fave.restaurants.link }} " target="_blank"><p>{{ fave.restaurants.restaurant_name }}</p></a>
 {% endfor %}
 
 

@@ -20,6 +20,7 @@ function displayResults(data) {
                              "data-neighborhoods=" + '"' + data.results[i].neighborhoods + '"' +
                              "data-latitude=" + "'" + data.results[i].latitude + "'" +
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + 
+                             "data-url=" + "'" + data.results[i].url + "'" + 
                              ">" +
                       "<p>" + data.results[i].name + "</p>" + 
                     "</button>";
@@ -34,14 +35,16 @@ function displayResults(data) {
       var neighborhoods = $(this).data('neighborhoods') ? ($(this).data('neighborhoods')).split(",") : null;
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
-      var image = $(this).data('image');
+      var url = $(this).data('url');
       var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + "</p>" + "<button type='button' class='add-button btn' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +
                              "data-neighborhoods=" + '"' + neighborhoods + '"' +
                              "data-latitude=" + "'" + latitude + "'" +
-                             "data-longitude=" + "'" + longitude + "'" + ">" +
+                             "data-longitude=" + "'" + longitude + "'" +
+                             "data-url=" + "'" + url + "'" + ">" +
+                             "Add " + name +"</button></div>"
       "Add " + $(this).data('restaurant-name') + "</button></div>";
       $('#infobox').html(infobox);
       var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
@@ -91,6 +94,7 @@ function addRestaurant(evt){
     var address = $(this).data('address');
     var categories = $(this).data('categories');
     var neighborhoods = $(this).data('neighborhoods');
+    var url = $(this).data('url');
 
     console.log(restaurantName);
 
@@ -102,7 +106,8 @@ function addRestaurant(evt){
                                'list_id': listId,
                                'address': address,
                                'categories': categories,
-                               'neighborhoods': neighborhoods},
+                               'neighborhoods': neighborhoods,
+                               'url': url},
                                getRestaurantsFromDB);
     
 }
@@ -135,7 +140,7 @@ function addRestaurantToDBsuccess(data){
     // console.log(listings);
     $('#restaurant-list').html(listings);
     $(".remove-restaurant").click(removeRestaurant);
-
+    $(".star-restaurant").click(starRestaurant);
     $(".visited-restaurant").click(markAsVisited);
     initMap();
 }

@@ -119,6 +119,7 @@ class Restaurant(db.Model):
     address = db.Column(db.String(100), nullable=True)
     categories = db.Column(db.String(100), nullable=True)
     neighborhoods = db.Column(db.String(100), nullable=True)
+    link = db.Column(db.String(200), nullable=True)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

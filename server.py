@@ -207,6 +207,7 @@ def add_restaurant():
     address = request.form.get('address')
     categories = request.form.get('categories')
     neighborhoods = request.form.get('neighborhoods')
+    link = request.form.get('url')
 
     # check if restaurant already in db
     get_restaurant = Restaurant.query.filter_by(restaurant_name=restaurant_name, latitude=latitude, longitude=longitude).first()
@@ -221,7 +222,7 @@ def add_restaurant():
             db.session.commit()
     # if restaurant is not already in db, add it and add to RestaurantList
     else:
-        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude, address=address, categories=categories, neighborhoods=neighborhoods)
+        new_restaurant = Restaurant(restaurant_name=restaurant_name, yelp_rating=yelp_rating, latitude=latitude, longitude=longitude, address=address, categories=categories, neighborhoods=neighborhoods, link=link)
         db.session.add(new_restaurant)
         db.session.commit()
         # need this line because we just added the restaurant to db and need to get the id to add to RestaurantList
@@ -299,17 +300,6 @@ def add_restaurant_to_faves():
     return jsonify(result="success", id=restaurant_id)
 
 
-# @app.route("/my-faves")
-# def show_favorites():
-#     """Shows list of user's favorited restaurant"""
-
-#     user_id = session.get("user")
-
-#     faves = Fave.query.filter_by(user_id=user_id).all()
-
-#     return render_template("my_faves.html", faves=faves, login=session.get('user'))
-
-
 @app.route("/return-restaurants.json", methods=['POST'])
 def return_restaurants():
     """Gives response to browser of restaurants in db for given list"""
@@ -365,6 +355,8 @@ def get_uber_data():
     print prices
 
     return jsonify(results=prices)
+
+
 
 ##############################################################################
 

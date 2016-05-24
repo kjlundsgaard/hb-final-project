@@ -24,7 +24,7 @@ def get_results(location, term):
                             'categories': restaurant['categories'],
                             'neighborhoods': restaurant['location']['neighborhoods'],
                             'address': restaurant['location']['address'],
-                            'image': restaurant['image_url']})
+                            'url': restaurant['url']})
 
         else:
             results.append({'name': restaurant['name'],
@@ -34,7 +34,7 @@ def get_results(location, term):
                             'categories': restaurant['categories'],
                             'neighborhoods': None,
                             'address': restaurant['location']['address'],
-                            'image': restaurant['image_url']})
+                            'url': restaurant['url']})
     # print results
     return results
 

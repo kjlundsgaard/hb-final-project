@@ -6,6 +6,10 @@
 <h2>Friends in Group:<h2>
 {% for user in group.users %}
         <h3>{{ user.fname}} | {{ user.lname }} | {{ user.email }}</h3>
+        <h4>{{ user.fname }}'s Favorite Places:</h4>
+        {% for fave in user.faves %}
+            <a href='{{ fave.restaurants.link }}' target="_blank"><p>{{ fave.restaurants.restaurant_name }}</p></a>
+        {% endfor %}
 {% endfor %}
 
 <form action="/invite" method="POST">
