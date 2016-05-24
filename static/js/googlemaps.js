@@ -38,7 +38,7 @@ function initMap() {
   var mapOptions = {
     // sets map center to the first item in places list 
     center: centerLatLng,
-    zoom: 12,
+    zoom: 3,
     mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
       }
@@ -78,9 +78,10 @@ function initMap() {
     for (var j = 0; j < markers.length; j++) {
       bounds.extend(markers[j].getPosition());
     }
+    map.fitBounds(bounds);
   }
 
-  map.fitBounds(bounds);
+  
 
 
   function bindInfoWindow(marker, map, infoWindow, contentString) {
