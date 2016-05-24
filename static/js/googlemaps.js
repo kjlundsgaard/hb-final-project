@@ -63,7 +63,7 @@ function initMap() {
     var yelp = $(places[i]).data('yelp');
     var myLatLng = {lat: latFromDom, lng: lngFromDom};
     var contentString = '<div id="info">' +
-    '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>';
+    '<p>'+ name + '</p><p>' + yelp + ' stars ' + '</p>' + '<button class="uber" data-lat=' + "'" + latFromDom + "'" + 'data-lng=' + "'" + lngFromDom + "'" + '>Get Uber Info</button>';
 
     if (latFromDom, lngFromDom){
       addMarker(myLatLng, name);
@@ -88,6 +88,7 @@ function initMap() {
         infoWindow.close();
         infoWindow.setContent(contentString);
         infoWindow.open(map, marker);
+        scheduleEventListenerForUber();
     });
   }
 }

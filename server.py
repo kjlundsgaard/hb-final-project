@@ -11,6 +11,7 @@ from model import connect_to_db, db
 from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Fave
 # gets access to yelp.py file
 import yelp
+import uber
 
 app = Flask(__name__)
 
@@ -344,6 +345,26 @@ def mark_visited():
     db.session.commit()
 
     return jsonify(status="success", id=rest_id)
+
+
+@app.route('/get-uber-data.json', methods=['POST'])
+def get_uber_data():
+    """sends request to uber API and returns response to browser"""
+
+    start_latitude = request.form.get('start_latitude')
+    start_longitude = request.form.get('start_longitude')
+    end_latitude = request.form.get('end_latitude')
+    end_longitude = request.form.get('end_longitude')
+
+    print start_latitude
+    print start_longitude
+    print end_latitude
+    print end_longitude
+
+    prices = uber.get_uber_price_results(start_lat=start_latitude, start_lng=start_longitude, end_lat=end_latitude, end_lng=end_longitude)
+    print prices
+
+    return jsonify(results=prices)
 
 ##############################################################################
 
