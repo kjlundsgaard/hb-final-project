@@ -15,13 +15,15 @@ def example_data():
     user_group2 = UserGroup(user_id=2, group_id=2)
     category = List(list_name='Dinner', group_id=1)
     restaurant = Restaurant(restaurant_name='Taco Bell', yelp_rating=2.5, latitude=37.774136, longitude=-122.424819, address='200 Duboce Ave', categories='Mexican, Fast food', neighborhoods='Mission')
+    restaurant2 = Restaurant(restaurant_name='La Taqueria', yelp_rating=5, latitude=37.750977, longitude=-122.418073, address='24th and Mission', categories='Mexican, Burrito', neighborhoods='Mission')
     restaurant_list = RestaurantList(restaurant_id=1, list_id=1)
+    restaurant_list2 = RestaurantList(restaurant_id=2, list_id=1, visited=True)
     fave = Fave(restaurant_id=1, user_id=1)
-    db.session.add_all([user, group, restaurant, user2, group2])
+    db.session.add_all([user, group, restaurant, restaurant2, user2, group2])
     db.session.commit()
     db.session.add_all([user_group, user_group2, category, fave])
     db.session.commit()
-    db.session.add(restaurant_list)
+    db.session.add(restaurant_list, restaurant_list2)
     db.session.commit()
 
 
@@ -196,6 +198,15 @@ class TestSession(unittest.TestCase):
         self.assertNotIn('Added', result.data)
         self.assertNotIn('No such', result.data)
 
+    def test_create_new_group(self):
+        """tests creation of new group"""
+
+        result = self.client.post('/new-group',
+                                  data={'group': 'Acquaintences'},
+                                  follow_redirects=True)
+        self.assertIn('Acquaintences', result.data)
+        self.assertNotIn('You are not a member of this group', result.data)
+        self.assertNotIn('Buds', result.data)
 
 
 if __name__ == "__main__":
