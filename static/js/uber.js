@@ -41,3 +41,5 @@ function getUberResults(data) {
 function scheduleEventListenerForUber() {
     $('.uber').click(updateEndLatLng);
 }
+
+$
