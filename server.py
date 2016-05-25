@@ -350,9 +350,10 @@ def get_uber_data():
     print start_longitude
     print end_latitude
     print end_longitude
-
-    prices = uber.get_uber_price_results(start_lat=start_latitude, start_lng=start_longitude, end_lat=end_latitude, end_lng=end_longitude)
-    print prices
+    try:
+        prices = uber.get_uber_price_results(start_lat=start_latitude, start_lng=start_longitude, end_lat=end_latitude, end_lng=end_longitude)
+    except:
+        prices = None
 
     return jsonify(results=prices)
 

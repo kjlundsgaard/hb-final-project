@@ -1,4 +1,5 @@
 import unittest
+import server
 from server import app
 from model import db, connect_to_db, User, Group, List, UserGroup, Restaurant, RestaurantList, Fave
 
@@ -109,14 +110,25 @@ class TestNotLoggedIn(unittest.TestCase):
         self.assertNotIn('First', result.data)
 
     def test_log_out(self):
+        """tests log out route"""
+
         result = self.client.get("/logout", follow_redirects=True)
         self.assertIn('Log in:', result.data)
         self.assertNotIn('First', result.data)
 
     def test_group_view_not_available(self):
+        """tests group view is not available without session"""
+
         result = self.client.get("/groups/1")
         self.assertIn('You are not a member of this group', result.data)
         self.assertNotIn('Friends', result.data)
+
+    def test_list_view_not_available(self):
+        """tests list view is not available without session"""
+
+        result = self.client.get("/lists/1")
+        self.assertIn('You are not a member of this group', result.data)
+        self.assertNotIn('Dinner', result.data)
 
 
 class TestSession(unittest.TestCase):
@@ -217,6 +229,60 @@ class TestSession(unittest.TestCase):
         self.assertIn('Brunch', result.data)
         self.assertNotIn('You are not a member of this group', result.data)
         self.assertNotIn('Log in:', result.data)
+
+    def test_list_view(self):
+        """tests to show logged in user can see their list"""
+
+        result = self.client.get('/lists/1')
+        self.assertIn('Dinner', result.data)
+        self.assertNotIn('You are not a member', result.data)
+
+
+class TestAPI(unittest.TestCase):
+    """Flask tests using API response"""
+
+    def setUp(self):
+        """To do before every test"""
+
+        self.client = app.test_client()
+        app.config['SECRET_KEY'] = '123'
+        app.config['TESTING'] = True
+
+        # connect to test database
+        connect_to_db(app, "postgresql:///testdb")
+
+        """Creates tables and adds example data to testdb"""
+        db.create_all()
+        example_data()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user'] = 1
+
+    def _mock_search_restaurant(location, term):
+        """mock yelp API results"""
+        return [{'name': 'El Farolito',
+                 'rating': 4.0,
+                 'latitude': 37.774136,
+                 'longitude': -122.424819,
+                 'categories': ['Restaurant', 'restaurant'],
+                 'neighborhoods': ['Mission'],
+                 'address': ['2222 Mission Street'],
+                 'url': 'yelp.com'}]
+
+    server.search_restaurant = _mock_search_restaurant
+
+    def tearDown(self):
+        """To do at end of test"""
+
+        db.session.close()
+        db.drop_all()
+
+    def test_yelp_search(self):
+        """tests route using yelp API"""
+
+
+
 
 
 if __name__ == "__main__":

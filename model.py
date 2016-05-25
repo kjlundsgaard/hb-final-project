@@ -153,23 +153,6 @@ class RestaurantList(db.Model):
         return "<RestaurantList restaurant_list_id=%s restaurant_id=%s list_id=%s visited=%s>" % (self.restaurant_list_id, self.restaurant_id, self.list_id, self.visited)
 
 
-# class Address(db.Model):
-#     """Address of restaurants"""
-
-#     __tablename__ = "addresses"
-
-#     address_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     address = db.Column(db.String(150), nullable=False)
-#     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.restaurant_id'))
-
-#     restaurants = db.relationship("Restaurant", backref=db.backref("addresses"))
-
-#     def __repr__(self):
-#         """Provide helpful representation when printed."""
-
-#         return "<Address address_id=%s address=%s>" % (self.address_id, self.address)
-
-
 class Fave(db.Model):
     """Restaurants favorited by users"""
 
