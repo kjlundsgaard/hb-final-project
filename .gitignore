@@ -4,3 +4,5 @@ env
 *secrets*
 seed.py
 .coverage
+node_modules/
+static/js/npm-debug.log

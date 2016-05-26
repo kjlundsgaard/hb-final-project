@@ -358,6 +358,62 @@ def get_uber_data():
     return jsonify(results=prices)
 
 
+@app.route('/categories.json')
+def show_categories():
+    """Sends data to browser to show data viz of restaurant categories"""
+
+    user_id = session.get('user')
+    user = User.query.filter_by(user_id=user_id).first()
+
+    colors = ['ff4000', 'ff8000', 'ffbf00', 'ffff00', '80ff00', '00ffbf', '00bfff', '0000ff', 'bf00ff', 'ff0080', 'ff0000']
+
+    categories = {}
+
+    if user:
+        for group in user.groups:
+            for list_item in group.lists:
+                for restaurant in list_item.restaurants:
+                    types = restaurant.categories.split(',')
+                    types = types[::2]
+                    print types
+                    for item in types:
+                        if categories.get(item):
+                            categories[item] += 1
+                        else:
+                            categories[item] = 1
+
+    # print categories
+
+    data = {
+        'labels': [],
+        'datasets': [
+            {
+                'data': [],
+                'backgroundColor': [],
+                'hoverBackgroundColor': []
+            }]
+    }
+
+    # data = {
+    #     'types': []
+    # }
+    i = 0
+    for key, val in categories.items():
+        data['labels'].append(key)
+        data['datasets'][0]['data'].append(val)
+        data['datasets'][0]['backgroundColor'].append("#" + colors[i % len(colors)])
+        data['datasets'][0]['hoverBackgroundColor'].append("#" + colors[i % len(colors)])
+        i = i + 1
+
+    # for i in data['types']:
+    #     data['types'][i]['color'] = '#' + colors[i/len(data['types'])]
+
+    print data
+
+    return jsonify(data)
+
+
+
 
 ##############################################################################
 
