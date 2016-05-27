@@ -12,3 +12,7 @@
     border : 2px solid black;
     /*display: inline;*/
 }
+
+.starred {
+    color: orange;
+}

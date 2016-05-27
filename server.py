@@ -180,7 +180,11 @@ def show_list_details(list_id):
     list_item = List.query.filter_by(list_id=list_id).first()
     user_group = UserGroup.query.filter_by(user_id=user_id, group_id=list_item.group_id).first()
     restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
-    return render_template('list_view.html', list=list_item, user=user, user_group=user_group, restaurants_lists=restaurants_lists, login=session.get('user'))
+    faves = Fave.query.filter_by(user_id=user_id).all()
+    fave_rests = []
+    for fave in faves:
+        fave_rests.append(fave.restaurants)
+    return render_template('list_view.html', list=list_item, user=user, user_group=user_group, restaurants_lists=restaurants_lists, login=session.get('user'), fave_rests=fave_rests)
 
 
 @app.route('/search-restaurant.json', methods=['POST'])
@@ -291,7 +295,8 @@ def add_restaurant_to_faves():
     get_fave_restaurant = Fave.query.filter_by(restaurant_id=restaurant_id, user_id=user_id).first()
 
     if get_fave_restaurant:
-        pass
+        Fave.query.filter_by(fave_id=get_fave_restaurant.fave_id).delete()
+        db.session.commit()
     else:
         fave_restaurant = Fave(restaurant_id=restaurant_id, user_id=user_id)
         db.session.add(fave_restaurant)
@@ -394,26 +399,27 @@ def show_categories():
             }]
     }
 
-    # data = {
-    #     'types': []
-    # }
     i = 0
     for key, val in categories.items():
         data['labels'].append(key)
         data['datasets'][0]['data'].append(val)
         data['datasets'][0]['backgroundColor'].append("#" + colors[i % len(colors)])
-        data['datasets'][0]['hoverBackgroundColor'].append("#" + colors[i % len(colors)])
+        data['datasets'][0]['hoverBackgroundColor'].append("black")
         i = i + 1
 
-    # for i in data['types']:
-    #     data['types'][i]['color'] = '#' + colors[i/len(data['types'])]
-
-    print data
+    # print data
 
     return jsonify(data)
 
 
+@app.route('/user/<int:user_id>')
+def show_user_data(user_id):
+    """Goes to a user info page"""
 
+    user = User.query.filter_by(user_id=user_id).first()
+    faves = Fave.query.filter_by(user_id=user_id).all()
+
+    return render_template('user.html', faves=faves, user=user, login=session.get('user'))
 
 ##############################################################################
 

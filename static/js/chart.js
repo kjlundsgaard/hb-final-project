@@ -12,5 +12,4 @@ $.get("/categories.json", function (data) {
         options: options
     });
     console.log(data.types);
-  $('#chart-legend').html(myDonutChart.generateLegend());
 });

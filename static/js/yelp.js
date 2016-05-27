@@ -135,7 +135,17 @@ function addRestaurantToDBsuccess(data){
     var listings = "";
 
     for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + " data-lat="+ "'" + data.results[i].latitude + "'" + " data-lng=" + "'" + data.results[i].longitude + "'" + " data-name="+ '"' + data.results[i].restaurant_name + '"' + " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + data.results[i].restaurant_name + " | Yelp Rating: " + data.results[i].yelp_rating.toFixed(1) + " " + "<button class='remove-restaurant btn' type='button' data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">Remove</button>\n<button class='star-restaurant btn' type='button' id=" + "'" + data.results[i].restaurant_id + "'" + " data-restid=" + "'" + data.results[i].restaurant_id + "'" + ">LIKE</button>\n<button class='visited-restaurant btn' type='button' data-restid=" + "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
+      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + 
+      " data-lat="+ "'" + data.results[i].latitude + "'" + 
+      " data-lng=" + "'" + data.results[i].longitude + "'" + 
+      " data-name="+ '"' + data.results[i].restaurant_name + '"' + 
+      " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + 
+      data.results[i].restaurant_name + " | Yelp Rating: " + 
+      data.results[i].yelp_rating.toFixed(1) + " " + 
+      "<button class='remove-restaurant btn' type='button' data-restid=" + 
+      "'" + data.results[i].restaurant_id + "'" + 
+      ">Remove</button>\n<button class='visited-restaurant btn' type='button' data-restid=" + 
+      "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
     }
     // console.log(listings);
     $('#restaurant-list').html(listings);
@@ -225,7 +235,7 @@ function starRestaurantSuccess(result){
 
     var id = result.id;
 
-    $('#' + id).css('color', 'red'); // give our user some feedback
+    $('#'+ id + '.star-restaurant').toggleClass("starred"); // give our user some feedback
 }
 
 function starRestaurant(evt){

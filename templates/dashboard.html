@@ -7,12 +7,11 @@
 
 
 {{ user.fname }}'s Dashboard
-<h4>My favorite restaurants</h4>
-{% for fave in faves %}
-    <a href="{{ fave.restaurants.link }} " target="_blank"><p>{{ fave.restaurants.restaurant_name }}</p></a>
-{% endfor %}
 
-
+<div class="category-chart">
+    <h1>These are the categories of all the restaurants you've saved</h1>
+    <canvas id="myChart" style={width: 100px;, height=100px;}></canvas>
+</div>
 <br>
 
 <form action='/new-group' method='POST'>
@@ -20,20 +19,29 @@
     <input type="text" name="group" id="new-group">
     <input type="submit" value="submit">
 </form>
-<h1>My groups:</h1>
-{% for group in user.groups %}
-    <a href="groups/{{ group.group_id }}"><h1>{{ group.group_name }}</h1></a>
-    <button class="leave-group" data-groupid="{{ group.group_id }}">Leave This Group</button>
-    <h3>Group Lists:</h3>
-    {% for list in group.lists %}
-        <h2><a href="lists/{{ list.list_id }}">{{ list.list_name }}</a></h2>
-    {% endfor %}
-{% endfor %}
-<div class="category-chart">
-    <canvas id="myChart" style={width: 100px;, height=100px;}></canvas>
-    <div id="chart-legend" class="chart-legend"></div>
+<div  class="container">
+    <div class="row">
+        {% for group in user.groups %}
+        <div class="col-xs-6 col-sm-4">
+            <div class="panel panel-default">
+            <div class="panel-body">
+            <a href="groups/{{ group.group_id }}"><h2>{{ group.group_name }}</h2></a>
+            <button class="leave-group" data-groupid="{{ group.group_id }}">Leave This Group</button>
+                        <h3>Categories:</h3>
+            <div class="panel panel-default">
+                <div class="panel-body">
+            {% for list in group.lists %}
+                <h2>{{ list.list_name }}</h2>
+            {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
-<a href='/categories'>test categories</a>
+        {% endfor %}
+    </div>
+</div>
+
 {% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>
