@@ -281,3 +281,5 @@ function markAsVisited(evt) {
 }
 
 $(".visited-restaurant").click(markAsVisited);
+
+// #################################################################

@@ -2,9 +2,6 @@
 {% block content %}
 
 {% if user_group %}
-
-{{ user.fname }}
-<br>
 <a href="/groups/{{ list.group_id }}">Back to group</a>
 <br>
 <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
@@ -17,8 +14,9 @@
           {% if not restaurant_list.visited %}
           <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
             <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-            {{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
-              <button type="button" class="visited-restaurant btn" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited</button>
+            {{ restaurant_list.restaurant.restaurant_name }} | Yelp: {{ restaurant_list.restaurant.yelp_rating }} stars
+              <button type="button" class="visited-restaurant btn btn-success" data-restid="{{ restaurant_list.restaurant.restaurant_id }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
           </li>
           {% endif %}
       {% endfor %}
@@ -31,7 +29,7 @@
           {% if restaurant_list.visited %}
               <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
                 <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-              {{ restaurant_list.restaurant.restaurant_name }} | Yelp Rating: {{ restaurant_list.restaurant.yelp_rating }} 
+              {{ restaurant_list.restaurant.restaurant_name }} | Yelp: {{ restaurant_list.restaurant.yelp_rating }} stars
               {% if restaurant_list.restaurant in fave_rests %}
               <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant starred" aria-hidden="true"></span>
               {% else %}
