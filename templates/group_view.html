@@ -7,10 +7,28 @@
 
 <div  class="container">
     <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <form action="/new-list" method="POST">
+                        <label for="new-list"><h2>Add new category for your group:</h2></label>
+                        <input type="text" name="list" id="new-list">
+                        <input type="hidden" name="group_id" value="{{ group.group_id }}">    
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-6 col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">
-                <h2>Friends in Group:<h2>
+                <form action="/invite" method="POST">
+                    <label for="invite"><h2>Invite user to group by email:</h2></label>
+                    <input type="text" name="invite" id="invite">
+                    <input type="hidden" name="group_id" value="{{ group.group_id }}">
+                    <input type="submit" value="submit">
+                </form>
+                <h2>Friends in Group:</h2>
                 {% for user in group.users %} 
                     <h3><a href="/user/{{ user.user_id }}">{{ user.fname}} {{ user.lname }}</a></h3>
                 {% endfor %}
@@ -21,25 +39,14 @@
 </div>
 
 
-<form action="/invite" method="POST">
-    <label for="invite">Invite user to group by email:</label>
-    <input type="text" name="invite" id="invite">
-    <input type="hidden" name="group_id" value="{{ group.group_id }}">
-    <input type="submit" value="submit">
-</form>
-
-
-<form action="/new-list" method="POST">
-    <label for="new-list">Add new category for your group:</label>
-    <input type="text" name="list" id="new-list">
-    <input type="hidden" name="group_id" value="{{ group.group_id }}">    
-    <input type="submit" value="submit">
-</form>
-
+{% if group.lists %}
 {% for list in group.lists %}
     <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
     <button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
 {% endfor %}
+{% else %}
+<p>You do not have any lists for this group yet</p>
+{% endif %}
 
 {% else %}
 You are not a member of this group

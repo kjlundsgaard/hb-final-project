@@ -9,38 +9,64 @@
 {{ user.fname }}'s Dashboard
 
 <div class="category-chart">
-    <h1>These are the categories of all the restaurants you've saved</h1>
+    <h1>Your restaurant stats</h1>
     <canvas id="myChart" style={width: 100px;, height=100px;}></canvas>
 </div>
 <br>
 
-<form action='/new-group' method='POST'>
-    <label for="new-group">Create new group:</label>
-    <input type="text" name="group" id="new-group">
-    <input type="submit" value="submit">
-</form>
+
+
+<!-- BELOW IS COLLAPSIBLE STUFF FOR CSS -->
+
 <div  class="container">
     <div class="row">
+        <h3>Your groups:</h3>
+        <form action='/new-group' method='POST'>
+            <label for="new-group">Create new group:</label>
+            <input type="text" name="group" id="new-group">
+            <input type="submit" value="submit">
+        </form>
         {% for group in user.groups %}
-        <div class="col-xs-6 col-sm-4">
-            <div class="panel panel-default">
-            <div class="panel-body">
-            <a href="groups/{{ group.group_id }}"><h2>{{ group.group_name }}</h2></a>
-            <button class="leave-group" data-groupid="{{ group.group_id }}">Leave This Group</button>
-                        <h3>Categories:</h3>
-            <div class="panel panel-default">
-                <div class="panel-body">
-            {% for list in group.lists %}
-                <h2>{{ list.list_name }}</h2>
-            {% endfor %}
-            </div>
+        <div class="col-xs-6 col-sm-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#{{ group.group_id }}" aria-expanded="false" aria-controls="{{ group.group_id }}">
+                                {{ group.group_name }} (Click to see lists)
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="{{ group.group_id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ group.group_id}}">
+                        <div class="list-group">
+                            {% if group.lists %}
+                            <ul>
+                                {% for list in group.lists %}
+                                    <a href="lists/{{ list.list_id }}"><li class="list-group-item">{{ list.list_name }}</li></a>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <ul>
+                                <li class="list-group-item">You do not have any lists for this group yet</li>
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="groups/{{ group.group_id }}">Go to Group</a>
+                    </div>
+                    <div class="panel-footer">
+                        <a role="button" class="leave-group" data-groupid="{{ group.group_id }}">Leave This Group</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
         {% endfor %}
     </div>
 </div>
+<!-- END COLLAPSIBLE CODE, ADD THE -->
+
+
 
 {% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
