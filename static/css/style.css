@@ -4,7 +4,7 @@
 }
 
 #my-map {
-    height: 800px;
+    height: 1000px;
     /*display: inline;*/
 }
 
@@ -14,5 +14,33 @@
 }
 
 .starred {
-    color: orange;
+    color: #69314D;
+}
+
+* {
+    font-size: 20px;
+}
+
+.navbar {
+    background-color: orange;
+    color: black;
+}
+body {
+    background-color: #53704C;
+}
+
+.navbar .navbar-brand {
+    color: black;
+}
+
+.navbar .navbar-text.navbar-right .navbar-link {
+    color: black;
+}
+
+.title {
+    text-align: center;
+}
+
+.btn {
+    border: 1px solid black;
 }

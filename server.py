@@ -370,8 +370,6 @@ def show_categories():
     user_id = session.get('user')
     user = User.query.filter_by(user_id=user_id).first()
 
-    # colors = ['ff4000', 'ff8000', 'ffbf00', 'ffff00', '80ff00', '00ffbf', '00bfff', '0000ff', 'bf00ff', 'ff0080', 'ff0000']
-
     categories = {}
 
     if user:
@@ -407,8 +405,6 @@ def show_categories():
     for key, val in categories.items():
         data['labels'].append(key)
         data['datasets'][0]['data'].append(val)
-        # data['datasets'][0]['backgroundColor'].append("#" + colors[i % len(colors)])
-        # data['datasets'][0]['hoverBackgroundColor'].append("black")
         i = i + 1
 
     # print data

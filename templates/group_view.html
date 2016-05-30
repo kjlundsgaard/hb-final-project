@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<a href="/">Dashboard</a>
 {% if user_group %}
 
 {{ user.fname }} <h1 id="group-info" data-groupid="{{ group.group_id }}">{{ group.group_name }}<h1>
@@ -36,16 +35,26 @@
             </div>
         </div>
     </div>
+    <div class="row">
+    {% if group.lists %}
+    <h2>Your lists:</h2>
+    {% for list in group.lists %}
+        <div class="col-xs-6 col-sm-4">
+        <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
+        <button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
+        <ul>
+        {% for restaurant in list.restaurants %}
+        <li>{{ restaurant.restaurant_name }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+    {% endfor %}
+    {% else %}
+    <p>You do not have any lists for this group yet</p>
+    </div>
 </div>
 
 
-{% if group.lists %}
-{% for list in group.lists %}
-    <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
-    <button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
-{% endfor %}
-{% else %}
-<p>You do not have any lists for this group yet</p>
 {% endif %}
 
 {% else %}
@@ -54,5 +63,6 @@ You are not a member of this group
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/static/js/yelp.js"></script>
+
 {% endblock %}
 

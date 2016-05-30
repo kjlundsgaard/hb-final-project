@@ -36,7 +36,12 @@ function displayResults(data) {
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
       var url = $(this).data('url');
-      var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + "<p> Address: " + $(this).data('address') + "</p>" + "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + "</p>" + "<button type='button' class='add-button btn' id='button' " + "data-restaurant-name=" + '"' + name + '"' +
+      var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + 
+                             "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + 
+                             "<p> Address: " + $(this).data('address') + "</p>" + 
+                             "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + 
+                             "</p>" + "<button type='button' class='add-button btn' id='button' " + 
+                             "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
                              "data-categories=" + "'" + categories + "'" +
@@ -109,6 +114,8 @@ function addRestaurant(evt){
                                'neighborhoods': neighborhoods,
                                'url': url},
                                getRestaurantsFromDB);
+
+    $('.add-button').html("Added!");
     
 }
 
@@ -135,16 +142,18 @@ function addRestaurantToDBsuccess(data){
     var listings = "";
 
     for (var i = 0; i < data.results.length; i++) {
-      listings = listings + "<li id=" + "'" + data.results[i].restaurant_id + "'" + 
+      listings = listings + 
+      "<li id=" + "'" + data.results[i].restaurant_id + "'" + 
       " data-lat="+ "'" + data.results[i].latitude + "'" + 
       " data-lng=" + "'" + data.results[i].longitude + "'" + 
       " data-name="+ '"' + data.results[i].restaurant_name + '"' + 
-      " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" + 
+      " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" +
+      "<button class='remove-restaurant btn btn-danger' type='button' data-restid=" + 
+      "'" + data.results[i].restaurant_id + "'" + 
+      ">X</button>" +
       data.results[i].restaurant_name + " | Yelp Rating: " + 
       data.results[i].yelp_rating.toFixed(1) + " " + 
-      "<button class='remove-restaurant btn' type='button' data-restid=" + 
-      "'" + data.results[i].restaurant_id + "'" + 
-      ">Remove</button>\n<button class='visited-restaurant btn' type='button' data-restid=" + 
+      "<button class='visited-restaurant btn' type='button' data-restid=" + 
       "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
     }
     // console.log(listings);
