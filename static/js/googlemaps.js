@@ -15,10 +15,10 @@ var defaultIcon = {
 
 var otherIcon = {
         path: google.maps.SymbolPath.CIRCLE ,
-        strokeColor: "#133134",
-        fillColor: "#425a5c",
+        strokeColor: "#a91245",
+        fillColor: "#BC154D",
         fillOpacity: 1,
-        scale: 4
+        scale: 5
     }
 var bounds = new google.maps.LatLngBounds();
 

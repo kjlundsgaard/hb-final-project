@@ -3,18 +3,13 @@
     color: red;
 }
 
-#my-map {
-    height: 1000px;
-    /*display: inline;*/
-}
-
 .infobox {
-    border : 2px solid black;
-    /*display: inline;*/
+    background-color: #BC154D;
 }
 
 .starred {
-    color: #69314D;
+    /*color: #69314D;*/
+    color: #7F171F;
 }
 
 * {
@@ -22,7 +17,7 @@
 }
 
 .navbar {
-    background-color: orange;
+    background-color: #7F171F;
     color: black;
 }
 body {
@@ -43,4 +38,12 @@ body {
 
 .btn {
     border: 1px solid black;
+}
+
+#info *{
+    font-size: 14px;
+}
+
+a {
+    color: #69314D;
 }

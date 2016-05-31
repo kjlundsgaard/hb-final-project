@@ -67,6 +67,7 @@ function displayResults(data) {
       }
       map.fitBounds(bounds);
       scheduleEventListerForRestaurantButtons();
+      $(this).addClass('btn-info');
     })
     // gives access to the add restaurant event listener once items are loaded
 }
@@ -149,12 +150,10 @@ function addRestaurantToDBsuccess(data){
       " data-name="+ '"' + data.results[i].restaurant_name + '"' + 
       " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" +
       "<button class='remove-restaurant btn btn-danger' type='button' data-restid=" + 
-      "'" + data.results[i].restaurant_id + "'" + 
-      ">X</button>" +
-      data.results[i].restaurant_name + " | Yelp Rating: " + 
-      data.results[i].yelp_rating.toFixed(1) + " " + 
+      "'" + data.results[i].restaurant_id + "'" + ">X</button>" +
       "<button class='visited-restaurant btn btn-warning' type='button' data-restid=" + 
-      "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
+      "'" + data.results[i].restaurant_id + "'"+ ">Visited</button>" +
+      data.results[i].restaurant_name + "</li>";
     }
     // console.log(listings);
     $('#restaurant-list').html(listings);

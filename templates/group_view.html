@@ -41,7 +41,7 @@
     {% for list in group.lists %}
         <div class="col-xs-6 col-sm-4">
         <a href="/lists/{{ list.list_id }}">{{ list.list_name }}</a>
-        <button class="remove-list" data-listid="{{ list.list_id }}">Remove</button>
+        <button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}">Remove</button>
         <ul>
         {% for restaurant in list.restaurants %}
         <li>{{ restaurant.restaurant_name }}</li>
