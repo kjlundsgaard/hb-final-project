@@ -135,7 +135,7 @@ function addRestaurantToDBsuccess(data){
     console.log(data.status);
     var id = data.id;
 
-    $('#' + id).css('color', 'red');
+    $('.add-button').addClass('btn-success');
 
     // JUST TESTING OUT SOME PAGE RELOAD STUFF 
     // window.location.reload();

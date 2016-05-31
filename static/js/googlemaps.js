@@ -3,8 +3,23 @@ var map;
 var marker;
 var infoWindow;
 var markers = [];
-var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
-var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png';
+// var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+// var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png';
+var defaultIcon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeColor: "#5e2c45",
+        fillColor: "#69314D",
+        fillOpacity: 1,
+        scale: 4
+    }
+
+var otherIcon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeColor: "#133134",
+        fillColor: "#425a5c",
+        fillOpacity: 1,
+        scale: 4
+    }
 var bounds = new google.maps.LatLngBounds();
 
 function addMarker(latlng, name, icon=defaultIcon) {
