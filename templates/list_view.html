@@ -10,12 +10,11 @@
       <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
       {% for restaurant_list in restaurants_lists %}
           {% if not restaurant_list.visited %}
-          <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
+          <li class="ui-widget-content" id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
             <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
             <button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
             </button>
             {{ restaurant_list.restaurant.restaurant_name }}
-              
           </li>
           {% endif %}
       {% endfor %}
@@ -88,8 +87,7 @@
 <script src="/static/js/yelp.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfOfkZrpwbC1D3fIVwh0XOj3u1U0X_B6Q"></script>
 <script src="/static/js/googlemaps.js"></script>
-
-
+<script   src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"   integrity="sha256-0vBSIAi/8FxkNOSKyPEfdGQzFDak1dlqFKBYqBp1yC4="   crossorigin="anonymous"></script>
 
 {% else %}
 You are not a member of this group

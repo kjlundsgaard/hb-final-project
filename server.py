@@ -123,7 +123,7 @@ def invite_user():
     email = request.form.get('invite')
     user = User.query.filter_by(email=email).first()
     group_id = request.form.get('group_id')
-
+    group = Group.query.filter_by(group_id=group_id).first()
     if user:
         user_search = UserGroup.query.filter_by(user_id=user.user_id, group_id=group_id).first()
         if user_search:
@@ -132,11 +132,11 @@ def invite_user():
             new_user = UserGroup(user_id=user.user_id, group_id=group_id)
             db.session.add(new_user)
             db.session.commit()
-            flash("Added new user " + email + " to group")
+            flash("Added new user " + email + " to " + group.group_name)
     else:
         flash("No such user")
 
-    return redirect('/groups/' + group_id)
+    return redirect('/')
 
 
 @app.route('/new-group', methods=["POST"])
@@ -426,11 +426,11 @@ def show_user_data(user_id):
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = False
+    app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     connect_to_db(app)
 
     # Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
 
     app.run()
