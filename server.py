@@ -28,12 +28,29 @@ def index():
     """Homepage/Shows user their lists of restaurants"""
 
     user_id = session.get('user')
+    user = User.query.filter_by(user_id=user_id).first()
 
     faves = Fave.query.filter_by(user_id=user_id).all()
 
+    count_visited = 0
+    count_to_visit = 0
+    if user:
+        for group in user.groups:
+            for list_item in group.lists:
+                for rl in list_item.restaurants_lists:
+                    if rl.visited:
+                        count_visited = count_visited + 1
+                    else:
+                        count_to_visit = count_to_visit + 1
+
     if user_id:
         user = User.query.filter_by(user_id=user_id).first()
-        return render_template('dashboard.html', user=user, login=session.get('user'), faves=faves)
+        return render_template('dashboard.html',
+                               user=user,
+                               login=session.get('user'),
+                               faves=faves,
+                               count_visited=count_visited,
+                               count_to_visit=count_to_visit)
     else:
         return render_template('login_form.html')
 
@@ -154,7 +171,7 @@ def add_new_group():
     db.session.add(new_user_group)
     db.session.commit()
 
-    return redirect('/groups/' + str(new_group.group_id))
+    return redirect('/')
 
 
 @app.route('/new-list', methods=["POST"])
@@ -420,6 +437,7 @@ def show_user_data(user_id):
     faves = Fave.query.filter_by(user_id=user_id).all()
 
     return render_template('user.html', faves=faves, user=user, login=session.get('user'))
+
 
 ##############################################################################
 

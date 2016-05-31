@@ -47,3 +47,8 @@ body {
 a {
     color: #69314D;
 }
+
+.count {
+    color: #7F171F;
+    font-size: 30px;
+}
