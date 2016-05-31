@@ -2,9 +2,7 @@
 {% block content %}
 
 {% if user_group %}
-<a href="/groups/{{ list.group_id }}">Back to group</a>
-<br>
-<h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
+<h1 id="list-info" class="title" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <div class="container">
   <div class="row">
     <div class="col-xs-6">
@@ -15,7 +13,7 @@
           <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
             <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
             {{ restaurant_list.restaurant.restaurant_name }} | Yelp: {{ restaurant_list.restaurant.yelp_rating }} stars
-              <button type="button" class="visited-restaurant btn btn-success" data-restid="{{ restaurant_list.restaurant.restaurant_id }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
               </button>
           </li>
           {% endif %}

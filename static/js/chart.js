@@ -1,7 +1,8 @@
+Chart.defaults.global.defaultFontColor = '#000000';
 var options = {
   responsive: true,
   legend: {
-    display: false
+    display: false,
   },
   scales: {
         yAxes: [{

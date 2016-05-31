@@ -153,7 +153,7 @@ function addRestaurantToDBsuccess(data){
       ">X</button>" +
       data.results[i].restaurant_name + " | Yelp Rating: " + 
       data.results[i].yelp_rating.toFixed(1) + " " + 
-      "<button class='visited-restaurant btn' type='button' data-restid=" + 
+      "<button class='visited-restaurant btn btn-warning' type='button' data-restid=" + 
       "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></li>";
     }
     // console.log(listings);
