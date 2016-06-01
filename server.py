@@ -120,19 +120,6 @@ def logout():
     return redirect('/')
 
 
-# @app.route('/groups/<int:group_id>')
-# def show_group_details(group_id):
-#     """Shows group details"""
-
-#     user_id = session.get('user')
-#     user = User.query.filter_by(user_id=user_id).first()
-#     group = Group.query.filter_by(group_id=group_id).one()
-
-#     user_group = UserGroup.query.filter_by(group_id=group_id, user_id=user_id).first()
-
-#     return render_template('group_view.html', group=group, user=user, user_group=user_group)
-
-
 @app.route('/invite', methods=["POST"])
 def invite_user():
     """Allows user to invite other member to group by email"""
@@ -423,16 +410,6 @@ def show_categories():
     # print data
 
     return jsonify(data)
-
-
-@app.route('/user/<int:user_id>')
-def show_user_data(user_id):
-    """Goes to a user info page"""
-
-    user = User.query.filter_by(user_id=user_id).first()
-    faves = Fave.query.filter_by(user_id=user_id).all()
-
-    return render_template('user.html', faves=faves, user=user, login=session.get('user'))
 
 
 ##############################################################################
