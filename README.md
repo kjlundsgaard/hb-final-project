@@ -54,22 +54,22 @@ GastroHub allows users to create groups of friends with whom they would like to 
     export uber_server_token="UBER_SERVER_TOKEN"
 
 4. Create a virtual environment
-    > virtualenv env
-    > source env/bin/activate
+    `virtualenv env`
+    `source env/bin/activate`
 
-5. > pip install -r requirements.txt
+5. `pip install -r requirements.txt`
 
-6. > source secrets.sh
+6. `source secrets.sh`
 
 7. With PostgreSQL running, create database with name gastrohub
-    > createdb gastrohub
+    `createdb gastrohub`
 
 8. Run model.py
-    > python model.py
+    `python model.py`
 
 9. Run server.py
-    > python server.py
+    `python server.py`
 
-10. Visit >http://localhost:5000/
+10. Visit `http://localhost:5000/`
 
 
