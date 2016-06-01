@@ -176,7 +176,7 @@ class Fave(db.Model):
 ##############################################################################
 
 
-def connect_to_db(app, db_uri='postgresql:///project'):
+def connect_to_db(app, db_uri='postgresql:///gastrohub'):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database

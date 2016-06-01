@@ -2,8 +2,8 @@ import unittest
 import server
 from server import app
 from model import db, connect_to_db, User, Group, List, UserGroup, Restaurant, RestaurantList, Fave
-
-
+import yelp
+import uber
 def example_data():
     """Create example data for the test database."""
     # password = bcrypt.generate_password_hash('mypassword')
@@ -15,6 +15,7 @@ def example_data():
     user_group = UserGroup(user_id=1, group_id=1)
     user_group2 = UserGroup(user_id=2, group_id=2)
     category = List(list_name='Dinner', group_id=1)
+    category2 = List(list_name='Lunch', group_id=2)
     restaurant = Restaurant(restaurant_name='Taco Bell', yelp_rating=2.5, latitude=37.774136, longitude=-122.424819, address='200 Duboce Ave', categories='Mexican, Fast food', neighborhoods='Mission')
     restaurant2 = Restaurant(restaurant_name='La Taqueria', yelp_rating=5, latitude=37.750977, longitude=-122.418073, address='24th and Mission', categories='Mexican, Burrito', neighborhoods='Mission')
     restaurant_list = RestaurantList(restaurant_id=1, list_id=1)
@@ -22,7 +23,7 @@ def example_data():
     fave = Fave(restaurant_id=1, user_id=1)
     db.session.add_all([user, group, restaurant, restaurant2, user2, group2])
     db.session.commit()
-    db.session.add_all([user_group, user_group2, category, fave])
+    db.session.add_all([user_group, user_group2, category, category2, fave])
     db.session.commit()
     db.session.add(restaurant_list, restaurant_list2)
     db.session.commit()
@@ -53,7 +54,7 @@ class TestNotLoggedIn(unittest.TestCase):
 
         result = self.client.get("/")
         self.assertIn('Log in:', result.data)
-        self.assertNotIn('Create new', result.data)
+        self.assertNotIn('Dashboard', result.data)
 
     def test_log_in_submit(self):
         """tests log in submits with correct password"""
@@ -61,7 +62,7 @@ class TestNotLoggedIn(unittest.TestCase):
         result = self.client.post("/login",
                                   data={'email': 'user@gmail.com', 'password': 'password'},
                                   follow_redirects=True)
-        self.assertIn('My groups:', result.data)
+        self.assertIn('Your groups:', result.data)
         self.assertNotIn('Log in:', result.data)
 
     def test_log_in_redirect_to_signup(self):
@@ -88,7 +89,7 @@ class TestNotLoggedIn(unittest.TestCase):
         result = self.client.post("/signup",
                                   data={'email': 'user2@gmail.com', 'password': 'password2', 'fname': 'User', 'lname': 'User'},
                                   follow_redirects=True)
-        self.assertIn('My groups:', result.data)
+        self.assertIn('Your groups:', result.data)
         self.assertNotIn('Log in:', result.data)
 
     def test_sign_up_user_in_db(self):
@@ -115,13 +116,6 @@ class TestNotLoggedIn(unittest.TestCase):
         result = self.client.get("/logout", follow_redirects=True)
         self.assertIn('Log in:', result.data)
         self.assertNotIn('First', result.data)
-
-    def test_group_view_not_available(self):
-        """tests group view is not available without session"""
-
-        result = self.client.get("/groups/1")
-        self.assertIn('You are not a member of this group', result.data)
-        self.assertNotIn('Friends', result.data)
 
     def test_list_view_not_available(self):
         """tests list view is not available without session"""
@@ -162,22 +156,9 @@ class TestSession(unittest.TestCase):
         """test to show homepage displays when user is logged in"""
 
         result = self.client.get("/")
-        self.assertIn('My groups:', result.data)
-        self.assertNotIn('Log in:', result.data)
-
-    def test_group_view(self):
-        """test to show user's groups"""
-
-        result = self.client.get("/groups/1")
+        self.assertIn('Your groups:', result.data)
         self.assertIn('Buds', result.data)
-        self.assertNotIn('You are not a member of this group', result.data)
-
-    def test_group_view_non_member(self):
-        """test to show logged in user cannot see group details of group they're not in"""
-
-        result = self.client.get("groups/2")
-        self.assertNotIn('Enemies', result.data)
-        self.assertIn('You are not a member of this group', result.data)
+        self.assertNotIn('Log in:', result.data)
 
     def test_group_invite_existing_user(self):
         """testing user invite to group"""
@@ -218,7 +199,6 @@ class TestSession(unittest.TestCase):
                                   follow_redirects=True)
         self.assertIn('Acquaintences', result.data)
         self.assertNotIn('You are not a member of this group', result.data)
-        self.assertNotIn('Buds', result.data)
 
     def test_create_new_list(self):
         """tests creation of new list"""
@@ -236,6 +216,13 @@ class TestSession(unittest.TestCase):
         result = self.client.get('/lists/1')
         self.assertIn('Dinner', result.data)
         self.assertNotIn('You are not a member', result.data)
+
+    def test_list_view_non_member(self):
+        """tests to show user cannot see list view for this list"""
+
+        result = self.client.get('/lists/2')
+        self.assertIn('You are not', result.data)
+        self.assertNotIn('Lunch', result.data)
 
 
 class TestAPI(unittest.TestCase):
@@ -270,7 +257,11 @@ class TestAPI(unittest.TestCase):
                  'address': ['2222 Mission Street'],
                  'url': 'yelp.com'}]
 
-    server.search_restaurant = _mock_search_restaurant
+    yelp.get_results = _mock_search_restaurant
+
+    def _mock_uber_results(start_lat, start_lng, end_lat, end_lng):
+        """mock uber API results"""
+        # return [{'prices': 'car':}]
 
     def tearDown(self):
         """To do at end of test"""
@@ -281,8 +272,22 @@ class TestAPI(unittest.TestCase):
     def test_yelp_search(self):
         """tests route using yelp API"""
 
+        result = self.client.post('/search-restaurant.json',
+                                  {'location': 'San Francisco',
+                                   'term': 'burrito'})
 
+        self.assertEqual(result.status_code, 200)
 
+    def test_uber_results(self):
+        """tests route using uber API"""
+
+        result = self.client.post('/get-uber-data.json',
+                                  {'start_latitude': 0,
+                                   'start_longitude': 0,
+                                   'end_latitude': 0,
+                                   'end_longitude', 0})
+
+        self.assertEqual(result.status_code, 200)
 
 
 if __name__ == "__main__":

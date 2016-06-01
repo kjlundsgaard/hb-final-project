@@ -120,17 +120,17 @@ def logout():
     return redirect('/')
 
 
-@app.route('/groups/<int:group_id>')
-def show_group_details(group_id):
-    """Shows group details"""
+# @app.route('/groups/<int:group_id>')
+# def show_group_details(group_id):
+#     """Shows group details"""
 
-    user_id = session.get('user')
-    user = User.query.filter_by(user_id=user_id).first()
-    group = Group.query.filter_by(group_id=group_id).one()
+#     user_id = session.get('user')
+#     user = User.query.filter_by(user_id=user_id).first()
+#     group = Group.query.filter_by(group_id=group_id).one()
 
-    user_group = UserGroup.query.filter_by(group_id=group_id, user_id=user_id).first()
+#     user_group = UserGroup.query.filter_by(group_id=group_id, user_id=user_id).first()
 
-    return render_template('group_view.html', group=group, user=user, user_group=user_group)
+#     return render_template('group_view.html', group=group, user=user, user_group=user_group)
 
 
 @app.route('/invite', methods=["POST"])
@@ -368,10 +368,6 @@ def get_uber_data():
     end_latitude = request.form.get('end_latitude')
     end_longitude = request.form.get('end_longitude')
 
-    print start_latitude
-    print start_longitude
-    print end_latitude
-    print end_longitude
     try:
         prices = uber.get_uber_price_results(start_lat=start_latitude, start_lng=start_longitude, end_lat=end_latitude, end_lng=end_longitude)
     except:
