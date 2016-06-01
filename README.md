@@ -49,7 +49,6 @@ GastroHub allows users to create groups of friends with whom they would like to 
     export yelp_consumer_secret="YELP_CONSUMER_SECRET"
     export yelp_token="YELP_TOKEN"
     export yelp_token_secret="YELP_TOKEN_SECRET"
-
     export uber_client_id="UBER_CLIENT_ID"
     export uber_client_secret="UBER_CLIENT_SECRET"
     export uber_server_token="UBER_SERVER_TOKEN"
