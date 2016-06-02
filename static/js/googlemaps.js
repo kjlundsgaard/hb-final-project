@@ -3,15 +3,14 @@ var map;
 var marker;
 var infoWindow;
 var markers = [];
-// var defaultIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
-// var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png';
+
 var defaultIcon = {
         path: google.maps.SymbolPath.CIRCLE ,
         strokeColor: "#a91245",
         fillColor: "#BC154D",
         fillOpacity: 1,
         scale: 4
-    }
+    };
 
 var otherIcon = {
         path: google.maps.SymbolPath.CIRCLE ,
@@ -19,7 +18,8 @@ var otherIcon = {
         fillColor: "#69314D",
         fillOpacity: 1,
         scale: 5
-    }
+    };
+
 var bounds = new google.maps.LatLngBounds();
 
 function addMarker(latlng, name, icon=defaultIcon) {
@@ -106,16 +106,6 @@ function initMap() {
   }
 
   
-
-
-  // function bindInfoWindow(marker, map, infoWindow, contentString) {
-  //   google.maps.event.addListener(marker, 'click', function () {
-  //       infoWindow.close();
-  //       infoWindow.setContent(contentString);
-  //       infoWindow.open(map, marker);
-  //       scheduleEventListenerForUber();
-  //   });
-  // }
 }
 
 

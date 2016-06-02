@@ -25,7 +25,9 @@ function displayResults(data) {
                       "<p>" + data.results[i].name + "</p>" + 
                     "</button>";
     }
+    $('#yelpResultsPanel').removeClass('hidden');
     $('#results').html(text);
+
 
     $('.restaurant-button').click(function() {
       var name = $(this).data('restaurant-name');
@@ -36,11 +38,12 @@ function displayResults(data) {
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
       var url = $(this).data('url');
-      var infobox = "<p>" + $(this).data('restaurant-name') + "</p>" + 
-                             "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + 
-                             "<p> Address: " + $(this).data('address') + "</p>" + 
-                             "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + 
-                             "</p>" + "<button type='button' class='add-button btn' id='button' " + 
+      var infobox = "<table class='table'><tr><td class='title'>" + name + "</td></tr>" + 
+                             "<tr><td class='title'>Yelp Rating: " + yelp + "</td></tr>" + 
+                             "<tr><td class='title'>Address: " + address + "</td></tr>" + 
+                             "<tr><td class='title'>Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + 
+                             "</td></tr></table>" + 
+                             "<button type='button' class='add-button btn title' id='button' " + 
                              "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +
@@ -49,9 +52,9 @@ function displayResults(data) {
                              "data-latitude=" + "'" + latitude + "'" +
                              "data-longitude=" + "'" + longitude + "'" +
                              "data-url=" + "'" + url + "'" + ">" +
-                             "Add " + name +"</button>"
-      "Add " + $(this).data('restaurant-name') + "</button>";
-      $('#infobox').html(infobox);
+                             "Add " + name +"</button>";
+      console.log(infobox);
+      $('#infobox').removeClass('hidden').html(infobox);
       var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
       // TRYING TO MAKE IT SUCH THAT THE MARKER GETS ADDED AND THEN DISAPPEARS WHEN ANOTHER YELP RESULT IS CLICKED
       var lastMarker = markers[markers.length - 1];
@@ -78,7 +81,7 @@ function submitSearch(evt) {
         "location": $("#location").val(),
         "term": $("#term").val()
     };
-
+    $('#yelpResultsPanel').removeClass('hidden');
     $('#results').html("searching...");;
     $.post("/search-restaurant.json",
            formInputs,

@@ -5,15 +5,40 @@
 <h1 id="list-info" class="title" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <div class="container">
   <div class="row">
-    <div class="col-xs-9">
-      <h2>Search for places to try</h2>
-      <form action='/search-restaurant.json' method='POST' id="search">
-        <label for="location">where: </label>
-        <input type="text" name="location" id="location">
-        <label for="term">what: </label>
-        <input type="text" name="term" id="term">
-        <input class="btn" type="submit" value="Search">
-      </form>
+    <div class="col-xs-3">
+      <h2>Places to visit</h2>
+      <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
+      {% for restaurant_list in restaurants_lists %}
+          {% if not restaurant_list.visited %}
+          <li class="ui-widget-content" id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
+            <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
+            <button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
+            </button>
+            {{ restaurant_list.restaurant.restaurant_name }}
+          </li>
+          {% endif %}
+      {% endfor %}
+      </ul>
+      <h2>Places visited</h2>
+      <ul class="restaurant-listing" id="visited-list" data-listid="{{ list.list_id }}">
+      {% for restaurant_list in restaurants_lists %}
+          {% if restaurant_list.visited %}
+              <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
+                <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
+              {{ restaurant_list.restaurant.restaurant_name }}
+              {% if restaurant_list.restaurant in fave_rests %}
+              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant starred" aria-hidden="true"></span>
+              {% else %}
+              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant" aria-hidden="true"></span>
+              {% endif %}
+          </li>
+          {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="col-xs-6 col-offset-xs-3">
+      <div class="panel hidden" id="infobox"></div>
+      <div id="my-map" style="height: 500px;"></div>
     </div>
     <div class="col-xs-3 title"> 
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -34,52 +59,24 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <h2>Places to visit</h2>
-      <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
-      {% for restaurant_list in restaurants_lists %}
-          {% if not restaurant_list.visited %}
-          <li class="ui-widget-content" id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
-            <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-            <button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
-            </button>
-            {{ restaurant_list.restaurant.restaurant_name }}
-          </li>
-          {% endif %}
-      {% endfor %}
-      </ul>
-    </div>
-    <div class="col-xs-6">
-      <h2>Places visited</h2>
-      <ul class="restaurant-listing" id="visited-list" data-listid="{{ list.list_id }}">
-      {% for restaurant_list in restaurants_lists %}
-          {% if restaurant_list.visited %}
-              <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
-                <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-              {{ restaurant_list.restaurant.restaurant_name }}
-              {% if restaurant_list.restaurant in fave_rests %}
-              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant starred" aria-hidden="true"></span>
-              {% else %}
-              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant" aria-hidden="true"></span>
-              {% endif %}
-          </li>
-          {% endif %}
-      {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <div class="panel" id="infobox">
+      <div class="panel panel-primary hidden" id="yelpResultsPanel">
+        <div class="panel-body fixed-panel">
+          <div class="tab-content">
+                <div class="tab-pane active" id="results">
+                </div>
+            </div>
+        </div>
       </div>
-      <div id="results" style="width: 500px;">
+      <div>
+        <h2>Search for places to try</h2>
+        <form action='/search-restaurant.json' method='POST' id="search">
+          <label for="location">where: </label>
+          <input type="text" name="location" id="location">
+          <label for="term">what: </label>
+          <input type="text" name="term" id="term">
+          <input class="btn" type="submit" value="Search">
+        </form>
       </div>
-    </div>
-    <div class="col-xs-6">
-      <div id="my-map" style="height: 500px; width: 500px;"></div>
     </div>
   </div>
 </div>
@@ -95,8 +92,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Uber Options from Your Location</h4>
       </div>
-      <div class="modal-body" id="uber-info">
-        <p>Fetching uber options...</p>
+      <div class="modal-body">
+        <table class='table table-striped' id="uber-info">
+          <tr><td>Fetching uber options...</td></tr>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

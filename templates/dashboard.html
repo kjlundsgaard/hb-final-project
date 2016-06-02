@@ -95,7 +95,7 @@
                             {% if group.lists %}
                             <ul>
                                 {% for list in group.lists %}
-                                    <button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}">X</button><a href="lists/{{ list.list_id }}"><li class="list-group-item">{{ list.list_name }}</li></a>
+                                    <button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}"style="display: inline;">X</button><a href="lists/{{ list.list_id }}" style="display: inline;"><li class="list-group-item">{{ list.list_name }}</li></a>
                                 {% endfor %}
                             </ul>
                             {% else %}

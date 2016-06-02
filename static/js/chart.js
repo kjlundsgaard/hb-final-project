@@ -18,7 +18,7 @@ var options = {
 var ctx = $("#myChart").get(0).getContext("2d");
 
 $.get("/categories.json", function (data) {
-    var myDoughnutChart = new Chart(ctx, {
+    var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: options

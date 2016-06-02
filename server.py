@@ -70,7 +70,6 @@ def submit_login():
             session['user'] = user.user_id
             flash("You are now logged in")
             return redirect('/')
-            # return redirect('/users/' + str(user.user_id))
         else:
             flash("Password incorrect")
             return redirect('/')
@@ -417,11 +416,11 @@ def show_categories():
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = True
+    app.debug = False
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run()

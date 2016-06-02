@@ -5,6 +5,7 @@
 
 #infobox {
     background-color: #966e82;
+    border : 2px solid #5e2c45;
 }
 
 .starred {
@@ -17,11 +18,13 @@
 }
 
 .navbar {
-    background-color: #7F171F;
+    /*background-color: #7F171F;*/
+    background-color: #8b2e35;
     color: black;
 }
 body {
-    background-color: #53704C;
+    /*background-color: #53704C;*/
+    background-color: #647e5d;
 }
 
 .navbar .navbar-brand {
@@ -51,4 +54,14 @@ a {
 .count {
     color: #7F171F;
     font-size: 30px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.tab-pane {
+  height: 300px;
+  overflow-y: scroll;
+  width: 100%;
 }
