@@ -5,6 +5,9 @@
 {% endif %}
 
 
+        
+
+
 <div  class="container">
     <div class="row">
         <div class="col-xs-6 col-xs-offset-3 title"> 
@@ -13,11 +16,56 @@
     </div>
     <div class="row">
         <div class="col-xs-6 title"> 
-            <h2>Visited count: <span id="count-visited" class="count">{{ count_visited }}</span></h2>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingNotVisited">
+                        <h4 class="panel-title title">
+                            <a role="button" data-toggle="collapse" href="#yet-to-visit" aria-expanded="false" aria-controls="yet-to-visit">
+                            <h2>Yet to visit count: <span id="count-to-visit" class="count">{{ count_to_visit }}</span></h2></a>
+                        </h4>
+                    </div>
+                    <div id="yet-to-visit" class="panel-collapse collapse" role="tabpanel" aria-labelledby="yet-to-visit">
+                        <div class="yet-to-visit">
+                            {% for group in user.groups %}
+                                {% for list in group.lists %}
+                                    {% for restaurant_list in list.restaurants_lists %}
+                                        {% if not restaurant_list.visited %}
+                                            <a href="{{ restaurant_list.restaurant.link }}"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-xs-6 title"> 
-            <h2>Yet to visit count: <span id="count-to-visit" class="count">{{ count_to_visit }}</span></h2>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingVisited">
+                        <h4 class="panel-title title">
+                            <a role="button" data-toggle="collapse" href="#visited" aria-expanded="false" aria-controls="visited">
+                            <h2>Visited count: <span id="count-visited" class="count">{{ count_visited }}</span></h2></a>
+                        </h4>
+                    </div>
+                    <div id="visited" class="panel-collapse collapse" role="tabpanel" aria-labelledby="visited">
+                        <div class="visited">
+                            {% for group in user.groups %}
+                                {% for list in group.lists %}
+                                    {% for restaurant_list in list.restaurants_lists %}
+                                        {% if restaurant_list.visited %}
+                                            <a href="{{ restaurant_list.restaurant.link }}"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
     <div class="row">
         <div class="category-chart">

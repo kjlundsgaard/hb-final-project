@@ -5,6 +5,27 @@
 <h1 id="list-info" class="title" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <div class="container">
   <div class="row">
+      <div class="col-xs-6 title"> 
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingUserList">
+                        <h4 class="panel-title title">
+                          <a role="button" data-toggle="collapse" href="#userList" aria-expanded="false" aria-controls="userList">
+                            <h2>Members of group:</h2>
+                          </a>
+                        </h4>
+                    </div>
+                    <div id="userList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="userList">
+                        <div class="user-list">
+                            {% for user in list.group.users %}
+                              <div>{{ user.fname }} {{ user.lname }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  <div class="row">
     <div class="col-xs-6">
       <h2>Places to visit</h2>
       <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
@@ -59,9 +80,12 @@
       </div>
       <div id="my-map" style="height: 500px; width: 500px;"></div>
     </div>
+    </div>
   </div>
 </div>
 
+
+        
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
