@@ -7,16 +7,16 @@ var markers = [];
 // var otherIcon = 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png';
 var defaultIcon = {
         path: google.maps.SymbolPath.CIRCLE ,
-        strokeColor: "#5e2c45",
-        fillColor: "#69314D",
+        strokeColor: "#a91245",
+        fillColor: "#BC154D",
         fillOpacity: 1,
         scale: 4
     }
 
 var otherIcon = {
         path: google.maps.SymbolPath.CIRCLE ,
-        strokeColor: "#a91245",
-        fillColor: "#BC154D",
+        strokeColor: "#5e2c45",
+        fillColor: "#69314D",
         fillOpacity: 1,
         scale: 5
     }
@@ -30,6 +30,15 @@ function addMarker(latlng, name, icon=defaultIcon) {
         icon : icon
       });
   return marker;
+}
+
+function bindInfoWindow(marker, map, infoWindow, contentString) {
+    google.maps.event.addListener(marker, 'click', function () {
+        infoWindow.close();
+        infoWindow.setContent(contentString);
+        infoWindow.open(map, marker);
+        scheduleEventListenerForUber();
+    });
 }
 
 function initMap() {
@@ -99,14 +108,14 @@ function initMap() {
   
 
 
-  function bindInfoWindow(marker, map, infoWindow, contentString) {
-    google.maps.event.addListener(marker, 'click', function () {
-        infoWindow.close();
-        infoWindow.setContent(contentString);
-        infoWindow.open(map, marker);
-        scheduleEventListenerForUber();
-    });
-  }
+  // function bindInfoWindow(marker, map, infoWindow, contentString) {
+  //   google.maps.event.addListener(marker, 'click', function () {
+  //       infoWindow.close();
+  //       infoWindow.setContent(contentString);
+  //       infoWindow.open(map, marker);
+  //       scheduleEventListenerForUber();
+  //   });
+  // }
 }
 
 

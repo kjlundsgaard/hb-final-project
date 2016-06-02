@@ -36,7 +36,7 @@ function displayResults(data) {
       var latitude = $(this).data('latitude');
       var longitude = $(this).data('longitude');
       var url = $(this).data('url');
-      var infobox = "<div class='infobox' <p>" + $(this).data('restaurant-name') + "</p>" + 
+      var infobox = "<p>" + $(this).data('restaurant-name') + "</p>" + 
                              "<p> Yelp Rating: " + $(this).data('yelp-rating') + "</p>" + 
                              "<p> Address: " + $(this).data('address') + "</p>" + 
                              "<p> Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + 
@@ -49,8 +49,8 @@ function displayResults(data) {
                              "data-latitude=" + "'" + latitude + "'" +
                              "data-longitude=" + "'" + longitude + "'" +
                              "data-url=" + "'" + url + "'" + ">" +
-                             "Add " + name +"</button></div>"
-      "Add " + $(this).data('restaurant-name') + "</button></div>";
+                             "Add " + name +"</button>"
+      "Add " + $(this).data('restaurant-name') + "</button>";
       $('#infobox').html(infobox);
       var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
       // TRYING TO MAKE IT SUCH THAT THE MARKER GETS ADDED AND THEN DISAPPEARS WHEN ANOTHER YELP RESULT IS CLICKED

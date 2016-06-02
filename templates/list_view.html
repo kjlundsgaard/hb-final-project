@@ -5,26 +5,37 @@
 <h1 id="list-info" class="title" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
 <div class="container">
   <div class="row">
-      <div class="col-xs-6 title"> 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingUserList">
-                        <h4 class="panel-title title">
-                          <a role="button" data-toggle="collapse" href="#userList" aria-expanded="false" aria-controls="userList">
-                            <h2>Members of group:</h2>
-                          </a>
-                        </h4>
-                    </div>
-                    <div id="userList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="userList">
-                        <div class="user-list">
-                            {% for user in list.group.users %}
-                              <div>{{ user.fname }} {{ user.lname }}</div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-xs-9">
+      <h2>Search for places to try</h2>
+      <form action='/search-restaurant.json' method='POST' id="search">
+        <label for="location">where: </label>
+        <input type="text" name="location" id="location">
+        <label for="term">what: </label>
+        <input type="text" name="term" id="term">
+        <input class="btn" type="submit" value="Search">
+      </form>
+    </div>
+    <div class="col-xs-3 title"> 
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingUserList">
+              <h4 class="panel-title title">
+                  <a role="button" data-toggle="collapse" href="#userList" aria-expanded="false" aria-controls="userList">
+                    <h2>Group members</h2>
+                  </a>
+              </h4>
+          </div>
+          <div id="userList" class="panel-collapse collapse" role="tabpanel" aria-labelledby="userList">
+            <div class="user-list">
+            {% for user in list.group.users %}
+              <div>{{ user.fname }} {{ user.lname }}</div>
+            {% endfor %}
+              </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-xs-6">
       <h2>Places to visit</h2>
@@ -62,24 +73,13 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      <h2>Search for places to try</h2>
-      <div id="results">
+      <div class="panel" id="infobox">
       </div>
-      <form action='/search-restaurant.json' method='POST' id="search">
-        <label for="location">where: </label>
-        <input type="text" name="location" id="location">
-        <br>
-        <label for="term">what: </label>
-        <input type="text" name="term" id="term">
-        <input class="btn" type="submit" value="Search">
-      </form>
+      <div id="results" style="width: 500px;">
+      </div>
     </div>
     <div class="col-xs-6">
-          <div id="infobox" style="width: 500px;">
-          </div>
-      </div>
       <div id="my-map" style="height: 500px; width: 500px;"></div>
-    </div>
     </div>
   </div>
 </div>
