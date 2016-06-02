@@ -43,7 +43,7 @@ function displayResults(data) {
                              "<tr><td class='title'>Address: " + address + "</td></tr>" + 
                              "<tr><td class='title'>Neighborhood: " + ( neighborhoods ? neighborhoods.join(", ") : "None" ) + 
                              "</td></tr></table>" + 
-                             "<button type='button' class='add-button btn title' id='button' " + 
+                             "<button type='button' class='add-button btn' id='button' " + 
                              "data-restaurant-name=" + '"' + name + '"' +
                              "data-yelp-rating=" + "'" + yelp + "'" +
                              "data-address=" + "'" + address + "'" +

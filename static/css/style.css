@@ -28,11 +28,14 @@ body {
 }
 
 .navbar .navbar-brand {
-    color: black;
+    color: orange;
+    font-size: 30px;
+    padding-left: 20px;
 }
 
-.navbar .navbar-text.navbar-right .navbar-link {
+.navbar .navbar-right .navbar-link {
     color: black;
+    padding-right: 40px;
 }
 
 .title {
