@@ -65,3 +65,11 @@ li {
   overflow-y: scroll;
   width: 100%;
 }
+
+.restaurant-listing {
+    padding-left: 0;
+}
+
+.list-group ul {
+    padding-left: 0;
+}
