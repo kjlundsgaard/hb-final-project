@@ -81,7 +81,7 @@
             <input type="submit" class="btn btn-primary" value="Create">
         </form>
         {% for group in user.groups %}
-        <div class="col-xs-6 col-sm-4">
+        <div class="col-xs-4 col-sm-4">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -95,7 +95,7 @@
                             {% if group.lists %}
                             <ul>
                                 {% for list in group.lists %}
-                                    <li class="list-group-item"><button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}"style="display: inline;">X</button><a href="lists/{{ list.list_id }}" style="display: inline;"> {{ list.list_name }}</a></li>
+                                    <li class="list-group-item"><button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}"style="display: inline;">X</button> <a href="lists/{{ list.list_id }}" style="display: inline;">{{ list.list_name }}</a></li>
                                 {% endfor %}
                             </ul>
                             {% else %}
@@ -109,10 +109,10 @@
                         <a role="button" class="add-category" id="cat-modal-trigger" data-toggle="modal" data-target="#catModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add category</a>
                     </div>
                     <div class="panel-footer">
-                        <a role="button" class="invite-user" id="modal-trigger" data-toggle="modal" data-target="#inviteModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add user</a>
+                        <a role="button" class="invite-user" id="modal-trigger" data-toggle="modal" data-target="#inviteModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add user</a>
                     </div>
                     <div class="panel-footer">
-                        <a role="button" class="leave-group" data-groupid="{{ group.group_id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Leave Group</a>
+                        <a role="button" class="leave-group" data-groupid="{{ group.group_id }}"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Leave Group</a>
                     </div>
                     <div class="modal fade" id="inviteModal{{ group.group_id }}" tabindex="-1" role="dialog">
                       <div class="modal-dialog">
