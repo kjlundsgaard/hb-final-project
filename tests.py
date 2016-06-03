@@ -1,9 +1,10 @@
 import unittest
-import server
 from server import app
 from model import db, connect_to_db, User, Group, List, UserGroup, Restaurant, RestaurantList, Fave
 import yelp
 import uber
+
+
 def example_data():
     """Create example data for the test database."""
     # password = bcrypt.generate_password_hash('mypassword')
@@ -224,6 +225,69 @@ class TestSession(unittest.TestCase):
         self.assertIn('You are not', result.data)
         self.assertNotIn('Lunch', result.data)
 
+    def test_add_restaurant(self):
+        """tests to show adding restaurant"""
+
+        result = self.client.post('/add-restaurant.json',
+                                  data={'item_id': 5,
+                                        'restaurant_name': 'Eddys',
+                                        'yelp_rating': 4,
+                                        'latitude': 0,
+                                        'longitude': 0,
+                                        'list_id': 2,
+                                        'address': '123 Divisadero',
+                                        'categories': 'Breakfast,breakfast',
+                                        'neighborhoods': 'Haight',
+                                        'link': 'yelp.com'})
+        self.assertEqual(result.status_code, 200)
+
+    def test_delete_restaurant(self):
+        """tests delete restaurant"""
+
+        result = self.client.post('/delete-restaurant.json',
+                                  data={'restaurant_id': 1,
+                                        'list_id': 1})
+
+        self.assertEqual(result.status_code, 200)
+
+    def test_delete_category(self):
+        """tests delete category"""
+
+        result = self.client.post('/delete-list.json',
+                                  data={'list_id': 1})
+
+        self.assertEqual(result.status_code, 200)
+
+    def test_leave_group(self):
+        """tests user leaving group"""
+
+        result = self.client.post('/leave-group',
+                                  data={'group_id': 1})
+
+        self.assertEqual(result.status_code, 200)
+
+    def test_like_restaurant(self):
+        """tests user liking restaurant"""
+
+        result = self.client.post('/star-restaurant.json',
+                                  data={'restaurant_id': 1})
+
+        self.assertEqual(result.status_code, 200)
+
+    def test_mark_visited(self):
+        """tests marking restaurant as visited"""
+
+        result = self.client.post('/mark-visited.json',
+                                  data={'rest_id': 1,
+                                        'list_id': 1})
+        self.assertEqual(result.status_code, 200)
+
+    def test_return_categories(self):
+        """tests that categories are returned for chart.js"""
+
+        result = self.client.get('/categories.json')
+        self.assertEqual(result.status_code, 200)
+
 
 class TestAPI(unittest.TestCase):
     """Flask tests using API response"""
@@ -261,7 +325,10 @@ class TestAPI(unittest.TestCase):
 
     def _mock_uber_results(start_lat, start_lng, end_lat, end_lng):
         """mock uber API results"""
-        # return [{'prices': 'car':}]
+        return [{'prices': {'car': 'uberx',
+                            'price_estimate': 6,
+                            'distance': 5,
+                            'duration': 3}}]
 
     def tearDown(self):
         """To do at end of test"""

@@ -266,7 +266,11 @@ def delete_list():
 
     list_item = List.query.get(list_id)
 
+    restaurants_lists = RestaurantList.query.filter_by(list_id=list_id).all()
+
     db.session.delete(list_item)
+    for rl in restaurants_lists:
+        db.session.delete(rl)
     db.session.commit()
 
     flash("Removed " + list_item.list_name)
