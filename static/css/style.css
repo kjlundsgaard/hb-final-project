@@ -67,7 +67,6 @@ li {
 .tab-pane {
   height: 300px;
   overflow-y: scroll;
-  width: 100%;
 }
 
 .restaurant-listing {
@@ -76,4 +75,10 @@ li {
 
 .list-group ul {
     padding-left: 0;
+}
+
+.restaurant-button {
+    width: 225px;
+    word-wrap: break-word;
+    display: inline-block;
 }

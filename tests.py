@@ -285,7 +285,7 @@ class TestAPI(unittest.TestCase):
                                   {'start_latitude': 0,
                                    'start_longitude': 0,
                                    'end_latitude': 0,
-                                   'end_longitude', 0})
+                                   'end_longitude': 0})
 
         self.assertEqual(result.status_code, 200)
 
