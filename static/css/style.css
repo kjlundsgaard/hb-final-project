@@ -19,12 +19,12 @@
 
 .navbar {
     /*background-color: #7F171F;*/
-    background-color: #8b2e35;
+    background-color: #964249;
     color: black;
 }
 body {
     /*background-color: #53704C;*/
-    background-color: #647e5d;
+    background-color: #d3c0cb;
     /*background-color: #966e82;*/
 }
 
@@ -81,4 +81,8 @@ li {
     width: 225px;
     word-wrap: break-word;
     display: inline-block;
+}
+
+.panel {
+    background-color: #a2575d;
 }

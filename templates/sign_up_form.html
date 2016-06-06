@@ -1,18 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-Sign up:
-<form action='/signup' method='POST'>
-    <label for="email">Email</label>
-    <input type="text" name="email" id="email" value='{{ email }}'>
-    <br>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" value='{{ password }}'>
-    <br>
-    <label for="fname">First Name</label>
-    <input type="text" name="fname" id="fname">
-    <br>
-    <label for="lname">Last Name</label>
-    <input type="text" name="lname" id="lname">
-    <input type="submit" value="submit">
-</form>
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+                <h1 id="h1left">GastroHub</h1>
+                <p>The place to plan and store the best restaurants and bars whether you're hungry on the road, thirsty on a business trip, or checking that "we gotta go there" hot spot off the list.</p>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 right">
+                <h1 id="h1right">Connections</h1>
+                <div class="col-md-4 col-md-offset-3">
+                    <h2 id="signup">Sign Up</h2>
+                    <form action='/signup' method='POST'>
+                        <label for="email">Email</label>
+                        {% if email is defined %}
+                        <input type="text" name="email" id="email" value='{{ email }}'>
+                        {% else %}
+                        <input type="text" name="email" id="email">
+                        {% endif %}
+                        <br>
+                        <label for="password">Password</label>
+                        {% if password is defined %}
+                        <input type="password" name="password" id="password" value='{{ password }}'>
+                        {% else %}
+                        <input type="password" name="password" id="password">
+                        {% endif %}
+                        <br>
+                        <label for="fname">First Name</label>
+                        <input type="text" name="fname" id="fname">
+                        <br>
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" id="lname">
+                        <input type="submit" class="btn" value="Sign up">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

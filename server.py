@@ -53,7 +53,14 @@ def index():
                                count_visited=count_visited,
                                count_to_visit=count_to_visit)
     else:
-        return render_template('login_form.html')
+        return render_template('sign_up_form.html')
+
+
+@app.route('/login', methods=['GET'])
+def show_login_form():
+    """renders log in template"""
+
+    return render_template('login_form.html')
 
 
 @app.route('/login', methods=['POST'])

@@ -16,7 +16,11 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">GastroHub</a>
     </div>
+    {% if session['user'] is defined %}
     <p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
+    {% else %}
+    <p class="navbar-text navbar-right"><a href="/login" class="navbar-link">Login</a></p>
+    {% endif %}
   </div><!-- /.container-fluid -->
 </nav>
 
