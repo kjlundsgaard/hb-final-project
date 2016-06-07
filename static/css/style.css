@@ -125,6 +125,25 @@ input[type="submit"].create-group {
     width: 100px;
 }
 
+input[type="submit"].yelp-search {
+    background: #c6aebb;
+    border: 0;
+    width: 254px;
+    height: 40px;
+    border-radius: 3px;
+    color: black;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+input[type="submit"].yelp-search:hover {
+  background: orange;
+  animation-name: shake;
+  color:white;
+}
+
 input[type="submit"] {
     background: orange;
     border: 0;

@@ -19,6 +19,9 @@ GastroHub allows users to create groups of friends with whom they would like to 
 * AJAX
 * JQuery
 * Bootstrap
+* HTML
+* CSS
+
 
 ### APIs <a id="apis"></a>
 
