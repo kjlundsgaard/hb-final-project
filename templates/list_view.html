@@ -46,13 +46,36 @@
       <div class="panel hidden title" id="infobox"></div>
       <div class="panel" id="my-map"></div>
     </div>
-    <div class="col-xs-3 title list-right"> 
+    <div class="col-xs-3 title list-right">
+      <div class="search-form panel">
+        <h2>Search for places to try</h2>
+        <form action='/search-restaurant.json' method='POST' id="search">
+          <label for="location">where: </label>
+          <br>
+          <input type="text" name="location" id="location" placeholder="e.g. San Francisco">
+          <br>
+          <label for="term">what: </label>
+          <br>
+          <input type="text" name="term" id="term" placeholder="e.g. pizza">
+          <br>
+          <input class="btn btn-primary yelp-search" type="submit" value="Search">
+        </form>
+      </div> 
+      
+      <div class="panel hidden results" id="yelpResultsPanel">
+        <div class="panel-body fixed-panel">
+          <div class="tab-content">
+                <div class="tab-pane active" id="results">
+                </div>
+            </div>
+        </div>
+      </div>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingUserList">
+          <div class="panel-heading group-members" role="tab" id="headingUserList">
               <h4 class="panel-title title">
                   <a role="button" data-toggle="collapse" href="#userList" aria-expanded="false" aria-controls="userList">
-                    <h2>Group members</h2>
+                    <div class="group-member-text">Group members</div>
                   </a>
               </h4>
           </div>
@@ -64,28 +87,6 @@
               </div>
           </div>
         </div>
-      </div>
-      <div class="panel hidden results" id="yelpResultsPanel">
-        <div class="panel-body fixed-panel">
-          <div class="tab-content">
-                <div class="tab-pane active" id="results">
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="search-form panel">
-        <h2>Search for places to try</h2>
-        <form action='/search-restaurant.json' method='POST' id="search">
-          <label for="location">where: </label>
-          <br>
-          <input type="text" name="location" id="location">
-          <br>
-          <label for="term">what: </label>
-          <br>
-          <input type="text" name="term" id="term">
-          <br>
-          <input class="btn btn-primary yelp-search" type="submit" value="Search">
-        </form>
       </div>
     </div>
   </div>

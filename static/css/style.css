@@ -47,6 +47,11 @@
     /*background-color: #FF7373;*/
 }
 
+/*.panel-default>.panel-heading.group-members {
+    background-color: #f0ad4e;
+
+}*/
+
 .navbar .navbar-brand {
     color: orange;
     font-size: 30px;
@@ -77,7 +82,7 @@ a {
 
 .count {
     color: #7F171F;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 li {
@@ -85,7 +90,7 @@ li {
 }
 
 .tab-pane {
-  height: 200px;
+  height: 250px;
   overflow-y: scroll;
 }
 
@@ -108,11 +113,11 @@ li {
 }
 
 .search-form {
-    border: 2px solid orange;
+    border: 2px solid #A78197;
 }
 
 .panel.results {
-    border: 2px solid #A78197;
+    border: 2px solid orange;
 }
 
 .saved-items {
@@ -183,7 +188,7 @@ input[type="submit"]:hover {
 }
 
 #my-map.small {
-    height: 370px;
+    height: 400px;
 }
 
 #my-map {

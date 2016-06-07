@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-xs-6 col-xs-offset-3 title"> 
             <h1>{{ user.fname }}'s Dashboard</h1>
+            <br>
         </div>
     </div>
     <div class="row">
@@ -22,7 +23,7 @@
                     <div class="panel-heading" role="tab" id="headingNotVisited">
                         <h4 class="panel-title title">
                             <a role="button" data-toggle="collapse" href="#yet-to-visit" aria-expanded="false" aria-controls="yet-to-visit">
-                            <h2>Yet to visit count: <span id="count-to-visit" class="count">{{ count_to_visit }}</span></h2></a>
+                            <div class="visit-text">Yet to visit: <span id="count-to-visit" class="count">{{ count_to_visit }}</span></div></a>
                         </h4>
                     </div>
                     <div id="yet-to-visit" class="panel-collapse collapse" role="tabpanel" aria-labelledby="yet-to-visit">
@@ -47,7 +48,7 @@
                     <div class="panel-heading" role="tab" id="headingVisited">
                         <h4 class="panel-title title">
                             <a role="button" data-toggle="collapse" href="#visited" aria-expanded="false" aria-controls="visited">
-                            <h2>Visited count: <span id="count-visited" class="count">{{ count_visited }}</span></h2></a>
+                            <div class="visit-text">Visited: <span id="count-visited" class="count">{{ count_visited }}</span></div></a>
                         </h4>
                     </div>
                     <div id="visited" class="panel-collapse collapse" role="tabpanel" aria-labelledby="visited">

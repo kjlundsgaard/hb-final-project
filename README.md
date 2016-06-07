@@ -5,12 +5,12 @@ Learn more about the developer: [www.linkedin.com/in/kjlundsgaard/](www.linkedin
 GastroHub allows users to create groups of friends with whom they would like to share lists of local establishments they'd like to visit. Users can invite other users to their groups, create lists and add restaurants to their lists using the Yelp API. They can view their restaurants on a map, see Uber price estimates from their current location, and mark the restaurants as visited and liked. On the dashboard, users can view their restaurant statistics.
 
 ## Table of Contents
-  * [Tech Stack](#tech-stack)
+  * [Technologies](#tech-stack)
   * [APIs](#apis)
   * [Features](#features)
   * [How to Run](#how-to-run)
 
-### Tech Stack <a id="tech-stack"></a>
+### Technologies Used <a id="tech-stack"></a>
 
 * PostgreSQL
 * SQLAlchemy
@@ -23,13 +23,10 @@ GastroHub allows users to create groups of friends with whom they would like to 
 * Bootstrap
 * HTML
 * CSS
-
-
-### APIs <a id="apis"></a>
-
-* Yelp
+* Chart.js
+* Yelp API
 * Google Maps
-* Uber
+* Uber API
 
 ### Features <a id="features"></a>
 
