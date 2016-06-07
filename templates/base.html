@@ -18,13 +18,6 @@
       <a class="navbar-brand" href="/">GastroHub</a>
     </div>
     {% if session['user'] %}
-    <form class="navbar-form navbar-left" role="search" action='/new-group' method='POST'>
-        <div class="form-group">
-          <label for='new-group'>Make a new group:</label>
-          <input type="text" class="form-control" placeholder="Group name"  name="group" id="new-group">
-        </div>
-        <input type="submit" class="btn btn-primary create-group" value="Create"></button>
-    </form>
     <p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
     {% else %}
     <p class="navbar-text navbar-right"><a href="/login" class="navbar-link">Log in</a></p>

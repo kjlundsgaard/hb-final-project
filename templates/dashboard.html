@@ -75,7 +75,12 @@
         </div>
     </div>
     <div class="row">
-        <h2>Groups:</h3>
+        <h2 class="title">Your groups</h2>
+        <form class="title" role="search" action='/new-group' method='POST'>
+            <label for='new-group'>Make a new group:</label>
+            <input type="text" placeholder="Group name"  name="group" id="new-group">
+            <input type="submit" class="btn btn-primary create-group" value="Create"></button>
+        </form>
         {% for group in user.groups %}
         <div class="col-xs-4 col-sm-4">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
