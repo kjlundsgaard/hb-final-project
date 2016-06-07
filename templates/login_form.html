@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- <a href='/sign-up-form'>Sign up</a> -->
-
-<div class="row">
+<div class="container">
+    <div class="row">
         <div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 left description">
                 <h1 id="h1left">GastroHub</h1>
                 <p>The place to plan and store the best restaurants and bars whether you're hungry on the road, thirsty on a business trip, or checking that "we gotta go there" hot spot off the list.</p>
             </div>
@@ -19,11 +19,13 @@
                         <br>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password">
-                        <input type="submit" class="btn" value="Login">
+                        <br>
+                        <input type="submit" class="btn" value="Log in">
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}

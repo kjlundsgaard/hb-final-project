@@ -4,28 +4,42 @@
 }
 
 #infobox {
-    background-color: #966e82;
-    border : 2px solid #5e2c45;
+    /*background-color: #966e82;*/
+    /*background-color: #d05b82;*/
+    border : 3px solid #a91245;
+    font-weight: bold;
+}
+
+#infobox button:not(.btn-success){
+    background-color: #c94370;
+    color: white;
 }
 
 .starred {
     /*color: #69314D;*/
-    color: #7F171F;
+    /*color: #7F171F;*/
+    /*color: #bc154d;*/
+    /*color: #FF7373;*/
+    /*color: orange;*/
+    color: #e56767;
 }
 
 * {
     font-size: 20px;
+    font-family: 'Quando', serif;
 }
 
 .navbar {
     /*background-color: #7F171F;*/
-    background-color: #964249;
-    color: black;
+    /*background-color: #964249;*/
+    /*background-color: #A78197;*/
+    background-color: #53404b;
+    color: #bfbfbf;
 }
-body {
-    /*background-color: #53704C;*/
-    background-color: #d3c0cb;
-    /*background-color: #966e82;*/
+
+.panel-default>.panel-heading {
+    background-color: #c6aebb;
+    /*background-color: #FF7373;*/
 }
 
 .navbar .navbar-brand {
@@ -35,12 +49,13 @@ body {
 }
 
 .navbar .navbar-right .navbar-link {
-    color: black;
+    color: white;
     padding-right: 40px;
 }
 
 .title {
     text-align: center;
+    font-family: 'Quando', serif;
 }
 
 .btn {
@@ -65,7 +80,7 @@ li {
 }
 
 .tab-pane {
-  height: 300px;
+  height: 200px;
   overflow-y: scroll;
 }
 
@@ -79,10 +94,64 @@ li {
 
 .restaurant-button {
     width: 225px;
-    word-wrap: break-word;
     display: inline-block;
+    background-color: #f0ad4e;
 }
 
-.panel {
-    background-color: #a2575d;
+.restaurant-button span{
+    white-space: normal;
+}
+
+.search-form {
+    border: 2px solid orange;
+}
+
+.panel.results {
+    border: 2px solid #A78197;
+}
+
+.saved-items {
+    border: 2px solid #A78197;
+}
+
+input[type="submit"].invite {
+    width: 200px;
+}
+input[type="submit"].category {
+    width: 200px;
+}
+
+input[type="submit"].create-group {
+    width: 100px;
+}
+
+input[type="submit"] {
+    background: orange;
+    border: 0;
+    width: 254px;
+    height: 40px;
+    border-radius: 3px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background: #c6aebb;
+  animation-name: shake;
+}
+
+.description {
+    background-color: orange;
+    height: 375px;
+    text-align: bottom;
+}
+
+.fixed {
+    position:fixed;
+}
+
+.listings {
+    /*background-color: rgba(255,165,0,0.2);*/
 }

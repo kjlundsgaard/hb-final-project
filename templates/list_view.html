@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
+{% block title %}
+{{ list.list_name }}
+{% endblock %}
+
 {% block content %}
 
 {% if user_group %}
-<h1 id="list-info" class="title" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-xs-3">
-      <h2>Places to visit</h2>
+    <div class="col-xs-3 saved-items panel">
+      <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
+      <h2>Need to go</h2>
       <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
       {% for restaurant_list in restaurants_lists %}
           {% if not restaurant_list.visited %}
@@ -19,7 +23,7 @@
           {% endif %}
       {% endfor %}
       </ul>
-      <h2>Places visited</h2>
+      <h2>Been</h2>
       <ul class="restaurant-listing" id="visited-list" data-listid="{{ list.list_id }}">
       {% for restaurant_list in restaurants_lists %}
           {% if restaurant_list.visited %}
@@ -38,7 +42,7 @@
     </div>
     <div class="col-xs-6 col-offset-xs-3">
       <div class="panel hidden title" id="infobox"></div>
-      <div id="my-map" style="height: 500px;"></div>
+      <div class="panel" id="my-map" style="height: 400px;"></div>
     </div>
     <div class="col-xs-3 title"> 
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -59,7 +63,7 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-primary hidden" id="yelpResultsPanel">
+      <div class="panel hidden results" id="yelpResultsPanel">
         <div class="panel-body fixed-panel">
           <div class="tab-content">
                 <div class="tab-pane active" id="results">
@@ -67,14 +71,18 @@
             </div>
         </div>
       </div>
-      <div>
+      <div class="search-form panel">
         <h2>Search for places to try</h2>
         <form action='/search-restaurant.json' method='POST' id="search">
           <label for="location">where: </label>
+          <br>
           <input type="text" name="location" id="location">
+          <br>
           <label for="term">what: </label>
+          <br>
           <input type="text" name="term" id="term">
-          <input class="btn" type="submit" value="Search">
+          <br>
+          <input class="btn btn-primary" type="submit" value="Search">
         </form>
       </div>
     </div>

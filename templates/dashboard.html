@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
 {% block content %}
 {% if not login %}
 <a href="/login">login</a>
@@ -70,23 +71,18 @@
     <div class="row">
         <div class="category-chart">
             <h2 class="title">Your restaurant stats</h2>
-            <canvas id="myChart" style={width: 100px;, height=100px;}></canvas>
+            <canvas id="myChart" style={width: 100px;, height=50px;}></canvas>
         </div>
     </div>
     <div class="row">
-        <h3>Your groups:</h3>
-        <form action='/new-group' method='POST'>
-            <label for="new-group">New Group:</label>
-            <input type="text" name="group" id="new-group">
-            <input type="submit" class="btn btn-primary" value="Create">
-        </form>
+        <h2>Groups:</h3>
         {% for group in user.groups %}
         <div class="col-xs-4 col-sm-4">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" href="#{{ group.group_id }}" aria-expanded="false" aria-controls="{{ group.group_id }}"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> {{ group.group_name }} 
+                            <a role="button" data-toggle="collapse" href="#{{ group.group_id }}" aria-expanded="false" aria-controls="{{ group.group_id }}"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span> {{ group.group_name }} 
                             </a>
                         </h4>
                     </div>
@@ -95,7 +91,7 @@
                             {% if group.lists %}
                             <ul>
                                 {% for list in group.lists %}
-                                    <li class="list-group-item"><button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}"style="display: inline;">X</button> <a href="lists/{{ list.list_id }}" style="display: inline;">{{ list.list_name }}</a></li>
+                                    <li class="list-group-item listings"><button class="remove-list btn btn-danger" data-listid="{{ list.list_id }}"style="display: inline;">X</button> <a href="lists/{{ list.list_id }}" style="display: inline;">{{ list.list_name }}</a></li>
                                 {% endfor %}
                             </ul>
                             {% else %}
@@ -104,15 +100,15 @@
                             </ul>
                             {% endif %}
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <a role="button" class="add-category" id="cat-modal-trigger" data-toggle="modal" data-target="#catModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add category</a>
-                    </div>
-                    <div class="panel-footer">
-                        <a role="button" class="invite-user" id="modal-trigger" data-toggle="modal" data-target="#inviteModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add user</a>
-                    </div>
-                    <div class="panel-footer">
-                        <a role="button" class="leave-group" data-groupid="{{ group.group_id }}"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Leave Group</a>
+                        <div class="panel-footer" role="tabpanel">
+                            <a role="button" class="add-category" id="cat-modal-trigger" data-toggle="modal" data-target="#catModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add category</a>
+                        </div>
+                        <div class="panel-footer" role="tabpanel">
+                            <a role="button" class="invite-user" id="modal-trigger" data-toggle="modal" data-target="#inviteModal{{ group.group_id }}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add user</a>
+                        </div>
+                        <div class="panel-footer" role="tabpanel">
+                            <a role="button" class="leave-group" data-groupid="{{ group.group_id }}"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Leave Group</a>
+                        </div>
                     </div>
                     <div class="modal fade" id="inviteModal{{ group.group_id }}" tabindex="-1" role="dialog">
                       <div class="modal-dialog">
@@ -123,10 +119,10 @@
                           </div>
                           <div class="modal-body" id="invite-form">
                             <form action="/invite" method="POST">
-                                <label for="invite"><h2>User email:</h2></label>
+                                <label for="invite"><h5>User email:</h5></label>
                                 <input type="text" name="invite" id="invite">
                                 <input type="hidden" name="group_id" value="{{ group.group_id }}">
-                                <input type="submit" class="btn btn-primary" value="Invite">
+                                <input type="submit" class="btn btn-primary invite" value="Invite">
                             </form>
                           </div>
                           <div class="modal-footer">
@@ -144,9 +140,10 @@
                           </div>
                           <div class="modal-body" id="invite-form">
                             <form action="/new-list" method="POST">
+                                <label for="new-list"><h5>Category:</h5></label>
                                 <input type="text" name="list" id="new-list">
                                 <input type="hidden" name="group_id" value="{{ group.group_id }}">
-                                <input type="submit" class="btn btn-primary" value="Add">
+                                <input type="submit" class="btn btn-primary category" value="Add">
                             </form>
                           </div>
                           <div class="modal-footer">

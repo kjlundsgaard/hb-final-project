@@ -1,4 +1,6 @@
 Chart.defaults.global.defaultFontColor = '#000000';
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontFamily = "'Quando', serif";
 var options = {
   responsive: true,
   legend: {

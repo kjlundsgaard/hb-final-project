@@ -3,6 +3,7 @@
     <head>
         <title>{% block title %}GastroHub{% endblock %}</title>
         <!-- Latest compiled and minified CSS -->
+        <link href='https://fonts.googleapis.com/css?family=Quando' rel='stylesheet' type='text/css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../static/css/style.css">
@@ -16,10 +17,17 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">GastroHub</a>
     </div>
-    {% if session['user'] is defined %}
+    {% if session['user'] %}
+    <form class="navbar-form navbar-left" role="search" action='/new-group' method='POST'>
+        <div class="form-group">
+          <label for='new-group'>Make a new group:</label>
+          <input type="text" class="form-control" placeholder="Group name"  name="group" id="new-group">
+        </div>
+        <input type="submit" class="btn btn-primary create-group" value="Create"></button>
+    </form>
     <p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
     {% else %}
-    <p class="navbar-text navbar-right"><a href="/login" class="navbar-link">Login</a></p>
+    <p class="navbar-text navbar-right"><a href="/login" class="navbar-link">Log in</a></p>
     {% endif %}
   </div><!-- /.container-fluid -->
 </nav>

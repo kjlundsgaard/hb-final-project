@@ -22,7 +22,7 @@ function displayResults(data) {
                              "data-longitude=" + "'" + data.results[i].longitude + "'" + 
                              "data-url=" + "'" + data.results[i].url + "'" + 
                              ">" +
-                      "<p>" + data.results[i].name + "</p>" + 
+                      "<span>" + data.results[i].name + "</span>" + 
                     "</button>";
     }
     $('#yelpResultsPanel').removeClass('hidden');
