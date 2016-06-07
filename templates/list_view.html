@@ -6,7 +6,7 @@
 {% block content %}
 
 {% if user_group %}
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col-xs-3 saved-items panel">
       <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
@@ -46,7 +46,7 @@
       <div class="panel hidden title" id="infobox"></div>
       <div class="panel" id="my-map"></div>
     </div>
-    <div class="col-xs-3 title"> 
+    <div class="col-xs-3 title list-right"> 
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
           <div class="panel-heading" role="tab" id="headingUserList">

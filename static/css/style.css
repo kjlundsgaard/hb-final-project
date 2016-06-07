@@ -6,13 +6,18 @@
 #infobox {
     /*background-color: #966e82;*/
     /*background-color: #d05b82;*/
-    border : 3px solid #a91245;
+    /*border : 3px solid #a91245;*/
+    border: 3px solid orange;
     font-weight: bold;
 }
 
 #infobox button:not(.btn-success){
-    background-color: #c94370;
+    background-color: #004b55;
     color: white;
+}
+
+#button.add-button.btn-success {
+    background-color: #004b55;
 }
 
 .starred {
@@ -112,6 +117,7 @@ li {
 
 .saved-items {
     border: 2px solid #A78197;
+    margin-left: -30px;
 }
 
 input[type="submit"].invite {
@@ -186,4 +192,18 @@ input[type="submit"]:hover {
 
 td {
     vertical-align: top;
+}
+
+.list-right {
+    margin-right: 0;
+}
+
+.btn-info:hover {
+    background-color: #f0ad4e;
+    border-color: black;
+}
+
+.btn-info:focus {
+    background-color: #f0ad4e;
+    border-color: black;
 }

@@ -52,7 +52,7 @@ function initMap() {
                  "elementType":"geometry.stroke",
                  "stylers":[
                     {"visibility":"on"},
-                    {"color":"#0096aa"},
+                    {"color":"#006976"},
                     {"weight":"0.30"},
                     {"saturation":"-75"},
                     {"lightness":"5"},
@@ -60,7 +60,7 @@ function initMap() {
                 {"featureType":"administrative",
                  "elementType":"labels.text.fill",
                  "stylers":[
-                    {"color":"#0096aa"},
+                    {"color":"#006976"},
                     {"saturation":"-75"},
                     {"lightness":"5"}]},
                 {"featureType":"administrative",
@@ -91,7 +91,7 @@ function initMap() {
                 {"featureType":"road",
                  "elementType":"all",
                  "stylers":[
-                    {"color":"#0096aa"},
+                    {"color":"#006976"},
                     {"visibility":"simplified"},
                     {"saturation":"-75"},
                     {"lightness":"5"},
@@ -108,7 +108,7 @@ function initMap() {
                  "elementType":"labels.text.fill",
                  "stylers":[
                    {"visibility":"on"},
-                   {"color":"#0096aa"},
+                   {"color":"#006976"},
                    {"weight":8},
                    {"lightness":"5"},
                    {"gamma":"1"},
@@ -121,14 +121,14 @@ function initMap() {
                  "elementType":"all",
                  "stylers":[
                    {"visibility":"simplified"},
-                   {"color":"#0096aa"},
+                   {"color":"#006976"},
                    {"saturation":"-75"},
                    {"lightness":"5"},{"gamma":"1"}]},
                 {"featureType":"water",
                  "elementType":"geometry.fill",
                  "stylers":[
                    {"visibility":"on"},
-                   {"color":"#0096aa"},
+                   {"color":"#006976"},
                    {"saturation":"-75"},
                    {"lightness":"5"},
                    {"gamma":"1"}]},
