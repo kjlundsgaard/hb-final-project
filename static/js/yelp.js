@@ -153,11 +153,11 @@ function addRestaurantToDBsuccess(data){
       " data-lng=" + "'" + data.results[i].longitude + "'" + 
       " data-name="+ '"' + data.results[i].restaurant_name + '"' + 
       " data-yelp="+ "'" + data.results[i].yelp_rating + "'" + ">" +
-      "<button class='remove-restaurant btn btn-danger' type='button' data-restid=" + 
-      "'" + data.results[i].restaurant_id + "'" + ">X</button>" +
-      "<button class='visited-restaurant btn btn-warning' type='button' data-restid=" + 
-      "'" + data.results[i].restaurant_id + "'"+ ">Visited</button>" +
-      data.results[i].restaurant_name + "</li>";
+      "<table><tr><td><button class='remove-restaurant btn btn-danger' type='button' data-restid=" + 
+      "'" + data.results[i].restaurant_id + "'" + ">X</button></td>" +
+      "<td><button class='visited-restaurant btn btn-warning' type='button' data-restid=" + 
+      "'" + data.results[i].restaurant_id + "'"+ ">Visited</button></td><td>" +
+      data.results[i].restaurant_name + "</td></tr></table></li>";
     }
     // console.log(listings);
     $('#restaurant-list').html(listings);

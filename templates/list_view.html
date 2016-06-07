@@ -10,31 +10,33 @@
   <div class="row">
     <div class="col-xs-3 saved-items panel">
       <h1 id="list-info" data-listid="{{ list.list_id }}">{{ list.list_name }}<h1>
-      <h2>Need to go</h2>
+      <h2>Haven't been</h2>
       <ul class="restaurant-listing" id="restaurant-list" data-listid="{{ list.list_id }}"> 
       {% for restaurant_list in restaurants_lists %}
           {% if not restaurant_list.visited %}
-          <li class="ui-widget-content" id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
-            <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-            <button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
-            </button>
-            {{ restaurant_list.restaurant.restaurant_name }}
+          <li class="ui-widget-content" id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}"><table>
+            <tr><td><button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button></td>
+            <td><button type="button" class="visited-restaurant btn btn-warning" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">Visited
+            </button></td>
+            <td>{{ restaurant_list.restaurant.restaurant_name }}</td></tr></table>
           </li>
           {% endif %}
       {% endfor %}
       </ul>
-      <h2>Been</h2>
+      <h2>Visited</h2>
       <ul class="restaurant-listing" id="visited-list" data-listid="{{ list.list_id }}">
       {% for restaurant_list in restaurants_lists %}
           {% if restaurant_list.visited %}
               <li id="{{ restaurant_list.restaurant.restaurant_id }}" data-lat="{{ restaurant_list.restaurant.latitude }}" data-lng="{{ restaurant_list.restaurant.longitude }}" data-name="{{ restaurant_list.restaurant.restaurant_name }}" data-yelp="{{ restaurant_list.restaurant.yelp_rating }}">
-                <button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button>
-              {{ restaurant_list.restaurant.restaurant_name }}
+              <table><tr><td><button type="button" class="remove-restaurant btn btn-danger" data-restid="{{ restaurant_list.restaurant.restaurant_id }}">X</button></td>
+              <td>{{ restaurant_list.restaurant.restaurant_name }}</td>
               {% if restaurant_list.restaurant in fave_rests %}
-              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant starred" aria-hidden="true"></span>
+              <td><span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant starred" aria-hidden="true"></span></td>
               {% else %}
-              <span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant" aria-hidden="true"></span>
+              <td><span id="{{ restaurant_list.restaurant.restaurant_id }}" data-restid="{{ restaurant_list.restaurant.restaurant_id }}" class="glyphicon glyphicon-heart star-restaurant" aria-hidden="true"></span></td>
               {% endif %}
+            </tr>
+          </table>
           </li>
           {% endif %}
       {% endfor %}
