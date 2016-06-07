@@ -71,6 +71,7 @@ function displayResults(data) {
       map.fitBounds(bounds);
       scheduleEventListerForRestaurantButtons();
       $(this).addClass('btn-info');
+      $('#my-map').addClass('small');
     })
     // gives access to the add restaurant event listener once items are loaded
 }

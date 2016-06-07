@@ -165,6 +165,7 @@ input[type="submit"]:hover {
     background-color: orange;
     height: 375px;
     text-align: bottom;
+    padding: 50px;
 }
 
 .fixed {
@@ -173,4 +174,12 @@ input[type="submit"]:hover {
 
 .listings {
     /*background-color: rgba(255,165,0,0.2);*/
+}
+
+#my-map.small {
+    height: 370px;
+}
+
+#my-map {
+    height: 600px;
 }
