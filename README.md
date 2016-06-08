@@ -9,6 +9,10 @@ GastroHub allows users to create groups of friends with whom they would like to 
   * [APIs](#apis)
   * [How to Run](#how-to-run)
 
+![Dashboard](/static/dash.png)
+![Map Infobox](/static/mappin.png)
+![Search Result](/static/search.png)
+
 ### Technologies Used <a id="tech-stack"></a>
 
 * PostgreSQL
