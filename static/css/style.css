@@ -122,7 +122,7 @@ li {
 
 .saved-items {
     border: 2px solid #A78197;
-    margin-left: -30px;
+    /*margin-left: -30px;*/
 }
 
 input[type="submit"].invite {
@@ -199,10 +199,11 @@ td {
     vertical-align: top;
 }
 
-.list-right {
-    margin-right: 0;
+/*.list-right {
+    margin-right: -20px;
+    padding-right: -20px;
 }
-
+*/
 .btn-info:hover {
     background-color: #f0ad4e;
     border-color: black;

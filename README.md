@@ -7,7 +7,6 @@ GastroHub allows users to create groups of friends with whom they would like to 
 ## Table of Contents
   * [Technologies](#tech-stack)
   * [APIs](#apis)
-  * [Features](#features)
   * [How to Run](#how-to-run)
 
 ### Technologies Used <a id="tech-stack"></a>
@@ -27,20 +26,6 @@ GastroHub allows users to create groups of friends with whom they would like to 
 * Yelp API
 * Google Maps
 * Uber API
-
-### Features <a id="features"></a>
-
-* Login/Logout
-* Create and leave groups
-* Invite other users to groups
-* Create and delete lists/categories
-* Search for restaurants using Yelp API
-* Add and remove restaurants to lists
-* Mark restaurants as visited
-* Mark restaurants as liked
-* View restaurants on map
-* View statistics of restaurant categories and number of restaurants visited
-* Get Uber price estimates to restaurant for current location
 
 ### How to Run <a id="how-to-run"></a>
 

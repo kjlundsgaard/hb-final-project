@@ -286,3 +286,10 @@ function markAsVisited(evt) {
 $(".visited-restaurant").click(markAsVisited);
 
 // #################################################################
+// vanish flash messages
+
+$(document).ready(function(){
+  setTimeout(function(){
+    $('.flash').fadeOut();
+  }, 3000);
+ });
