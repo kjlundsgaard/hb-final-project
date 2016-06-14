@@ -1,9 +1,9 @@
 """Restaurant List App"""
-
-from jinja2 import StrictUndefined
+import os
+# from jinja2 import StrictUndefined
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 # using to hash passwords
 
 from model import connect_to_db, db
@@ -21,7 +21,7 @@ app.secret_key = "supersecretkey"
 
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
-app.jinja_env.undefined = StrictUndefined
+# app.jinja_env.undefined = StrictUndefined
 
 
 @app.route('/')
@@ -429,9 +429,11 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
     app.debug = False
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-    connect_to_db(app)
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
+    DEBUG = "NO_DEBUG" not in os.environ
+    PORT = int(os.environ.get("PORT", 5000))
 
-    app.run()
+    app.run(host="0.0.0.0", port=PORT, debug=DEBUG)
