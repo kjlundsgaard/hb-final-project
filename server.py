@@ -12,13 +12,16 @@ from model import User, Group, UserGroup, List, Restaurant, RestaurantList, Fave
 # gets access to yelp.py file
 import yelp
 import uber
+import logging
+import sys
 
 
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "supersecretkey"
-
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.DEBUG)
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # This is horrible. Fix this so that, instead, it raises an error.
 # app.jinja_env.undefined = StrictUndefined
