@@ -1,1 +1,2 @@
-web: python server.py
+web: python model.py
+web: python server.py --log-file -
