@@ -189,7 +189,7 @@ if __name__ == "__main__":
     # you in a state of being able to work with the database directly.
 
     from server import app
-    connect_to_db(app)
+    connect_to_db(app, os.environ.get("DATABASE_URL"))
     print "Connected to DB."
     # creates tables in project db
     db.create_all()
