@@ -1,6 +1,9 @@
 """Restaurant List App"""
 import os
 # from jinja2 import StrictUndefined
+import psycopg2
+import urlparse
+
 
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
 # from flask_debugtoolbar import DebugToolbarExtension
@@ -26,6 +29,16 @@ app.logger.setLevel(logging.DEBUG)
 # This is horrible. Fix this so that, instead, it raises an error.
 # app.jinja_env.undefined = StrictUndefined
 
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 @app.route('/')
 def index():
