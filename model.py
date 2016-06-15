@@ -3,6 +3,7 @@
 from flask_sqlalchemy import SQLAlchemy
 # from flask.ext.bcrypt import Bcrypt
 import bcrypt
+import os
 
 # from sqlalchemy.schema import UniqueConstraint
 
