@@ -19,4 +19,4 @@ requests-oauthlib==0.6.1
 six==1.10.0
 SQLAlchemy==1.0.12
 Werkzeug==0.11.9
-yelpapi==1.4
+yelpapi==1.3
