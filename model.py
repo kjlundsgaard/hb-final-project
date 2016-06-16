@@ -1,7 +1,6 @@
 """Models and database functions for HB project."""
 
 from flask_sqlalchemy import SQLAlchemy
-# from flask.ext.bcrypt import Bcrypt
 import bcrypt
 import os
 
@@ -48,14 +47,11 @@ class User(db.Model):
         self.fname = fname
         self.lname = lname
 
-
     def verify_password(self, password):
         """verifies user's password"""
 
         # return self.bcrypt.check_password_hash(secret)
         return self.password == bcrypt.hashpw(password.encode('utf-8'), self.salt.encode('utf-8'))
-
-
 
 
 class Group(db.Model):

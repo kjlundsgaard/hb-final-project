@@ -40,6 +40,7 @@ conn = psycopg2.connect(
     port=url.port
 )
 
+
 @app.route('/')
 def index():
     """Homepage/Shows user their lists of restaurants"""

@@ -1,5 +1,7 @@
 # GastroHub
 
+Deployed version: [https://gastrohub.herokuapp.com/](https://gastrohub.herokuapp.com/)
+
 Learn more about the developer: [www.linkedin.com/in/kjlundsgaard/](www.linkedin.com/in/kjlundsgaard/)
 
 GastroHub allows users to create groups of friends with whom they would like to share lists of local establishments they'd like to visit. Users can invite other users to their groups, create lists and add restaurants to their lists using the Yelp API. They can view their restaurants on a map, see Uber price estimates from their current location, and mark the restaurants as visited and liked. On the dashboard, users can view their restaurant statistics.
