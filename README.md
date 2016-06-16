@@ -8,7 +8,6 @@ GastroHub allows users to create groups of friends with whom they would like to 
 
 ## Table of Contents
   * [Technologies](#tech-stack)
-  * [APIs](#apis)
   * [How to Run](#how-to-run)
 
 ![Dashboard](/static/dash.png)
