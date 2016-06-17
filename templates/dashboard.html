@@ -32,7 +32,7 @@
                                 {% for list in group.lists %}
                                     {% for restaurant_list in list.restaurants_lists %}
                                         {% if not restaurant_list.visited %}
-                                            <a href="{{ restaurant_list.restaurant.link }}"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
+                                            <a href="{{ restaurant_list.restaurant.link }}" target="_blank"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
@@ -57,7 +57,7 @@
                                 {% for list in group.lists %}
                                     {% for restaurant_list in list.restaurants_lists %}
                                         {% if restaurant_list.visited %}
-                                            <a href="{{ restaurant_list.restaurant.link }}"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
+                                            <a href="{{ restaurant_list.restaurant.link }}" target="_blank"><div>{{ restaurant_list.restaurant.restaurant_name }}</div></a>
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
